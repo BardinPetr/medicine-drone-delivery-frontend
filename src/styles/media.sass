@@ -1,0 +1,8 @@
+@import "src/styles/vars"
+
+@mixin media-flex-dir
+  @media (max-width: $lg)
+  flex-direction: column !important
+
+  @media (min-width: $lg)
+    flex-direction: row !important
