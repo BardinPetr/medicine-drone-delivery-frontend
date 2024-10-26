@@ -1,0 +1,23 @@
+<ag-grid-angular
+  [rowData]="rowData"
+  [columnDefs]="columnDefs"
+
+  [defaultColDef]="defaultColDef"
+  [rowModelType]="'infinite'"
+
+  [pagination]="true"
+  [paginationPageSize]="pageSize"
+  [paginationPageSizeSelector]="[5,10,20,50]"
+  [paginationAutoPageSize]="false"
+
+  [cacheOverflowSize]="1"
+  [maxConcurrentDatasourceRequests]="1"
+  [infiniteInitialRowCount]="1"
+  [maxBlocksInCache]="1"
+  [cacheBlockSize]="pageSize"
+
+  (gridReady)="onGridReady($event)"
+
+  class="ag-theme-quartz-dark"
+  style="height: 50vh;"
+/>

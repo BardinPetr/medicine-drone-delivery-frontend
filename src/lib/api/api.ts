@@ -1,0 +1,16 @@
+export * from './addressController.service';
+import { AddressControllerService } from './addressController.service';
+export * from './addressController.serviceInterface';
+export * from './locationController.service';
+import { LocationControllerService } from './locationController.service';
+export * from './locationController.serviceInterface';
+export * from './organizationController.service';
+import { OrganizationControllerService } from './organizationController.service';
+export * from './organizationController.serviceInterface';
+export * from './personController.service';
+import { PersonControllerService } from './personController.service';
+export * from './personController.serviceInterface';
+export * from './productController.service';
+import { ProductControllerService } from './productController.service';
+export * from './productController.serviceInterface';
+export const APIS = [AddressControllerService, LocationControllerService, OrganizationControllerService, PersonControllerService, ProductControllerService];

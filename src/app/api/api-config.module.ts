@@ -3,6 +3,7 @@ import {environment} from '../../environments/environment';
 import {ApiModule, Configuration} from '../../lib';
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {ApiErrorInterceptor} from "./api-error-interceptor.service";
+import {ApiProviderService} from "./api-provider.service";
 
 export function apiConfigFactory(): Configuration {
   return new Configuration({
@@ -14,7 +15,8 @@ export function apiConfigFactory(): Configuration {
   imports: [ApiModule.forRoot(apiConfigFactory)],
   exports: [ApiModule],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: ApiErrorInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: ApiErrorInterceptor, multi: true},
+    ApiProviderService
   ]
 })
 export class ApiConfigModule {

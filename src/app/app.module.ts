@@ -15,6 +15,11 @@ import {ToastModule} from "primeng/toast";
 import {MessageModule} from "primeng/message";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MessageService} from "primeng/api";
+import {AgGridAngular} from "@ag-grid-community/angular";
+import {ModuleRegistry} from "@ag-grid-community/core";
+import {InfiniteRowModelModule} from "@ag-grid-community/infinite-row-model";
+
+ModuleRegistry.registerModules([InfiniteRowModelModule]);
 
 @NgModule({
   declarations: [
@@ -27,14 +32,15 @@ import {MessageService} from "primeng/api";
     HttpClientModule,
     ApiConfigModule,
     AuthConfigModule,
-    AppRoutingModule,
     ComponentsModule,
+    AppRoutingModule,
     ServicesModule,
     PipesModule,
     PagesModule,
     BrowserAnimationsModule,
     ToastModule,
     MessageModule,
+    AgGridAngular
   ],
   providers: [MessageService],
   exports: [],

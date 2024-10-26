@@ -6,14 +6,18 @@ import {MenubarModule} from "primeng/menubar";
 import {PagesModule} from "../pages/pages.module";
 import {ButtonModule} from "primeng/button";
 import {ChipModule} from "primeng/chip";
+import {NavbarComponent} from "./navbar/navbar.component";
+import {tableRoutes} from "../services/meta/metaroutes";
+import {ComponentsModule} from "../components/components.module";
+
 
 const routes: Routes = [
   {
-    path: '',
-    title: "LAB1: Home",
+    path: "",
+    title: "Home",
     component: HomePageComponent
-    // canActivate: [isAuthenticated]
   },
+  ...tableRoutes,
   {
     path: "**",
     redirectTo: "/"
@@ -27,9 +31,11 @@ const routes: Routes = [
     MenubarModule,
     PagesModule,
     ButtonModule,
-    ChipModule
+    ChipModule,
+    ComponentsModule
   ],
-  exports: [RouterModule]
+  exports: [RouterModule, NavbarComponent],
+  declarations: [NavbarComponent]
 })
 export class AppRoutingModule {
 }

@@ -1,7 +1,10 @@
 import {NgModule} from "@angular/core";
+import {MetamodelService} from "./meta/metamodel.service";
 
 @NgModule({
-  providers: []
+  providers: [
+    MetamodelService
+  ]
 })
 export class ServicesModule {
 }

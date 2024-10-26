@@ -3,11 +3,10 @@ import {CommonModule} from "@angular/common";
 import {MenubarModule} from "primeng/menubar";
 import {ButtonModule} from "primeng/button";
 import {ChipModule} from "primeng/chip";
-import {NavbarComponent} from "./navbar/navbar.component";
-import {UserPlateComponent} from "./user-plate/user-plate.component";
 import {TagModule} from "primeng/tag";
+import {AgGridAngular} from "@ag-grid-community/angular";
+import {UserPlateComponent} from "./user-plate/user-plate.component";
 import {BaseTableComponent} from './base-table/base-table.component';
-import {AgGridAngular} from "ag-grid-angular";
 
 @NgModule({
   imports: [
@@ -19,10 +18,10 @@ import {AgGridAngular} from "ag-grid-angular";
     AgGridAngular
   ],
   declarations: [
-    NavbarComponent, UserPlateComponent, BaseTableComponent
+    UserPlateComponent, BaseTableComponent
   ],
   exports: [
-    NavbarComponent, UserPlateComponent, BaseTableComponent
+    UserPlateComponent, BaseTableComponent
   ]
 })
 export class ComponentsModule {
