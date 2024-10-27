@@ -1,10 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ColDef, GridReadyEvent, IDatasource, IGetRowsParams} from "@ag-grid-community/core";
 import {encodeFilter} from "../../utils/query";
-import {MetamodelService} from "../../services/meta/metamodel.service";
-import {BaseService} from "../../api/base-service";
-import {ApiProviderService} from "../../api/api-provider.service";
-import {ActivatedRoute} from "@angular/router";
 import {Observable} from "rxjs";
 
 
@@ -32,12 +28,12 @@ export class BaseTableComponent {
       getRows: (params: IGetRowsParams) => {
         const size = params.endRow - params.startRow
         this.fetchDataFunc!(
-            {
-              size: size,
-              page: Math.floor(params.startRow / size),
-              sort: params.sortModel.map(x => `${x.colId},${x.sort}`)
-            }, encodeFilter(params.filterModel)
-          )
+          {
+            size: size,
+            page: Math.floor(params.startRow / size),
+            sort: params.sortModel.map(x => `${x.colId},${x.sort}`)
+          }, encodeFilter(params.filterModel)
+        )
           .subscribe(
             (data) => {
               params.successCallback(data.content!, data.totalElements)

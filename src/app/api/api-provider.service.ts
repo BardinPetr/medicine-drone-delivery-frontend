@@ -1,5 +1,4 @@
 import {Injectable, Injector, Type} from '@angular/core';
-import {BaseService} from "./base-service";
 import {
   AddressControllerService,
   LocationControllerService,

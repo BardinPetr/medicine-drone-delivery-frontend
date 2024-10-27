@@ -1,25 +1,25 @@
 <div *ngIf="(authService.authenticated | async); else not_authenticated"
      class="card flex"
 >
-  <p-tag
-    *ngIf="(authService.username | async)"
-    [severity]="((authService.isInRole('admin') | async) ?? false) ? 'danger' : 'success'"
-    [value]="(authService.username | async)"
-    icon="pi pi-user"
-  />
-  <p-button
-    (onClick)="authService.logout()"
-    [disabled]="!(authService.authenticated | async)"
-    [outlined]="true"
-    icon="pi pi-sign-out"
-    label="Logout"
-  />
+    <p-tag
+            *ngIf="(authService.username | async)"
+            [severity]="((authService.isInRole('admin') | async) ?? false) ? 'danger' : 'success'"
+            [value]="(authService.username | async)"
+            icon="pi pi-user"
+    />
+    <p-button
+            (onClick)="authService.logout()"
+            [disabled]="!(authService.authenticated | async)"
+            [outlined]="true"
+            icon="pi pi-sign-out"
+            label="Logout"
+    />
 </div>
 
 <ng-template #not_authenticated>
-  <p-button
-    (onClick)="authService.login()"
-    class="p-button-success"
-    label="Login"
-  />
+    <p-button
+            (onClick)="authService.login()"
+            class="p-button-success"
+            label="Login"
+    />
 </ng-template>

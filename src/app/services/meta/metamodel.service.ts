@@ -12,8 +12,11 @@ export class MetamodelService {
 
   constructor(
     tr: TranslationService,
-
   ) {
+  }
+
+  getEntity(id: string): EntityMeta {
+    return metamodelData.entities[id]
   }
 
   getTableColumns(viewId: string): ColDef[] {
@@ -29,18 +32,18 @@ export class MetamodelService {
       })
   }
 
-  private resolveField(rootEntityName:string, fieldName: string) : EntityFieldMeta {
+  private resolveField(rootEntityName: string, fieldName: string): EntityFieldMeta {
     let e = metamodelData.entities[rootEntityName]
     let field: EntityFieldMeta
-    for(let i of fieldName.split('.')) {
+    for (let i of fieldName.split('.')) {
       field = e.fields[i]
-      if(field.type == MT.REL || field.type == MT.EMB)
+      if (field.type == MT.REL || field.type == MT.EMB)
         e = metamodelData.entities[field.entityRef!]
     }
     return field!
   }
 
-  private getFilter(field: EntityFieldMeta) : ColDef {
+  private getFilter(field: EntityFieldMeta): ColDef {
     switch (field.type) {
       case MT.INTEGER:
       case MT.FLOAT:

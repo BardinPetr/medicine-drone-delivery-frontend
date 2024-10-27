@@ -1,0 +1,29 @@
+<p-card [header]="entityName">
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+      <div *ngFor="let field of entityFields">
+        <label for="{{field.name}}" class="font-bold block mb-2"> {{field.name}} </label>
+        <ng-container [ngSwitch]="field.type">
+          <ng-container *ngSwitchCase="MT.INTEGER">
+            <p-inputNumber id="{{field.name}}" formControlName="{{ field.name }}"></p-inputNumber>
+          </ng-container>
+          <ng-container *ngSwitchCase="MT.FLOAT">
+            <p-inputNumber id="{{field.name}}" [useGrouping]="false" formControlName="{{ field.name }}"></p-inputNumber>
+          </ng-container>
+          <ng-container *ngSwitchCase="MT.STRING">
+            <input pInputText  id="{{field.name}}" formControlName="{{ field.name }}"/>
+          </ng-container>
+          <ng-container *ngSwitchCase="MT.DATE">
+            <p-calendar id="{{field.name}}" formControlName="{{ field.name }}"></p-calendar>
+          </ng-container>
+          <ng-container *ngSwitchCase="MT.ENUM">
+            <p-dropdown id="{{field.name}}" [options]="relEnums[field.name]" formControlName="{{ field.name }}"></p-dropdown>
+          </ng-container>
+          <ng-container *ngSwitchCase="MT.REL">
+            <p-dropdown id="{{field.name}}" [options]="relEntities[field.name]" formControlName="{{ field.name }}"
+                        optionLabel="name"></p-dropdown>
+          </ng-container>
+        </ng-container>
+      </div>
+    <p-button type="submit">Submit</p-button>
+  </form>
+</p-card>

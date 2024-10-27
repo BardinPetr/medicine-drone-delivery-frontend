@@ -7,6 +7,7 @@ export interface EntityFieldMeta {
   type: EntityFieldMetaType,
   entityRef: string | null,
   nullable: boolean,
+  readonly?: boolean
 }
 
 export interface EntityMeta {

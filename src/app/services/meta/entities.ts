@@ -1,102 +1,76 @@
-export enum EntityFieldMetaType {
-  INTEGER, FLOAT, STRING, DATE, ENUM, REL, EMB
-}
-
-export interface EntityFieldMeta {
-  name: string,
-  type: EntityFieldMetaType,
-  entityRef: string | null,
-  nullable: boolean,
-}
-
-export interface EntityMeta {
-  name: string,
-  fields: { [key: string]: EntityFieldMeta }
-}
-
-export interface EnumMeta {
-  name: string,
-  values: string[]
-}
-
-export interface ViewMeta {
-  name: string,
-  columns: string[],
-  nested: string[],
-}
-
-export interface Metamodel {
-  entities: { [key: string]: EntityMeta },
-  enums: { [key: string]: EnumMeta },
-  views: { [key: string]: ViewMeta }
-}
+import {EntityFieldMetaType, Metamodel} from "./model";
 
 export const metamodelData: Metamodel = {
   entities: {
     Address: {
       name: 'Address',
       fields: {
-        id: { name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true },
-        street: { name: 'street', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false },
-        town: { name: 'town', type: EntityFieldMetaType.REL, entityRef: 'Location', nullable: false },
+        id: {name: 'id', readonly: true, type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+        street: {name: 'street', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
+        town: {name: 'town', type: EntityFieldMetaType.REL, entityRef: 'Location', nullable: false},
       }
     },
     Organization: {
       name: 'Organization',
       fields: {
-        id: { name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true },
-        name: { name: 'name', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false },
-        officialAddress: { name: 'officialAddress', type: EntityFieldMetaType.REL, entityRef: 'Address', nullable: true },
-        annualTurnover: { name: 'annualTurnover', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true },
-        employeesCount: { name: 'employeesCount', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false },
-        fullName: { name: 'fullName', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false },
-        type: { name: 'type', type: EntityFieldMetaType.ENUM, entityRef: 'OrganizationType', nullable: true },
-        postalAddress: { name: 'postalAddress', type: EntityFieldMetaType.REL, entityRef: 'Address', nullable: true },
+        id: {name: 'id', readonly: true, type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+        name: {name: 'name', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
+        officialAddress: {name: 'officialAddress', type: EntityFieldMetaType.REL, entityRef: 'Address', nullable: true},
+        annualTurnover: {name: 'annualTurnover', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true},
+        employeesCount: {name: 'employeesCount', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
+        fullName: {name: 'fullName', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
+        type: {name: 'type', type: EntityFieldMetaType.ENUM, entityRef: 'OrganizationType', nullable: true},
+        postalAddress: {name: 'postalAddress', type: EntityFieldMetaType.REL, entityRef: 'Address', nullable: true},
       }
     },
     Location: {
       name: 'Location',
       fields: {
-        id: { name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true },
-        x: { name: 'x', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false },
-        y: { name: 'y', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false },
-        z: { name: 'z', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false },
-        name: { name: 'name', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false },
+        id: {name: 'id', readonly: true, type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+        x: {name: 'x', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
+        y: {name: 'y', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
+        z: {name: 'z', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
+        name: {name: 'name', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
       }
     },
     Person: {
       name: 'Person',
       fields: {
-        id: { name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true },
-        name: { name: 'name', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false },
-        eyeColor: { name: 'eyeColor', type: EntityFieldMetaType.ENUM, entityRef: 'Color', nullable: false },
-        hairColor: { name: 'hairColor', type: EntityFieldMetaType.ENUM, entityRef: 'Color', nullable: true },
-        location: { name: 'location', type: EntityFieldMetaType.REL, entityRef: 'Location', nullable: true },
-        height: { name: 'height', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: false },
-        nationality: { name: 'nationality', type: EntityFieldMetaType.ENUM, entityRef: 'Country', nullable: true },
+        id: {name: 'id', readonly: true, type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+        name: {name: 'name', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
+        eyeColor: {name: 'eyeColor', type: EntityFieldMetaType.ENUM, entityRef: 'Color', nullable: false},
+        hairColor: {name: 'hairColor', type: EntityFieldMetaType.ENUM, entityRef: 'Color', nullable: true},
+        location: {name: 'location', type: EntityFieldMetaType.REL, entityRef: 'Location', nullable: true},
+        height: {name: 'height', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: false},
+        nationality: {name: 'nationality', type: EntityFieldMetaType.ENUM, entityRef: 'Country', nullable: true},
       }
     },
     Product: {
       name: 'Product',
       fields: {
-        id: { name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true },
-        name: { name: 'name', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false },
-        coordinates: { name: 'coordinates', type: EntityFieldMetaType.EMB, entityRef: 'Coordinates', nullable: false },
-        creationDate: { name: 'creationDate', type: EntityFieldMetaType.DATE, entityRef: null, nullable: false },
-        unitOfMeasure: { name: 'unitOfMeasure', type: EntityFieldMetaType.ENUM, entityRef: 'UnitOfMeasure', nullable: true },
-        manufacturer: { name: 'manufacturer', type: EntityFieldMetaType.REL, entityRef: 'Organization', nullable: true },
-        price: { name: 'price', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: false },
-        manufactureCost: { name: 'manufactureCost', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: false },
-        rating: { name: 'rating', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false },
-        partNumber: { name: 'partNumber', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false },
-        owner: { name: 'owner', type: EntityFieldMetaType.REL, entityRef: 'Person', nullable: true },
+        id: {name: 'id', readonly: true, type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+        name: {name: 'name', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
+        coordinates: {name: 'coordinates', type: EntityFieldMetaType.EMB, entityRef: 'Coordinates', nullable: false},
+        creationDate: {name: 'creationDate', type: EntityFieldMetaType.DATE, entityRef: null, nullable: false},
+        unitOfMeasure: {
+          name: 'unitOfMeasure',
+          type: EntityFieldMetaType.ENUM,
+          entityRef: 'UnitOfMeasure',
+          nullable: true
+        },
+        manufacturer: {name: 'manufacturer', type: EntityFieldMetaType.REL, entityRef: 'Organization', nullable: true},
+        price: {name: 'price', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: false},
+        manufactureCost: {name: 'manufactureCost', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: false},
+        rating: {name: 'rating', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
+        partNumber: {name: 'partNumber', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
+        owner: {name: 'owner', type: EntityFieldMetaType.REL, entityRef: 'Person', nullable: true},
       }
     },
     Coordinates: {
       name: 'Coordinates',
       fields: {
-        x: { name: 'x', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: false },
-        y: { name: 'y', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false },
+        x: {name: 'x', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: false},
+        y: {name: 'y', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
       }
     },
   },

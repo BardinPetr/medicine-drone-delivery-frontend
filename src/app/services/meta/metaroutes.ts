@@ -1,7 +1,5 @@
 import {metamodelData} from "./entities";
-import {Component, Type} from "@angular/core";
 import {Route} from "@angular/router";
-import {HomePageComponent} from "../../pages/home-page/home-page.component";
 import {TablePageComponent} from "../../pages/table-page/table-page.component";
 import {ComponentType} from "@angular/cdk/overlay";
 
