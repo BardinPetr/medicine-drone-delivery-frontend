@@ -14,20 +14,28 @@ export class ApiErrorInterceptor implements HttpInterceptor {
     return next
       .handle(req)
       .pipe(tap({
+        next: (data) => {
+          console.log(data);
+        },
         error: (err) => {
           if (err.status === 403) {
-            console.warn("Forbidden")
             this.message.add({
               severity: 'error',
               summary: 'Forbidden'
             })
           } else if (err.status === 401) {
-            console.warn("Authentication failed")
             this.message.add({
               severity: 'error',
               summary: 'Failed to authenticate'
             })
             setTimeout(() => this.auth.logout(), 500)
+          } else {
+            console.warn(`ERROR: ${err.message}`)
+            this.message.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: err.message
+            })
           }
         }
       }))

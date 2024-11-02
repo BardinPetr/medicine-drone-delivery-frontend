@@ -1,6 +1,9 @@
 import {Component} from "@angular/core";
 import {MenuItem} from "primeng/api";
 import {tableRouteData} from "../../services/meta/metaroutes";
+import {AuthService} from "../../auth/auth.service";
+import {map} from "rxjs";
+import {RegisterDto} from "../../../lib";
 
 const ICON_MAP: { [key: string]: string } = {
   "Person": "pi-user",
@@ -15,22 +18,34 @@ const ICON_MAP: { [key: string]: string } = {
   templateUrl: './navbar.component.html',
 })
 export class NavbarComponent {
-  menuItems: MenuItem[] = [
-    {
-      label: "Home",
-      icon: "pi pi-fw pi-home",
-      routerLink: "/"
-    }
-  ]
+  menuItems: MenuItem[] = []
 
-  constructor() {
-    let tablePages =
-      tableRouteData
-        .map(x => ({
-          label: x.title,
-          icon: `pi ${ICON_MAP[x.id]}`,
-          routerLink: x.path
-        }))
-    this.menuItems.push(...tablePages)
+  constructor(private authService: AuthService) {
+    this.authService
+      .roles
+      .pipe(map(roles => ([
+          {
+            label: "Home",
+            icon: "pi pi-fw pi-home",
+            routerLink: "/",
+          },
+          {
+            label: "Admin",
+            icon: "pi pi-fw pi-exclamation-triangle",
+            routerLink: "/admin",
+            disabled: !roles.includes(RegisterDto.RoleEnum.AdminPending) // TODO
+          },
+          ...tableRouteData
+            .map(x => ({
+              label: x.title,
+              icon: `pi ${ICON_MAP[x.id]}`,
+              routerLink: x.path,
+              disabled: roles.length == 0
+            }))
+        ]
+      )))
+      .subscribe(x => {
+        this.menuItems = x
+      })
   }
 }

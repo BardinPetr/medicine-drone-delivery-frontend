@@ -9,6 +9,10 @@ import {ChipModule} from "primeng/chip";
 import {NavbarComponent} from "./navbar/navbar.component";
 import {tableRoutes} from "../services/meta/metaroutes";
 import {ComponentsModule} from "../components/components.module";
+import {LoginPageComponent} from "../pages/login-page/login-page.component";
+import {RegisterPageComponent} from "../pages/register-page/register-page.component";
+import {AdminPageComponent} from "../pages/admin-page/admin-page.component";
+import {isAdmin} from "../auth/auth-guard.service";
 
 
 const routes: Routes = [
@@ -17,7 +21,23 @@ const routes: Routes = [
     title: "Home",
     component: HomePageComponent
   },
+  {
+    title: "Admin page",
+    path: "admin",
+    component: AdminPageComponent,
+    canActivate: [isAdmin]
+  },
   ...tableRoutes,
+  {
+    title: "Login",
+    path: 'login',
+    component: LoginPageComponent,
+  },
+  {
+    title: "Register",
+    path: 'register',
+    component: RegisterPageComponent
+  },
   {
     path: "**",
     redirectTo: "/"

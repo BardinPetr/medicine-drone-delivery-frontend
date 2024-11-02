@@ -2,6 +2,7 @@ import {metamodelData} from "./entities";
 import {Route} from "@angular/router";
 import {TablePageComponent} from "../../pages/table-page/table-page.component";
 import {ComponentType} from "@angular/cdk/overlay";
+import {isAuthenticated} from "../../auth/auth-guard.service";
 
 const COMPONENT_MAP: { [key: string]: ComponentType<any> } = {
   "Person": TablePageComponent,
@@ -26,5 +27,6 @@ export const tableRoutes: Route[] =
     component: COMPONENT_MAP[x.id],
     data: {
       id: x.id
-    }
+    },
+    canActivate: [isAuthenticated]
   }))

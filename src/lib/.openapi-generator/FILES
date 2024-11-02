@@ -6,6 +6,8 @@ api/addressController.serviceInterface.ts
 api/api.ts
 api/locationController.service.ts
 api/locationController.serviceInterface.ts
+api/loginController.service.ts
+api/loginController.serviceInterface.ts
 api/organizationController.service.ts
 api/organizationController.serviceInterface.ts
 api/personController.service.ts
@@ -24,6 +26,7 @@ model/auditLogEntryPerson.ts
 model/auditLogEntryProduct.ts
 model/coordinates.ts
 model/location.ts
+model/loginDto.ts
 model/models.ts
 model/organization.ts
 model/pageAddress.ts
@@ -35,7 +38,9 @@ model/pageable.ts
 model/pageableObject.ts
 model/person.ts
 model/product.ts
+model/registerDto.ts
 model/sortObject.ts
+model/userRsDto.ts
 ng-package.json
 package.json
 param.ts

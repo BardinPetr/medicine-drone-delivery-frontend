@@ -6,15 +6,4 @@ import {Component} from '@angular/core';
   styleUrls: ['./home-page.component.sass']
 })
 export class HomePageComponent {
-  // constructor(public oidcService: OidcSecurityService) {
-  // }
-
-  // doLogin() {
-  //   this.oidcService.authorize()
-  // }
-
-  // doLogout() {
-  //   this.oidcService.logoff()
-  //     .subscribe(console.warn)
-  // }
 }

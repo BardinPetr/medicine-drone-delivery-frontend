@@ -4,6 +4,8 @@ import {ApiModule, Configuration} from '../../lib';
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {ApiErrorInterceptor} from "./api-error-interceptor.service";
 import {ApiProviderService} from "./api-provider.service";
+import {ApiAuthService} from "./api-auth.service";
+import {MessageService} from "primeng/api";
 
 export function apiConfigFactory(): Configuration {
   return new Configuration({
@@ -16,7 +18,9 @@ export function apiConfigFactory(): Configuration {
   exports: [ApiModule],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ApiErrorInterceptor, multi: true},
-    ApiProviderService
+    {provide: HTTP_INTERCEPTORS, useClass: ApiAuthService, multi: true},
+    ApiProviderService,
+    MessageService
   ]
 })
 export class ApiConfigModule {

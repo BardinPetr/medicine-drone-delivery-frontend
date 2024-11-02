@@ -1,14 +1,15 @@
 import {inject} from '@angular/core';
 import {Router} from '@angular/router';
-import {OidcSecurityService} from 'angular-auth-oidc-client';
 import {map, take} from 'rxjs/operators';
+import {AuthService} from "./auth.service";
+import {RegisterDto} from "../../lib";
 
 export const isAuthenticated = () => {
-  const securityService = inject(OidcSecurityService);
+  const securityService = inject(AuthService);
   const router = inject(Router);
 
   return securityService
-    .isAuthenticated()
+    .authenticated
     .pipe(
       take(1),
       map(res => {
@@ -18,4 +19,9 @@ export const isAuthenticated = () => {
         return false;
       })
     );
+};
+
+export const isAdmin = () => {
+  return inject(AuthService)
+    .isInRole(RegisterDto.RoleEnum.AdminPending) // TODO
 };
