@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, map, Observable} from 'rxjs';
 import {take} from "rxjs/operators";
-import {UserRsDto} from "../../lib";
+import {User, UserRsDto} from "../../../lib";
 import {Router} from "@angular/router";
 
 const INFO_KEY = 'userInfo'
@@ -39,6 +39,17 @@ export class AuthService {
 
   public get token(): string | undefined {
     return this.getInfo()?.token
+  }
+
+  update(data: User) {
+    this
+      .dataSubject
+      .next({
+        token: this.token!!,
+        role: data.role,
+        username: data.username
+      })
+    this.storeInfo(this.dataSubject.value!!)
   }
 
   public login(user: UserRsDto) {

@@ -14,6 +14,8 @@ api/personController.service.ts
 api/personController.serviceInterface.ts
 api/productController.service.ts
 api/productController.serviceInterface.ts
+api/userController.service.ts
+api/userController.serviceInterface.ts
 configuration.ts
 encoder.ts
 git_push.sh
@@ -34,12 +36,14 @@ model/pageLocation.ts
 model/pageOrganization.ts
 model/pagePerson.ts
 model/pageProduct.ts
+model/pageUser.ts
 model/pageable.ts
 model/pageableObject.ts
 model/person.ts
 model/product.ts
 model/registerDto.ts
 model/sortObject.ts
+model/user.ts
 model/userRsDto.ts
 ng-package.json
 package.json

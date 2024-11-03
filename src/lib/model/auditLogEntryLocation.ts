@@ -14,7 +14,7 @@ import {Location} from './location';
 
 export interface AuditLogEntryLocation {
   timestamp: string;
-  author: number;
+  author: string;
   revision: number;
   type: AuditLogEntryLocation.TypeEnum;
   state: Location;

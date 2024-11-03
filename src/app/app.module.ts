@@ -7,7 +7,6 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {PagesModule} from "./pages/pages.module";
 import {ServicesModule} from "./services/services.module";
 import {PipesModule} from "./pipes/pipes.module";
-import {AuthConfigModule} from './auth/auth-config.module';
 import {ApiConfigModule} from "./api/api-config.module";
 import {HttpClientModule} from "@angular/common/http";
 import {ComponentsModule} from "./components/components.module";
@@ -31,7 +30,6 @@ ModuleRegistry.registerModules([InfiniteRowModelModule]);
     ReactiveFormsModule,
     HttpClientModule,
     ApiConfigModule,
-    AuthConfigModule,
     ComponentsModule,
     AppRoutingModule,
     ServicesModule,

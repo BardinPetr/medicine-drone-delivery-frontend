@@ -14,7 +14,7 @@ import {Product} from './product';
 
 export interface AuditLogEntryProduct {
   timestamp: string;
-  author: number;
+  author: string;
   revision: number;
   type: AuditLogEntryProduct.TypeEnum;
   state: Product;

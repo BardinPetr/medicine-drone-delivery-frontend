@@ -9,6 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import {User} from './user';
 import {Location} from './location';
 
 
@@ -20,6 +21,7 @@ export interface Person {
   height: number;
   nationality?: Person.NationalityEnum;
   id?: number;
+  owner?: User;
 }
 
 export namespace Person {

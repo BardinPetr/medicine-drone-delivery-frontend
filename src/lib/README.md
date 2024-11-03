@@ -224,7 +224,7 @@ Example value for use in your Configuration-Provider:
 
 ```typescript
 new Configuration({
-  encodeParam: (param: Param) => myFancyParamEncoder(param),
+    encodeParam: (param: Param) => myFancyParamEncoder(param),
 })
 ```
 

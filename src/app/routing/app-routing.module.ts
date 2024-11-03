@@ -12,7 +12,7 @@ import {ComponentsModule} from "../components/components.module";
 import {LoginPageComponent} from "../pages/login-page/login-page.component";
 import {RegisterPageComponent} from "../pages/register-page/register-page.component";
 import {AdminPageComponent} from "../pages/admin-page/admin-page.component";
-import {isAdmin} from "../auth/auth-guard.service";
+import {isAdmin} from "../services/auth/auth-guard.service";
 
 
 const routes: Routes = [

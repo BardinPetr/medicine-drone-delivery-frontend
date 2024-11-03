@@ -14,6 +14,7 @@ import {InputNumberModule} from "primeng/inputnumber";
 import {CalendarModule} from "primeng/calendar";
 import {CardModule} from "primeng/card";
 import {ChipsModule} from "primeng/chips";
+import {ButtonGroupModule} from "primeng/buttongroup";
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import {ChipsModule} from "primeng/chips";
     InputNumberModule,
     CalendarModule,
     CardModule,
-    ChipsModule
+    ChipsModule,
+    ButtonGroupModule
   ],
   declarations: [
     UserPlateComponent, BaseTableComponent, BaseFormComponent

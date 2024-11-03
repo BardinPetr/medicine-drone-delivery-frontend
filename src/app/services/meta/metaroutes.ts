@@ -2,7 +2,7 @@ import {metamodelData} from "./entities";
 import {Route} from "@angular/router";
 import {TablePageComponent} from "../../pages/table-page/table-page.component";
 import {ComponentType} from "@angular/cdk/overlay";
-import {isAuthenticated} from "../../auth/auth-guard.service";
+import {isAuthenticated} from "../auth/auth-guard.service";
 
 const COMPONENT_MAP: { [key: string]: ComponentType<any> } = {
   "Person": TablePageComponent,
@@ -14,6 +14,7 @@ const COMPONENT_MAP: { [key: string]: ComponentType<any> } = {
 
 export const tableRouteData =
   Object.values(metamodelData.views)
+    .filter(x => COMPONENT_MAP[x.name])
     .map(x => ({
       path: `table/${x.name}`,
       title: x.name,

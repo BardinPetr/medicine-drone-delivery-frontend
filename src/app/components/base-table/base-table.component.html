@@ -1,22 +1,36 @@
+<p-buttonGroup class="bg-act">
+  <p-button
+    (onClick)="actionHandler(action)"
+    *ngFor="let action of actionDefs"
+    [disabled]="(isActionDisabled(action) | async)"
+    [icon]="'pi pi-' + action.icon"
+    [label]="action.label"
+    [outlined]="true"
+    [severity]="action.severity || 'primary'"
+  ></p-button>
+</p-buttonGroup>
 <ag-grid-angular
+  #agGrid
   (gridReady)="onGridReady($event)"
+  (selectionChanged)="onSelectionChanged($event)"
+
   [cacheBlockSize]="pageSize"
-
   [cacheOverflowSize]="1"
-  [columnDefs]="columnDefs"
 
+  [columnDefs]="columnDefs"
   [defaultColDef]="defaultColDef"
   [infiniteInitialRowCount]="1"
   [maxBlocksInCache]="1"
-  [maxConcurrentDatasourceRequests]="1"
 
+  [maxConcurrentDatasourceRequests]="1"
   [paginationAutoPageSize]="false"
   [paginationPageSizeSelector]="[5,10,20,50]"
   [paginationPageSize]="pageSize"
+
   [pagination]="true"
-  [rowData]="rowData"
 
   [rowModelType]="'infinite'"
+  [rowSelection]="rowSelection"
 
   class="ag-theme-quartz-dark"
   style="height: 50vh;"

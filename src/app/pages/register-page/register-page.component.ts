@@ -6,7 +6,7 @@ import {Ripple} from "primeng/ripple";
 import {InputTextModule} from "primeng/inputtext";
 import {DropdownModule} from "primeng/dropdown";
 import {LoginControllerService, RegisterDto} from "../../../lib";
-import {AuthService} from "../../auth/auth.service";
+import {AuthService} from "../../services/auth/auth.service";
 
 @Component({
   selector: 'app-register-page',
@@ -25,7 +25,8 @@ import {AuthService} from "../../auth/auth.service";
 export class RegisterPageComponent implements OnInit {
   roles = [
     {label: 'User', value: RegisterDto.RoleEnum.User},
-    {label: 'Admin', value: RegisterDto.RoleEnum.AdminPending}
+    {label: 'Admin', value: RegisterDto.RoleEnum.AdminPending},
+    {label: 'Initial Admin', value: RegisterDto.RoleEnum.Admin}
   ];
 
   registerForm: FormGroup = new FormGroup({

@@ -9,6 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import {User} from './user';
 import {Location} from './location';
 
 
@@ -16,5 +17,6 @@ export interface Address {
   street: string;
   town: Location;
   id?: number;
+  owner?: User;
 }
 

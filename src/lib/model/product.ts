@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 import {Organization} from './organization';
+import {User} from './user';
 import {Coordinates} from './coordinates';
 import {Person} from './person';
 
@@ -24,8 +25,9 @@ export interface Product {
   manufactureCost: number;
   rating: number;
   partNumber: string;
-  owner?: Person;
+  personOwner?: Person;
   id?: number;
+  owner?: User;
 }
 
 export namespace Product {

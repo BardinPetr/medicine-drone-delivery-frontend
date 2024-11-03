@@ -1,8 +1,17 @@
-import {Component, Input} from '@angular/core';
-import {ColDef, GridReadyEvent, IDatasource, IGetRowsParams} from "@ag-grid-community/core";
+import {Component, Input, ViewChild} from '@angular/core';
+import {ColDef, GridReadyEvent, IDatasource, IGetRowsParams, RowSelectionOptions} from "@ag-grid-community/core";
 import {encodeFilter} from "../../utils/query";
-import {Observable} from "rxjs";
+import {BehaviorSubject, map, Observable} from "rxjs";
+import {AgGridAngular} from "@ag-grid-community/angular";
 
+export interface ActionDef {
+  label: string
+  icon: string
+  severity?: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast'
+  handler: (row: any) => void
+  allowActivate?: (row: any) => boolean
+  static?: boolean
+}
 
 @Component({
   selector: 'app-base-table',
@@ -10,17 +19,26 @@ import {Observable} from "rxjs";
   styleUrls: ['./base-table.component.sass']
 })
 export class BaseTableComponent {
+  @ViewChild('agGrid') agGrid?: AgGridAngular = undefined;
+
   @Input() public columnDefs: ColDef[] = []
+  @Input() public actionDefs: ActionDef[] = []
   @Input() public fetchDataFunc?: ((paging: any, filter: any) => Observable<any>)
+
+  public readonly selectedRow = new BehaviorSubject<any>(null);
 
   public defaultColDef: ColDef = {
     flex: 1,
     minWidth: 150,
     floatingFilter: true,
   };
-  public pageSize: number = 5
+  public rowSelection: RowSelectionOptions = {
+    mode: 'singleRow',
+    checkboxes: true,
+    enableClickSelection: true,
+  };
 
-  public rowData: any;
+  public pageSize: number = 5
 
   onGridReady(params: GridReadyEvent) {
     const dataSource: IDatasource = {
@@ -42,5 +60,33 @@ export class BaseTableComponent {
       },
     };
     params.api.setGridOption("datasource", dataSource)
+
+    setInterval(() => {
+      this.refresh()
+    }, 1000)
+
+    console.warn("!!")
+  }
+
+  refresh() {
+    this.agGrid!!.api.refreshInfiniteCache()
+  }
+
+  onSelectionChanged(event: any) {
+    const selectedRows = this.agGrid!!.api.getSelectedRows();
+    this.selectedRow.next(selectedRows.length == 1 ? selectedRows[0] : null)
+  }
+
+  isActionDisabled(def: ActionDef) {
+    return this
+      .selectedRow
+      .pipe(map(
+        x => !def.static && (!x || (def.allowActivate && !def.allowActivate(x)))
+      ))
+  }
+
+  actionHandler(act: ActionDef) {
+    act.handler(this.selectedRow.value)
+    this.refresh()
   }
 }

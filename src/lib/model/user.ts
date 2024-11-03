@@ -9,15 +9,22 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import {User} from './user';
 
 
-export interface Location {
-  x: number;
-  y: number;
-  z: number;
-  name: string;
+export interface User {
+  username: string;
+  passwordHash: string;
+  role: User.RoleEnum;
   id?: number;
-  owner?: User;
 }
+
+export namespace User {
+  export type RoleEnum = 'USER' | 'ADMIN' | 'ADMIN_PENDING';
+  export const RoleEnum = {
+    User: 'USER' as RoleEnum,
+    Admin: 'ADMIN' as RoleEnum,
+    AdminPending: 'ADMIN_PENDING' as RoleEnum
+  };
+}
+
 

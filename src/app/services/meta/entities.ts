@@ -73,6 +73,14 @@ export const metamodelData: Metamodel = {
         y: {name: 'y', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
       }
     },
+    User: {
+      name: 'User',
+      fields: {
+        id: {name: 'id', readonly: true, type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+        username: {name: 'username', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
+        role: {name: 'role', type: EntityFieldMetaType.ENUM, entityRef: 'UserRole', nullable: false},
+      }
+    }
   },
   enums: {
     OrganizationType: {
@@ -90,6 +98,10 @@ export const metamodelData: Metamodel = {
     UnitOfMeasure: {
       name: 'UnitOfMeasure',
       values: ['METERS', 'CENTIMETERS', 'MILLILITERS']
+    },
+    UserRole: {
+      name: 'UserRole',
+      values: ['ADMIN', 'ADMIN_PENDING', 'USER']
     },
   },
   views: {
@@ -118,5 +130,10 @@ export const metamodelData: Metamodel = {
       columns: ['id', 'name', 'coordinates.x', 'coordinates.y', 'creationDate', 'unitOfMeasure', 'manufacturer.name', 'price', 'manufactureCost', 'rating', 'partNumber', 'owner.name'],
       nested: ['manufacturer', 'owner']
     },
+    User: {
+      name: 'User',
+      columns: ['id', 'username', 'role'],
+      nested: []
+    }
   }
 }

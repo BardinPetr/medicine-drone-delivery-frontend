@@ -1,9 +1,9 @@
 import {Component} from "@angular/core";
 import {MenuItem} from "primeng/api";
 import {tableRouteData} from "../../services/meta/metaroutes";
-import {AuthService} from "../../auth/auth.service";
 import {map} from "rxjs";
 import {RegisterDto} from "../../../lib";
+import {AuthService} from "../../services/auth/auth.service";
 
 const ICON_MAP: { [key: string]: string } = {
   "Person": "pi-user",
@@ -33,7 +33,7 @@ export class NavbarComponent {
             label: "Admin",
             icon: "pi pi-fw pi-exclamation-triangle",
             routerLink: "/admin",
-            disabled: !roles.includes(RegisterDto.RoleEnum.AdminPending) // TODO
+            disabled: !roles.includes(RegisterDto.RoleEnum.Admin)
           },
           ...tableRouteData
             .map(x => ({

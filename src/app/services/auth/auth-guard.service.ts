@@ -1,8 +1,8 @@
 import {inject} from '@angular/core';
 import {Router} from '@angular/router';
 import {map, take} from 'rxjs/operators';
+import {RegisterDto} from "../../../lib";
 import {AuthService} from "./auth.service";
-import {RegisterDto} from "../../lib";
 
 export const isAuthenticated = () => {
   const securityService = inject(AuthService);
@@ -23,5 +23,5 @@ export const isAuthenticated = () => {
 
 export const isAdmin = () => {
   return inject(AuthService)
-    .isInRole(RegisterDto.RoleEnum.AdminPending) // TODO
+    .isInRole(RegisterDto.RoleEnum.Admin)
 };

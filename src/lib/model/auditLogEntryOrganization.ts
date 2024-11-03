@@ -14,7 +14,7 @@ import {Organization} from './organization';
 
 export interface AuditLogEntryOrganization {
   timestamp: string;
-  author: number;
+  author: string;
   revision: number;
   type: AuditLogEntryOrganization.TypeEnum;
   state: Organization;

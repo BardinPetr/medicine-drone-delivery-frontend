@@ -9,15 +9,22 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import {PageableObject} from './pageableObject';
 import {User} from './user';
+import {SortObject} from './sortObject';
 
 
-export interface Location {
-  x: number;
-  y: number;
-  z: number;
-  name: string;
-  id?: number;
-  owner?: User;
+export interface PageUser {
+  totalPages?: number;
+  totalElements?: number;
+  pageable?: PageableObject;
+  first?: boolean;
+  last?: boolean;
+  size?: number;
+  content?: Array<User>;
+  number?: number;
+  sort?: SortObject;
+  numberOfElements?: number;
+  empty?: boolean;
 }
 

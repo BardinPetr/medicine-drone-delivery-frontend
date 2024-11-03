@@ -9,6 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import {User} from './user';
 import {Address} from './address';
 
 
@@ -21,6 +22,7 @@ export interface Organization {
   type?: Organization.TypeEnum;
   postalAddress?: Address;
   id?: number;
+  owner?: User;
 }
 
 export namespace Organization {

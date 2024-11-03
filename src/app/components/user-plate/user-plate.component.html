@@ -3,7 +3,7 @@
 >
   <p-tag
     *ngIf="(authService.username | async)"
-    [severity]="((authService.isInRole('ADMIN_PENDING') | async) ?? false) ? 'danger' : 'success'"
+    [severity]="((authService.isInRole('ADMIN') | async) ?? false) ? 'danger' : 'success'"
     [value]="(authService.username | async)!!"
     icon="pi pi-user"
   />
