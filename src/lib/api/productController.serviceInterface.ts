@@ -26,13 +26,6 @@ export interface ProductControllerServiceInterface {
   /**
    *
    *
-   * @param id
-   */
-  _delete(id: number, extraHttpRequestParams?: any): Observable<{}>;
-
-  /**
-   *
-   *
    */
   audit(extraHttpRequestParams?: any): Observable<Array<AuditLogEntryProduct>>;
 
@@ -70,6 +63,13 @@ export interface ProductControllerServiceInterface {
    * @param filter
    */
   list(pageable: Pageable, filter?: string, extraHttpRequestParams?: any): Observable<PageProduct>;
+
+  /**
+   *
+   *
+   * @param id
+   */
+  remove(id: number, extraHttpRequestParams?: any): Observable<{}>;
 
   /**
    *

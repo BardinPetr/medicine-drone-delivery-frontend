@@ -41,6 +41,10 @@ export class AuthService {
     return this.getInfo()?.token
   }
 
+  public get state() {
+    return this.dataSubject.value
+  }
+
   update(data: User) {
     this
       .dataSubject

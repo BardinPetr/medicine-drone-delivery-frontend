@@ -1,9 +1,7 @@
-<app-base-form
-  [entityData]="{}"
-  [entityName]="entityMeta.name"
-/>
-
-<app-base-table
-  [columnDefs]="columnDefs"
-  [fetchDataFunc]="fetchWrapper"
-/>
+<p-card [header]="entityMeta.name">
+  <app-base-table
+    [actionDefs]="actionDefs"
+    [columnDefs]="columnDefs"
+    [fetchDataFunc]="fetchWrapper"
+  />
+</p-card>

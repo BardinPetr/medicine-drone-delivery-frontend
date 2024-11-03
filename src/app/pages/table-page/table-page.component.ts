@@ -4,6 +4,10 @@ import {ActivatedRoute} from "@angular/router";
 import {ApiProviderService} from "../../api/api-provider.service";
 import {ColDef} from "@ag-grid-community/core";
 import {EntityMeta} from "../../services/meta/model";
+import {ActionDef} from "../../components/base-table/base-table.component";
+import {MessageService} from "primeng/api";
+import {AuthService} from "../../services/auth/auth.service";
+import {CUDialogService} from "../../services/cudialog.service";
 
 @Component({
   selector: 'app-table-page',
@@ -12,13 +16,50 @@ import {EntityMeta} from "../../services/meta/model";
 })
 export class TablePageComponent {
   entityMeta: EntityMeta;
-  columnDefs: ColDef[] = []
+  columnDefs: ColDef[] = [];
   private api: any;
 
+  actionDefs: ActionDef[] = [
+    {
+      label: "Create",
+      icon: "plus",
+      severity: "success",
+      static: true,
+      handler: (_) => {
+        this.cuDialogService.openCreate(this.entityMeta.name)
+      }
+    },
+    {
+      label: "Edit",
+      icon: "file-edit",
+      severity: "warning",
+      allowActivate: (x) => this.allowActivateOwned(x),
+      handler: (x) => {
+        this.cuDialogService.openEdit(this.entityMeta.name, x)
+      }
+    },
+    {
+      label: "Delete",
+      icon: "trash",
+      severity: "danger",
+      allowActivate: (x) => this.allowActivateOwned(x),
+      handler: (x) => {
+        this.api
+          .remove(x.id)
+          .subscribe({
+            complete: () => this.successMessage()
+          })
+      }
+    }
+  ]
+
   constructor(
-    private apiProvider: ApiProviderService,
-    private meta: MetamodelService,
-    private route: ActivatedRoute
+    apiProvider: ApiProviderService,
+    meta: MetamodelService,
+    route: ActivatedRoute,
+    private message: MessageService,
+    private authService: AuthService,
+    private cuDialogService: CUDialogService
   ) {
     const viewId = route.snapshot.routeConfig?.data!['id']
     if (!viewId) {
@@ -29,6 +70,17 @@ export class TablePageComponent {
     this.api = apiProvider.getAPI(viewId)
     this.entityMeta = meta.getEntity(viewId)
     this.columnDefs = meta.getTableColumns(viewId)
+  }
+
+  allowActivateOwned(x: any): boolean {
+    return this.authService.state?.username == x?.owner?.username
+  }
+
+  successMessage() {
+    this.message.add({
+      severity: 'success',
+      summary: 'Success'
+    })
   }
 
   fetchWrapper = (page: any, filter: any) => {

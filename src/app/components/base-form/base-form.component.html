@@ -1,30 +1,77 @@
-<p-card [header]="entityName">
-  <form (ngSubmit)="onSubmit()" [formGroup]="form">
-    <div *ngFor="let field of entityFields">
-      <label class="font-bold block mb-2" for="{{field.name}}"> {{ field.name }} </label>
-      <ng-container [ngSwitch]="field.type">
-        <ng-container *ngSwitchCase="MT.INTEGER">
-          <p-inputNumber formControlName="{{ field.name }}" id="{{field.name}}"></p-inputNumber>
-        </ng-container>
-        <ng-container *ngSwitchCase="MT.FLOAT">
-          <p-inputNumber [useGrouping]="false" formControlName="{{ field.name }}" id="{{field.name}}"></p-inputNumber>
-        </ng-container>
-        <ng-container *ngSwitchCase="MT.STRING">
-          <input formControlName="{{ field.name }}" id="{{field.name}}" pInputText/>
-        </ng-container>
-        <ng-container *ngSwitchCase="MT.DATE">
-          <p-calendar formControlName="{{ field.name }}" id="{{field.name}}"></p-calendar>
-        </ng-container>
-        <ng-container *ngSwitchCase="MT.ENUM">
-          <p-dropdown [options]="relEnums[field.name]" formControlName="{{ field.name }}"
-                      id="{{field.name}}"></p-dropdown>
-        </ng-container>
-        <ng-container *ngSwitchCase="MT.REL">
-          <p-dropdown [options]="relEntities[field.name]" formControlName="{{ field.name }}" id="{{field.name}}"
-                      optionLabel="name"></p-dropdown>
-        </ng-container>
+<form
+  (ngSubmit)="onSubmit()"
+  [formGroup]="form"
+  class="p-fluid"
+>
+  <div
+    *ngFor="let field of entityFields"
+    class="field"
+  >
+    <label class="block font-semibold mb-2" for="{{field.name}}"> {{ trs.t(field.name) }} </label>
+
+    <ng-container [ngSwitch]="field.type">
+      <ng-container *ngSwitchCase="MT.INTEGER">
+        <p-inputNumber
+          class="w-full"
+          formControlName="{{ field.name }}"
+          id="{{field.name}}"
+        />
       </ng-container>
-    </div>
-    <p-button type="submit">Submit</p-button>
-  </form>
-</p-card>
+      <ng-container *ngSwitchCase="MT.FLOAT">
+        <p-inputNumber
+          [useGrouping]="false"
+          class="w-full"
+          formControlName="{{ field.name }}"
+          id="{{field.name}}"
+        />
+      </ng-container>
+      <ng-container *ngSwitchCase="MT.STRING">
+        <input
+          class="w-full"
+          formControlName="{{ field.name }}"
+          id="{{field.name}}"
+          pInputText
+        />
+      </ng-container>
+      <ng-container *ngSwitchCase="MT.DATE">
+        <p-calendar
+          class="w-full"
+          formControlName="{{ field.name }}"
+          id="{{field.name}}"
+        />
+      </ng-container>
+      <ng-container *ngSwitchCase="MT.ENUM">
+        <p-dropdown
+          [loading]="!relEnums[field.name]"
+          [options]="relEnums[field.name]"
+          class="w-full"
+          formControlName="{{ field.name }}"
+          id="{{field.name}}"
+        />
+      </ng-container>
+      <ng-container *ngSwitchCase="MT.REL">
+        <p-dropdown
+          [loading]="!relEntities[field.name]"
+          [options]="relEntities[field.name]"
+          class="w-full"
+          formControlName="{{ field.name }}"
+          id="{{field.name}}"
+          optionLabel="{{meta.getEntity(field.entityRef!).titleField}}"
+        />
+      </ng-container>
+    </ng-container>
+    <small
+      *ngIf="!field.nullable && !field.readonly"
+      [class]="!form.value[field.name] ? 'text-red-500' : ''">
+      Required
+    </small>
+  </div>
+
+  <div class="flex justify-content-end gap-2 mt-3">
+    <p-button
+      [disabled]="!form.valid"
+      label="Save"
+      type="submit"
+    />
+  </div>
+</form>

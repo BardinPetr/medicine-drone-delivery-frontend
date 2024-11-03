@@ -15,7 +15,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
       .handle(req)
       .pipe(tap({
         next: (data) => {
-          console.log(data);
+          // console.log(data);
         },
         error: (err) => {
           if (err.status === 403) {
@@ -30,7 +30,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
             })
             setTimeout(() => this.auth.logout(), 500)
           } else {
-            console.warn(`ERROR: ${err.message}`)
+            // console.warn(`ERROR: ${err.message}`)
             this.message.add({
               severity: 'error',
               summary: 'Error',

@@ -19,6 +19,10 @@ export class MetamodelService {
     return metamodelData.entities[id]
   }
 
+  getEnumValues(id: string): string[] {
+    return metamodelData.enums[id].values
+  }
+
   getTableColumns(viewId: string): ColDef[] {
     return metamodelData
       .views[viewId]

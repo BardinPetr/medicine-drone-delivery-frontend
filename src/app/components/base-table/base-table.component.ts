@@ -61,11 +61,10 @@ export class BaseTableComponent {
     };
     params.api.setGridOption("datasource", dataSource)
 
+    // TODO
     setInterval(() => {
-      this.refresh()
+      // this.refresh()
     }, 1000)
-
-    console.warn("!!")
   }
 
   refresh() {
@@ -86,7 +85,12 @@ export class BaseTableComponent {
   }
 
   actionHandler(act: ActionDef) {
-    act.handler(this.selectedRow.value)
-    this.refresh()
+    const value = this.selectedRow.value
+    this.selectedRow.next(null)
+    this.agGrid!.api.deselectAll()
+    act.handler(value)
+    setTimeout(() => {
+      this.refresh()
+    }, 500)
   }
 }

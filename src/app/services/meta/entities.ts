@@ -4,6 +4,7 @@ export const metamodelData: Metamodel = {
   entities: {
     Address: {
       name: 'Address',
+      titleField: 'street',
       fields: {
         id: {name: 'id', readonly: true, type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
         street: {name: 'street', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
@@ -12,6 +13,7 @@ export const metamodelData: Metamodel = {
     },
     Organization: {
       name: 'Organization',
+      titleField: 'name',
       fields: {
         id: {name: 'id', readonly: true, type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
         name: {name: 'name', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
@@ -25,6 +27,7 @@ export const metamodelData: Metamodel = {
     },
     Location: {
       name: 'Location',
+      titleField: 'name',
       fields: {
         id: {name: 'id', readonly: true, type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
         x: {name: 'x', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
@@ -35,6 +38,7 @@ export const metamodelData: Metamodel = {
     },
     Person: {
       name: 'Person',
+      titleField: 'name',
       fields: {
         id: {name: 'id', readonly: true, type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
         name: {name: 'name', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
@@ -47,11 +51,18 @@ export const metamodelData: Metamodel = {
     },
     Product: {
       name: 'Product',
+      titleField: 'name',
       fields: {
         id: {name: 'id', readonly: true, type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
         name: {name: 'name', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
         coordinates: {name: 'coordinates', type: EntityFieldMetaType.EMB, entityRef: 'Coordinates', nullable: false},
-        creationDate: {name: 'creationDate', type: EntityFieldMetaType.DATE, entityRef: null, nullable: false},
+        creationDate: {
+          name: 'creationDate',
+          type: EntityFieldMetaType.DATE,
+          entityRef: null,
+          nullable: false,
+          readonly: true
+        },
         unitOfMeasure: {
           name: 'unitOfMeasure',
           type: EntityFieldMetaType.ENUM,
@@ -75,6 +86,7 @@ export const metamodelData: Metamodel = {
     },
     User: {
       name: 'User',
+      titleField: 'username',
       fields: {
         id: {name: 'id', readonly: true, type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
         username: {name: 'username', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
@@ -112,7 +124,7 @@ export const metamodelData: Metamodel = {
     },
     Organization: {
       name: 'Organization',
-      columns: ['id', 'name', 'officialAddress.street', 'annualTurnover', 'employeesCount', 'fullName', 'type', 'postalAddress.street'],
+      columns: ['id', 'name', 'officialAddress.street', 'postalAddress.street', 'annualTurnover', 'employeesCount', 'fullName', 'type'],
       nested: ['officialAddress', 'postalAddress']
     },
     Location: {

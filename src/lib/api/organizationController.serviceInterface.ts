@@ -26,13 +26,6 @@ export interface OrganizationControllerServiceInterface {
   /**
    *
    *
-   * @param id
-   */
-  _delete(id: number, extraHttpRequestParams?: any): Observable<{}>;
-
-  /**
-   *
-   *
    */
   audit(extraHttpRequestParams?: any): Observable<Array<AuditLogEntryOrganization>>;
 
@@ -70,6 +63,13 @@ export interface OrganizationControllerServiceInterface {
    * @param filter
    */
   list(pageable: Pageable, filter?: string, extraHttpRequestParams?: any): Observable<PageOrganization>;
+
+  /**
+   *
+   *
+   * @param id
+   */
+  remove(id: number, extraHttpRequestParams?: any): Observable<{}>;
 
   /**
    *

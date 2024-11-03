@@ -11,8 +11,14 @@ export class TranslationService {
     this.data = data
   }
 
-  m(id: string): string {
-    console.log(id)
-    return this.data[id] || id
+  t(id: string): string {
+    return this.data[id] || this.fallback(id)
+  }
+
+  fallback(text: string): string {
+    return text
+      .replace(/([A-Z])/g, ' $1')
+      .replace(/^\w/, c => c.toUpperCase())
+      .trim()
   }
 }

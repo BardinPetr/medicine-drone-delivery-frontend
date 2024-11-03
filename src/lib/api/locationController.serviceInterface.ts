@@ -26,13 +26,6 @@ export interface LocationControllerServiceInterface {
   /**
    *
    *
-   * @param id
-   */
-  _delete(id: number, extraHttpRequestParams?: any): Observable<{}>;
-
-  /**
-   *
-   *
    */
   audit(extraHttpRequestParams?: any): Observable<Array<AuditLogEntryLocation>>;
 
@@ -70,6 +63,13 @@ export interface LocationControllerServiceInterface {
    * @param filter
    */
   list(pageable: Pageable, filter?: string, extraHttpRequestParams?: any): Observable<PageLocation>;
+
+  /**
+   *
+   *
+   * @param id
+   */
+  remove(id: number, extraHttpRequestParams?: any): Observable<{}>;
 
   /**
    *

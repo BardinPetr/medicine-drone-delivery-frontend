@@ -12,6 +12,7 @@ export interface EntityFieldMeta {
 
 export interface EntityMeta {
   name: string,
+  titleField?: string,
   fields: { [key: string]: EntityFieldMeta }
 }
 

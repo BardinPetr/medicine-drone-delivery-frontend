@@ -26,13 +26,6 @@ export interface AddressControllerServiceInterface {
   /**
    *
    *
-   * @param id
-   */
-  _delete(id: number, extraHttpRequestParams?: any): Observable<{}>;
-
-  /**
-   *
-   *
    */
   audit(extraHttpRequestParams?: any): Observable<Array<AuditLogEntryAddress>>;
 
@@ -70,6 +63,13 @@ export interface AddressControllerServiceInterface {
    * @param filter
    */
   list(pageable: Pageable, filter?: string, extraHttpRequestParams?: any): Observable<PageAddress>;
+
+  /**
+   *
+   *
+   * @param id
+   */
+  remove(id: number, extraHttpRequestParams?: any): Observable<{}>;
 
   /**
    *

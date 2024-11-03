@@ -26,13 +26,6 @@ export interface PersonControllerServiceInterface {
   /**
    *
    *
-   * @param id
-   */
-  _delete(id: number, extraHttpRequestParams?: any): Observable<{}>;
-
-  /**
-   *
-   *
    */
   audit(extraHttpRequestParams?: any): Observable<Array<AuditLogEntryPerson>>;
 
@@ -70,6 +63,13 @@ export interface PersonControllerServiceInterface {
    * @param filter
    */
   list(pageable: Pageable, filter?: string, extraHttpRequestParams?: any): Observable<PagePerson>;
+
+  /**
+   *
+   *
+   * @param id
+   */
+  remove(id: number, extraHttpRequestParams?: any): Observable<{}>;
 
   /**
    *
