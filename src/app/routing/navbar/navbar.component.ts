@@ -47,7 +47,13 @@ export class NavbarComponent {
               icon: `pi ${ICON_MAP[x.id]}`,
               routerLink: x.path,
               disabled: roles.length == 0
-            }))
+            })),
+          {
+            label: "Product Ops",
+            icon: "pi pi-fw pi-code",
+            routerLink: "/product-ops",
+            disabled: roles.length == 0
+          },
         ]
       )))
       .subscribe(x => {

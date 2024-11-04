@@ -46,6 +46,13 @@ export interface ProductControllerServiceInterface {
   /**
    *
    *
+   * @param personId
+   */
+  countProductsLessThanOwner(personId: number, extraHttpRequestParams?: any): Observable<number>;
+
+  /**
+   *
+   *
    * @param product
    */
   create(product: Product, extraHttpRequestParams?: any): Observable<Product>;
@@ -53,9 +60,36 @@ export interface ProductControllerServiceInterface {
   /**
    *
    *
+   * @param percent
+   */
+  decreaseProductPricesBy(percent: number, extraHttpRequestParams?: any): Observable<{}>;
+
+  /**
+   *
+   *
+   */
+  findProductWithMaxManufactureCost(extraHttpRequestParams?: any): Observable<Product>;
+
+  /**
+   *
+   *
+   * @param partNumber
+   */
+  findProductsWithPartNumberGreaterThan(partNumber: string, extraHttpRequestParams?: any): Observable<Array<Product>>;
+
+  /**
+   *
+   *
    * @param id
    */
   get(id: number, extraHttpRequestParams?: any): Observable<Product>;
+
+  /**
+   *
+   *
+   * @param unitOfMeasures
+   */
+  getProductsByUnitOfMeasure(unitOfMeasures: Array<'METERS' | 'CENTIMETERS' | 'MILLILITERS'>, extraHttpRequestParams?: any): Observable<Array<Product>>;
 
   /**
    *

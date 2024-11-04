@@ -15,8 +15,8 @@ import {Product} from './product';
 
 
 export interface PageProduct {
-  totalElements?: number;
   totalPages?: number;
+  totalElements?: number;
   pageable?: PageableObject;
   first?: boolean;
   last?: boolean;

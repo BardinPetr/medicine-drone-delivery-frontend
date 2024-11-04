@@ -15,8 +15,8 @@ import {SortObject} from './sortObject';
 
 
 export interface PageUser {
-  totalElements?: number;
   totalPages?: number;
+  totalElements?: number;
   pageable?: PageableObject;
   first?: boolean;
   last?: boolean;

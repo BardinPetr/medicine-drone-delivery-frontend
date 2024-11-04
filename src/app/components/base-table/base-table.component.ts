@@ -21,6 +21,7 @@ export interface ActionDef {
 export class BaseTableComponent implements OnInit {
   @ViewChild('agGrid') agGrid?: AgGridAngular = undefined;
 
+  @Input() public paged: boolean = true;
   @Input() public interactive: boolean = false;
   @Input() public actionDefs: ActionDef[] = []
   @Input() public fetchDataFunc?: ((paging: any, filter: any) => Observable<any>)
