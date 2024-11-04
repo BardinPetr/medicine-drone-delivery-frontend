@@ -2,6 +2,7 @@ export * from './addressController.service';
 import {AddressControllerService} from './addressController.service';
 import {LocationControllerService} from './locationController.service';
 import {LoginControllerService} from './loginController.service';
+import {MapControllerService} from './mapController.service';
 import {OrganizationControllerService} from './organizationController.service';
 import {PersonControllerService} from './personController.service';
 import {ProductControllerService} from './productController.service';
@@ -14,6 +15,9 @@ export * from './locationController.serviceInterface';
 export * from './loginController.service';
 
 export * from './loginController.serviceInterface';
+export * from './mapController.service';
+
+export * from './mapController.serviceInterface';
 export * from './organizationController.service';
 
 export * from './organizationController.serviceInterface';
@@ -26,4 +30,4 @@ export * from './productController.serviceInterface';
 export * from './userController.service';
 
 export * from './userController.serviceInterface';
-export const APIS = [AddressControllerService, LocationControllerService, LoginControllerService, OrganizationControllerService, PersonControllerService, ProductControllerService, UserControllerService];
+export const APIS = [AddressControllerService, LocationControllerService, LoginControllerService, MapControllerService, OrganizationControllerService, PersonControllerService, ProductControllerService, UserControllerService];

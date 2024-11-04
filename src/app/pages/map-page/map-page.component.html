@@ -1,0 +1,36 @@
+<mgl-map
+  [center]="[30.310030, 59.956360]"
+  [style]="'mapbox://styles/bardinpetr/cll6rvres00m801p878kx3fu4'"
+  [zoom]="[10]"
+>
+  <mgl-geojson-source
+    *ngIf="ptsProducts"
+    [data]="ptsProducts"
+    id="products"
+  />
+
+  <mgl-geojson-source
+    *ngIf="ptsPersons"
+    [data]="ptsPersons"
+    id="persons"
+  />
+
+  <mgl-layer
+    (layerClick)="onClick('Product', $event)"
+    *ngIf="ptsProducts"
+    [paint]="paintProducts"
+    id="products"
+    source="products"
+    type="circle"
+  />
+
+  <mgl-layer
+    (layerClick)="onClick('Person', $event)"
+    *ngIf="ptsPersons"
+    [layout]="layoutPersons"
+    [paint]="paintPersons"
+    id="persons"
+    source="persons"
+    type="symbol"
+  />
+</mgl-map>

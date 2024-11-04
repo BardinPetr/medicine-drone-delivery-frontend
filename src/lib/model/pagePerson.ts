@@ -15,8 +15,8 @@ import {Person} from './person';
 
 
 export interface PagePerson {
-  totalPages?: number;
   totalElements?: number;
+  totalPages?: number;
   pageable?: PageableObject;
   first?: boolean;
   last?: boolean;

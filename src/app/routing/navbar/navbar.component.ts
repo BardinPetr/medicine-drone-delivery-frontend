@@ -30,6 +30,12 @@ export class NavbarComponent {
             routerLink: "/",
           },
           {
+            label: "Map",
+            icon: "pi pi-fw pi-map",
+            routerLink: "/map",
+            disabled: roles.length == 0
+          },
+          {
             label: "Admin",
             icon: "pi pi-fw pi-exclamation-triangle",
             routerLink: "/admin",

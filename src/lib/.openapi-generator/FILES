@@ -8,6 +8,8 @@ api/locationController.service.ts
 api/locationController.serviceInterface.ts
 api/loginController.service.ts
 api/loginController.serviceInterface.ts
+api/mapController.service.ts
+api/mapController.serviceInterface.ts
 api/organizationController.service.ts
 api/organizationController.serviceInterface.ts
 api/personController.service.ts

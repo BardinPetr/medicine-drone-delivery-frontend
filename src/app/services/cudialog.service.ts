@@ -43,6 +43,7 @@ export class CUDialogService implements OnDestroy {
         data: {entityName, entityData, edit},
         header: (edit ? 'Edit ' : 'Create ') + entityName,
         modal: true,
+        draggable: true,
         maximizable: true,
         style: {
           minWidth: '50vw',

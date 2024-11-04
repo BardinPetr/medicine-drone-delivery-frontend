@@ -15,8 +15,8 @@ import {Location} from './location';
 
 
 export interface PageLocation {
-  totalPages?: number;
   totalElements?: number;
+  totalPages?: number;
   pageable?: PageableObject;
   first?: boolean;
   last?: boolean;

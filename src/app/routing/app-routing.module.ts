@@ -12,7 +12,8 @@ import {ComponentsModule} from "../components/components.module";
 import {LoginPageComponent} from "../pages/login-page/login-page.component";
 import {RegisterPageComponent} from "../pages/register-page/register-page.component";
 import {AdminPageComponent} from "../pages/admin-page/admin-page.component";
-import {isAdmin} from "../services/auth/auth-guard.service";
+import {isAdmin, isAuthenticated} from "../services/auth/auth-guard.service";
+import {MapPageComponent} from "../pages/map-page/map-page.component";
 
 
 const routes: Routes = [
@@ -26,6 +27,12 @@ const routes: Routes = [
     path: "admin",
     component: AdminPageComponent,
     canActivate: [isAdmin]
+  },
+  {
+    title: "Map",
+    path: "map",
+    component: MapPageComponent,
+    canActivate: [isAuthenticated]
   },
   ...tableRoutes,
   {
