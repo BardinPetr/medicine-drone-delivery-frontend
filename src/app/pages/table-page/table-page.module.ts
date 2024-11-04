@@ -4,6 +4,8 @@ import {ButtonModule} from "primeng/button";
 import {ComponentsModule} from "../../components/components.module";
 import {TablePageComponent} from "./table-page.component";
 import {CardModule} from "primeng/card";
+import {PanelModule} from "primeng/panel";
+import {DialogModule} from "primeng/dialog";
 
 @NgModule({
   declarations: [
@@ -13,7 +15,9 @@ import {CardModule} from "primeng/card";
     CommonModule,
     ButtonModule,
     ComponentsModule,
-    CardModule
+    CardModule,
+    PanelModule,
+    DialogModule
   ],
   exports: [
     TablePageComponent

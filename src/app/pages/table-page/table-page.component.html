@@ -3,5 +3,17 @@
     [actionDefs]="actionDefs"
     [columnDefs]="columnDefs"
     [fetchDataFunc]="fetchWrapper"
+    [interactive]="true"
   />
 </p-card>
+<p-dialog
+  [(visible)]="auditDialogVisible"
+  [modal]="true"
+  [style]="{ width: '80vw' }"
+  header="Audit"
+>
+  <app-base-table
+    [columnDefs]="auditColumnDefs"
+    [fetchDataFunc]="auditFetchWrapper"
+  />
+</p-dialog>

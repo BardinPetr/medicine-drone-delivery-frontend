@@ -8,6 +8,7 @@ import {ActionDef} from "../../components/base-table/base-table.component";
 import {MessageService} from "primeng/api";
 import {AuthService} from "../../services/auth/auth.service";
 import {CUDialogService} from "../../services/cudialog.service";
+import {map} from "rxjs";
 
 @Component({
   selector: 'app-table-page',
@@ -15,10 +16,12 @@ import {CUDialogService} from "../../services/cudialog.service";
   styleUrl: './table-page.component.sass'
 })
 export class TablePageComponent {
+  auditDialogVisible: boolean = false
+
   entityMeta: EntityMeta;
   columnDefs: ColDef[] = [];
+  auditColumnDefs: ColDef[] = [];
   private api: any;
-
   actionDefs: ActionDef[] = [
     {
       label: "Create",
@@ -27,6 +30,15 @@ export class TablePageComponent {
       static: true,
       handler: (_) => {
         this.cuDialogService.openCreate(this.entityMeta.name)
+      }
+    },
+    {
+      label: "Audit",
+      icon: "search",
+      severity: "info",
+      static: true,
+      handler: (_) => {
+        this.auditDialogVisible = true
       }
     },
     {
@@ -70,6 +82,9 @@ export class TablePageComponent {
     this.api = apiProvider.getAPI(viewId)
     this.entityMeta = meta.getEntity(viewId)
     this.columnDefs = meta.getTableColumns(viewId)
+    this.auditColumnDefs = meta.getTableColumns('Audit')
+    console.log(this.columnDefs)
+    console.log(this.auditColumnDefs)
   }
 
   allowActivateOwned(x: any): boolean {
@@ -85,5 +100,10 @@ export class TablePageComponent {
 
   fetchWrapper = (page: any, filter: any) => {
     return this.api.list(page, filter)
+  }
+
+  auditFetchWrapper = (page: any, filter: any) => {
+    return this.api.audit(page)
+      .pipe(map((x: any[]) => ({content: x})))
   }
 }

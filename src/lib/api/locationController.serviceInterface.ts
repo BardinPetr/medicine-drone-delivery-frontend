@@ -26,8 +26,9 @@ export interface LocationControllerServiceInterface {
   /**
    *
    *
+   * @param pageable
    */
-  audit(extraHttpRequestParams?: any): Observable<Array<AuditLogEntryLocation>>;
+  audit(pageable: Pageable, extraHttpRequestParams?: any): Observable<Array<AuditLogEntryLocation>>;
 
   /**
    *

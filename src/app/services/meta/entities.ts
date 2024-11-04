@@ -92,6 +92,17 @@ export const metamodelData: Metamodel = {
         username: {name: 'username', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
         role: {name: 'role', type: EntityFieldMetaType.ENUM, entityRef: 'UserRole', nullable: false},
       }
+    },
+    Audit: {
+      name: 'Audit',
+      titleField: 'id',
+      fields: {
+        revision: {name: 'revision', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
+        entityId: {name: 'entityId', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
+        author: {name: 'author', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
+        timestamp: {name: 'timestamp', type: EntityFieldMetaType.DATE, entityRef: null, nullable: false},
+        type: {name: 'type', type: EntityFieldMetaType.ENUM, entityRef: 'RevisionType', nullable: false},
+      }
     }
   },
   enums: {
@@ -115,6 +126,10 @@ export const metamodelData: Metamodel = {
       name: 'UserRole',
       values: ['ADMIN', 'ADMIN_PENDING', 'USER']
     },
+    RevisionType: {
+      name: 'RevisionType',
+      values: ['ADD', 'MOD', 'DEL']
+    }
   },
   views: {
     Address: {
@@ -145,6 +160,11 @@ export const metamodelData: Metamodel = {
     User: {
       name: 'User',
       columns: ['id', 'username', 'role'],
+      nested: []
+    },
+    Audit: {
+      name: 'Audit',
+      columns: ['revision', 'timestamp', 'type', 'entityId', 'author'],
       nested: []
     }
   }

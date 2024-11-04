@@ -9,7 +9,6 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import {Address} from './address';
 
 
 export interface AuditLogEntryAddress {
@@ -17,7 +16,7 @@ export interface AuditLogEntryAddress {
   author: string;
   revision: number;
   type: AuditLogEntryAddress.TypeEnum;
-  state: Address;
+  entityId: number;
 }
 
 export namespace AuditLogEntryAddress {

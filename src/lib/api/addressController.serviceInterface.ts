@@ -26,8 +26,9 @@ export interface AddressControllerServiceInterface {
   /**
    *
    *
+   * @param pageable
    */
-  audit(extraHttpRequestParams?: any): Observable<Array<AuditLogEntryAddress>>;
+  audit(pageable: Pageable, extraHttpRequestParams?: any): Observable<Array<AuditLogEntryAddress>>;
 
   /**
    *

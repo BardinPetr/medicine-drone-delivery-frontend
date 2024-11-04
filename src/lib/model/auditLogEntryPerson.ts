@@ -9,7 +9,6 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import {Person} from './person';
 
 
 export interface AuditLogEntryPerson {
@@ -17,7 +16,7 @@ export interface AuditLogEntryPerson {
   author: string;
   revision: number;
   type: AuditLogEntryPerson.TypeEnum;
-  state: Person;
+  entityId: number;
 }
 
 export namespace AuditLogEntryPerson {

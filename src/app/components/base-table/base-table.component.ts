@@ -1,4 +1,4 @@
-import {Component, Input, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ColDef, GridReadyEvent, IDatasource, IGetRowsParams, RowSelectionOptions} from "@ag-grid-community/core";
 import {encodeFilter} from "../../utils/query";
 import {BehaviorSubject, map, Observable} from "rxjs";
@@ -18,27 +18,44 @@ export interface ActionDef {
   templateUrl: './base-table.component.html',
   styleUrls: ['./base-table.component.sass']
 })
-export class BaseTableComponent {
+export class BaseTableComponent implements OnInit {
   @ViewChild('agGrid') agGrid?: AgGridAngular = undefined;
 
-  @Input() public columnDefs: ColDef[] = []
+  @Input() public interactive: boolean = false;
   @Input() public actionDefs: ActionDef[] = []
   @Input() public fetchDataFunc?: ((paging: any, filter: any) => Observable<any>)
+  @Input() columnDefs: ColDef[] = []
 
   public readonly selectedRow = new BehaviorSubject<any>(null);
 
   public defaultColDef: ColDef = {
     flex: 1,
     minWidth: 150,
-    floatingFilter: true,
   };
   public rowSelection: RowSelectionOptions = {
     mode: 'singleRow',
-    checkboxes: true,
-    enableClickSelection: true,
   };
 
   public pageSize: number = 5
+
+  public get outColumnDefs(): ColDef[] {
+    if (this.interactive)
+      return this.columnDefs
+    return this.columnDefs.map(x => {
+      return {
+        ...x,
+        filter: null,
+        filterParams: null,
+        sortable: false
+      }
+    })
+  }
+
+  ngOnInit(): void {
+    this.rowSelection.checkboxes = this.interactive
+    this.rowSelection.enableClickSelection = this.interactive
+    this.defaultColDef.floatingFilter = this.interactive
+  }
 
   onGridReady(params: GridReadyEvent) {
     const dataSource: IDatasource = {
@@ -54,7 +71,11 @@ export class BaseTableComponent {
         )
           .subscribe(
             (data) => {
-              params.successCallback(data.content!, data.totalElements)
+              let content = data.content!
+              if (content.length)
+                params.successCallback(data.content!, data.totalElements)
+              else
+                params.failCallback()
             }
           )
       },

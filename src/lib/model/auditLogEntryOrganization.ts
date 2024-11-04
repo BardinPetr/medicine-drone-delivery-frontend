@@ -9,7 +9,6 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import {Organization} from './organization';
 
 
 export interface AuditLogEntryOrganization {
@@ -17,7 +16,7 @@ export interface AuditLogEntryOrganization {
   author: string;
   revision: number;
   type: AuditLogEntryOrganization.TypeEnum;
-  state: Organization;
+  entityId: number;
 }
 
 export namespace AuditLogEntryOrganization {

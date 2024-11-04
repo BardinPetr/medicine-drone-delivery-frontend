@@ -9,7 +9,6 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import {Product} from './product';
 
 
 export interface AuditLogEntryProduct {
@@ -17,7 +16,7 @@ export interface AuditLogEntryProduct {
   author: string;
   revision: number;
   type: AuditLogEntryProduct.TypeEnum;
-  state: Product;
+  entityId: number;
 }
 
 export namespace AuditLogEntryProduct {

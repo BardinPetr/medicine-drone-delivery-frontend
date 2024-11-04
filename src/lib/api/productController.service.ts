@@ -67,28 +67,38 @@ export class ProductControllerService implements ProductControllerServiceInterfa
   }
 
   /**
+   * @param pageable
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public audit(observe?: 'body', reportProgress?: boolean, options?: {
+  public audit(pageable: Pageable, observe?: 'body', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
   }): Observable<Array<AuditLogEntryProduct>>;
 
-  public audit(observe?: 'response', reportProgress?: boolean, options?: {
+  public audit(pageable: Pageable, observe?: 'response', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
   }): Observable<HttpResponse<Array<AuditLogEntryProduct>>>;
 
-  public audit(observe?: 'events', reportProgress?: boolean, options?: {
+  public audit(pageable: Pageable, observe?: 'events', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
   }): Observable<HttpEvent<Array<AuditLogEntryProduct>>>;
 
-  public audit(observe: any = 'body', reportProgress: boolean = false, options?: {
+  public audit(pageable: Pageable, observe: any = 'body', reportProgress: boolean = false, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
   }): Observable<any> {
+    if (pageable === null || pageable === undefined) {
+      throw new Error('Required parameter pageable was null or undefined when calling audit.');
+    }
+
+    let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+    if (pageable !== undefined && pageable !== null) {
+      localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+        <any>pageable, 'pageable');
+    }
 
     let localVarHeaders = this.defaultHeaders;
 
@@ -132,6 +142,7 @@ export class ProductControllerService implements ProductControllerServiceInterfa
     return this.httpClient.request<Array<AuditLogEntryProduct>>('get', `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
+        params: localVarQueryParameters,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
         headers: localVarHeaders,

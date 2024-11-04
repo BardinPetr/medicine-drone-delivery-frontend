@@ -26,8 +26,9 @@ export interface OrganizationControllerServiceInterface {
   /**
    *
    *
+   * @param pageable
    */
-  audit(extraHttpRequestParams?: any): Observable<Array<AuditLogEntryOrganization>>;
+  audit(pageable: Pageable, extraHttpRequestParams?: any): Observable<Array<AuditLogEntryOrganization>>;
 
   /**
    *

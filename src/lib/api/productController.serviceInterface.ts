@@ -26,8 +26,9 @@ export interface ProductControllerServiceInterface {
   /**
    *
    *
+   * @param pageable
    */
-  audit(extraHttpRequestParams?: any): Observable<Array<AuditLogEntryProduct>>;
+  audit(pageable: Pageable, extraHttpRequestParams?: any): Observable<Array<AuditLogEntryProduct>>;
 
   /**
    *

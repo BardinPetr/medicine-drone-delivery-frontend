@@ -26,8 +26,9 @@ export interface PersonControllerServiceInterface {
   /**
    *
    *
+   * @param pageable
    */
-  audit(extraHttpRequestParams?: any): Observable<Array<AuditLogEntryPerson>>;
+  audit(pageable: Pageable, extraHttpRequestParams?: any): Observable<Array<AuditLogEntryPerson>>;
 
   /**
    *
