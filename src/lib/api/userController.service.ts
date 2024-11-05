@@ -25,11 +25,13 @@ import {CustomHttpParameterCodec} from '../encoder';
 import {Observable} from 'rxjs';
 
 // @ts-ignore
-import {PageUser} from '../model/pageUser';
+import {PageUserDto} from '../model/pageUserDto';
 // @ts-ignore
 import {Pageable} from '../model/pageable';
 // @ts-ignore
 import {User} from '../model/user';
+// @ts-ignore
+import {UserDto} from '../model/userDto';
 
 // @ts-ignore
 import {BASE_PATH, COLLECTION_FORMATS} from '../variables';
@@ -148,17 +150,17 @@ export class UserControllerService implements UserControllerServiceInterface {
   public list(pageable: Pageable, filter?: string, observe?: 'body', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<PageUser>;
+  }): Observable<PageUserDto>;
 
   public list(pageable: Pageable, filter?: string, observe?: 'response', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpResponse<PageUser>>;
+  }): Observable<HttpResponse<PageUserDto>>;
 
   public list(pageable: Pageable, filter?: string, observe?: 'events', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpEvent<PageUser>>;
+  }): Observable<HttpEvent<PageUserDto>>;
 
   public list(pageable: Pageable, filter?: string, observe: any = 'body', reportProgress: boolean = false, options?: {
     httpHeaderAccept?: 'application/json',
@@ -217,7 +219,7 @@ export class UserControllerService implements UserControllerServiceInterface {
     }
 
     let localVarPath = `/api/user`;
-    return this.httpClient.request<PageUser>('get', `${this.configuration.basePath}${localVarPath}`,
+    return this.httpClient.request<PageUserDto>('get', `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
         params: localVarQueryParameters,
@@ -238,17 +240,17 @@ export class UserControllerService implements UserControllerServiceInterface {
   public verifyAdmin(id: number, observe?: 'body', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<User>;
+  }): Observable<UserDto>;
 
   public verifyAdmin(id: number, observe?: 'response', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpResponse<User>>;
+  }): Observable<HttpResponse<UserDto>>;
 
   public verifyAdmin(id: number, observe?: 'events', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpEvent<User>>;
+  }): Observable<HttpEvent<UserDto>>;
 
   public verifyAdmin(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {
     httpHeaderAccept?: 'application/json',
@@ -305,7 +307,7 @@ export class UserControllerService implements UserControllerServiceInterface {
       dataType: "number",
       dataFormat: "int64"
     })}/verify`;
-    return this.httpClient.request<User>('post', `${this.configuration.basePath}${localVarPath}`,
+    return this.httpClient.request<UserDto>('post', `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
         responseType: <any>responseType_,

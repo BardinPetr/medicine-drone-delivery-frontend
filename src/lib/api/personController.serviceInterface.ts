@@ -13,7 +13,7 @@ import {HttpHeaders} from '@angular/common/http';
 
 import {Observable} from 'rxjs';
 
-import {AuditLogEntryPerson, Pageable, PagePerson, Person} from '../model/models';
+import {AuditLogEntryPerson, Pageable, PagePersonDto, PersonDto} from '../model/models';
 
 
 import {Configuration} from '../configuration';
@@ -46,16 +46,16 @@ export interface PersonControllerServiceInterface {
   /**
    *
    *
-   * @param person
+   * @param personDto
    */
-  create(person: Person, extraHttpRequestParams?: any): Observable<Person>;
+  create(personDto: PersonDto, extraHttpRequestParams?: any): Observable<PersonDto>;
 
   /**
    *
    *
    * @param id
    */
-  get(id: number, extraHttpRequestParams?: any): Observable<Person>;
+  get(id: number, extraHttpRequestParams?: any): Observable<PersonDto>;
 
   /**
    *
@@ -63,7 +63,13 @@ export interface PersonControllerServiceInterface {
    * @param pageable
    * @param filter
    */
-  list(pageable: Pageable, filter?: string, extraHttpRequestParams?: any): Observable<PagePerson>;
+  list(pageable: Pageable, filter?: string, extraHttpRequestParams?: any): Observable<PagePersonDto>;
+
+  /**
+   *
+   *
+   */
+  listAll(extraHttpRequestParams?: any): Observable<Array<PersonDto>>;
 
   /**
    *
@@ -76,8 +82,8 @@ export interface PersonControllerServiceInterface {
    *
    *
    * @param id
-   * @param person
+   * @param personDto
    */
-  update(id: number, person: Person, extraHttpRequestParams?: any): Observable<Person>;
+  update(id: number, personDto: PersonDto, extraHttpRequestParams?: any): Observable<PersonDto>;
 
 }

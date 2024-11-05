@@ -25,11 +25,11 @@ import {CustomHttpParameterCodec} from '../encoder';
 import {Observable} from 'rxjs';
 
 // @ts-ignore
-import {Address} from '../model/address';
+import {AddressDto} from '../model/addressDto';
 // @ts-ignore
 import {AuditLogEntryAddress} from '../model/auditLogEntryAddress';
 // @ts-ignore
-import {PageAddress} from '../model/pageAddress';
+import {PageAddressDto} from '../model/pageAddressDto';
 // @ts-ignore
 import {Pageable} from '../model/pageable';
 
@@ -315,31 +315,31 @@ export class AddressControllerService implements AddressControllerServiceInterfa
   }
 
   /**
-   * @param address
+   * @param addressDto
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public create(address: Address, observe?: 'body', reportProgress?: boolean, options?: {
+  public create(addressDto: AddressDto, observe?: 'body', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<Address>;
+  }): Observable<AddressDto>;
 
-  public create(address: Address, observe?: 'response', reportProgress?: boolean, options?: {
+  public create(addressDto: AddressDto, observe?: 'response', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpResponse<Address>>;
+  }): Observable<HttpResponse<AddressDto>>;
 
-  public create(address: Address, observe?: 'events', reportProgress?: boolean, options?: {
+  public create(addressDto: AddressDto, observe?: 'events', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpEvent<Address>>;
+  }): Observable<HttpEvent<AddressDto>>;
 
-  public create(address: Address, observe: any = 'body', reportProgress: boolean = false, options?: {
+  public create(addressDto: AddressDto, observe: any = 'body', reportProgress: boolean = false, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
   }): Observable<any> {
-    if (address === null || address === undefined) {
-      throw new Error('Required parameter address was null or undefined when calling create.');
+    if (addressDto === null || addressDto === undefined) {
+      throw new Error('Required parameter addressDto was null or undefined when calling create.');
     }
 
     let localVarHeaders = this.defaultHeaders;
@@ -390,10 +390,10 @@ export class AddressControllerService implements AddressControllerServiceInterfa
     }
 
     let localVarPath = `/api/address`;
-    return this.httpClient.request<Address>('post', `${this.configuration.basePath}${localVarPath}`,
+    return this.httpClient.request<AddressDto>('post', `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
-        body: address,
+        body: addressDto,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
         headers: localVarHeaders,
@@ -411,17 +411,17 @@ export class AddressControllerService implements AddressControllerServiceInterfa
   public get(id: number, observe?: 'body', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<Address>;
+  }): Observable<AddressDto>;
 
   public get(id: number, observe?: 'response', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpResponse<Address>>;
+  }): Observable<HttpResponse<AddressDto>>;
 
   public get(id: number, observe?: 'events', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpEvent<Address>>;
+  }): Observable<HttpEvent<AddressDto>>;
 
   public get(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {
     httpHeaderAccept?: 'application/json',
@@ -478,7 +478,7 @@ export class AddressControllerService implements AddressControllerServiceInterfa
       dataType: "number",
       dataFormat: "int64"
     })}`;
-    return this.httpClient.request<Address>('get', `${this.configuration.basePath}${localVarPath}`,
+    return this.httpClient.request<AddressDto>('get', `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
         responseType: <any>responseType_,
@@ -499,17 +499,17 @@ export class AddressControllerService implements AddressControllerServiceInterfa
   public list(pageable: Pageable, filter?: string, observe?: 'body', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<PageAddress>;
+  }): Observable<PageAddressDto>;
 
   public list(pageable: Pageable, filter?: string, observe?: 'response', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpResponse<PageAddress>>;
+  }): Observable<HttpResponse<PageAddressDto>>;
 
   public list(pageable: Pageable, filter?: string, observe?: 'events', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpEvent<PageAddress>>;
+  }): Observable<HttpEvent<PageAddressDto>>;
 
   public list(pageable: Pageable, filter?: string, observe: any = 'body', reportProgress: boolean = false, options?: {
     httpHeaderAccept?: 'application/json',
@@ -568,10 +568,85 @@ export class AddressControllerService implements AddressControllerServiceInterfa
     }
 
     let localVarPath = `/api/address`;
-    return this.httpClient.request<PageAddress>('get', `${this.configuration.basePath}${localVarPath}`,
+    return this.httpClient.request<PageAddressDto>('get', `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
         params: localVarQueryParameters,
+        responseType: <any>responseType_,
+        withCredentials: this.configuration.withCredentials,
+        headers: localVarHeaders,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  /**
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public listAll(observe?: 'body', reportProgress?: boolean, options?: {
+    httpHeaderAccept?: 'application/json',
+    context?: HttpContext
+  }): Observable<Array<AddressDto>>;
+
+  public listAll(observe?: 'response', reportProgress?: boolean, options?: {
+    httpHeaderAccept?: 'application/json',
+    context?: HttpContext
+  }): Observable<HttpResponse<Array<AddressDto>>>;
+
+  public listAll(observe?: 'events', reportProgress?: boolean, options?: {
+    httpHeaderAccept?: 'application/json',
+    context?: HttpContext
+  }): Observable<HttpEvent<Array<AddressDto>>>;
+
+  public listAll(observe: any = 'body', reportProgress: boolean = false, options?: {
+    httpHeaderAccept?: 'application/json',
+    context?: HttpContext
+  }): Observable<any> {
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (bearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('bearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = [
+        'application/json'
+      ];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let localVarPath = `/api/address/all`;
+    return this.httpClient.request<Array<AddressDto>>('get', `${this.configuration.basePath}${localVarPath}`,
+      {
+        context: localVarHttpContext,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
         headers: localVarHeaders,
@@ -668,34 +743,34 @@ export class AddressControllerService implements AddressControllerServiceInterfa
 
   /**
    * @param id
-   * @param address
+   * @param addressDto
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public update(id: number, address: Address, observe?: 'body', reportProgress?: boolean, options?: {
+  public update(id: number, addressDto: AddressDto, observe?: 'body', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<Address>;
+  }): Observable<AddressDto>;
 
-  public update(id: number, address: Address, observe?: 'response', reportProgress?: boolean, options?: {
+  public update(id: number, addressDto: AddressDto, observe?: 'response', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpResponse<Address>>;
+  }): Observable<HttpResponse<AddressDto>>;
 
-  public update(id: number, address: Address, observe?: 'events', reportProgress?: boolean, options?: {
+  public update(id: number, addressDto: AddressDto, observe?: 'events', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpEvent<Address>>;
+  }): Observable<HttpEvent<AddressDto>>;
 
-  public update(id: number, address: Address, observe: any = 'body', reportProgress: boolean = false, options?: {
+  public update(id: number, addressDto: AddressDto, observe: any = 'body', reportProgress: boolean = false, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
   }): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error('Required parameter id was null or undefined when calling update.');
     }
-    if (address === null || address === undefined) {
-      throw new Error('Required parameter address was null or undefined when calling update.');
+    if (addressDto === null || addressDto === undefined) {
+      throw new Error('Required parameter addressDto was null or undefined when calling update.');
     }
 
     let localVarHeaders = this.defaultHeaders;
@@ -754,10 +829,10 @@ export class AddressControllerService implements AddressControllerServiceInterfa
       dataType: "number",
       dataFormat: "int64"
     })}`;
-    return this.httpClient.request<Address>('put', `${this.configuration.basePath}${localVarPath}`,
+    return this.httpClient.request<AddressDto>('put', `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
-        body: address,
+        body: addressDto,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
         headers: localVarHeaders,

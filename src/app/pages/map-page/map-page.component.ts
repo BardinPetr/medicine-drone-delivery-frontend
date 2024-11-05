@@ -59,7 +59,7 @@ export class MapPageComponent implements OnInit {
       .persons()
       // @ts-ignore
       .subscribe(data => {
-        this.updatePersons(data)
+        this.updatePersons(JSON.parse(data))
         setTimeout(() => this.fetchPersons(), 1000)
       })
   }
@@ -70,7 +70,7 @@ export class MapPageComponent implements OnInit {
       .products()
       // @ts-ignore
       .subscribe(data => {
-        this.updateProducts(data)
+        this.updateProducts(JSON.parse(data))
         setTimeout(() => this.fetchProducts(), 1000)
       })
   }
@@ -94,7 +94,6 @@ export class MapPageComponent implements OnInit {
       .ptsProducts
       .features
       .map(x => x.properties?.['owner']!))
-    console.log(owners)
     const palette = genPaletteFromValues(owners);
     this.paintProducts["circle-color"] = [
       'match',

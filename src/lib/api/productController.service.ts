@@ -27,11 +27,13 @@ import {Observable} from 'rxjs';
 // @ts-ignore
 import {AuditLogEntryProduct} from '../model/auditLogEntryProduct';
 // @ts-ignore
-import {PageProduct} from '../model/pageProduct';
+import {PageProductDto} from '../model/pageProductDto';
 // @ts-ignore
 import {Pageable} from '../model/pageable';
 // @ts-ignore
 import {Product} from '../model/product';
+// @ts-ignore
+import {ProductDto} from '../model/productDto';
 
 // @ts-ignore
 import {BASE_PATH, COLLECTION_FORMATS} from '../variables';
@@ -401,31 +403,31 @@ export class ProductControllerService implements ProductControllerServiceInterfa
   }
 
   /**
-   * @param product
+   * @param productDto
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public create(product: Product, observe?: 'body', reportProgress?: boolean, options?: {
+  public create(productDto: ProductDto, observe?: 'body', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<Product>;
+  }): Observable<ProductDto>;
 
-  public create(product: Product, observe?: 'response', reportProgress?: boolean, options?: {
+  public create(productDto: ProductDto, observe?: 'response', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpResponse<Product>>;
+  }): Observable<HttpResponse<ProductDto>>;
 
-  public create(product: Product, observe?: 'events', reportProgress?: boolean, options?: {
+  public create(productDto: ProductDto, observe?: 'events', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpEvent<Product>>;
+  }): Observable<HttpEvent<ProductDto>>;
 
-  public create(product: Product, observe: any = 'body', reportProgress: boolean = false, options?: {
+  public create(productDto: ProductDto, observe: any = 'body', reportProgress: boolean = false, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
   }): Observable<any> {
-    if (product === null || product === undefined) {
-      throw new Error('Required parameter product was null or undefined when calling create.');
+    if (productDto === null || productDto === undefined) {
+      throw new Error('Required parameter productDto was null or undefined when calling create.');
     }
 
     let localVarHeaders = this.defaultHeaders;
@@ -476,10 +478,10 @@ export class ProductControllerService implements ProductControllerServiceInterfa
     }
 
     let localVarPath = `/api/product`;
-    return this.httpClient.request<Product>('post', `${this.configuration.basePath}${localVarPath}`,
+    return this.httpClient.request<ProductDto>('post', `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
-        body: product,
+        body: productDto,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
         headers: localVarHeaders,
@@ -495,22 +497,22 @@ export class ProductControllerService implements ProductControllerServiceInterfa
    * @param reportProgress flag to report request and response progress.
    */
   public decreaseProductPricesBy(percent: number, observe?: 'body', reportProgress?: boolean, options?: {
-    httpHeaderAccept?: undefined,
+    httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<any>;
+  }): Observable<boolean>;
 
   public decreaseProductPricesBy(percent: number, observe?: 'response', reportProgress?: boolean, options?: {
-    httpHeaderAccept?: undefined,
+    httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpResponse<any>>;
+  }): Observable<HttpResponse<boolean>>;
 
   public decreaseProductPricesBy(percent: number, observe?: 'events', reportProgress?: boolean, options?: {
-    httpHeaderAccept?: undefined,
+    httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpEvent<any>>;
+  }): Observable<HttpEvent<boolean>>;
 
   public decreaseProductPricesBy(percent: number, observe: any = 'body', reportProgress: boolean = false, options?: {
-    httpHeaderAccept?: undefined,
+    httpHeaderAccept?: 'application/json',
     context?: HttpContext
   }): Observable<any> {
     if (percent === null || percent === undefined) {
@@ -535,7 +537,9 @@ export class ProductControllerService implements ProductControllerServiceInterfa
     let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
     if (localVarHttpHeaderAcceptSelected === undefined) {
       // to determine the Accept header
-      const httpHeaderAccepts: string[] = [];
+      const httpHeaderAccepts: string[] = [
+        'application/json'
+      ];
       localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
     }
     if (localVarHttpHeaderAcceptSelected !== undefined) {
@@ -560,7 +564,7 @@ export class ProductControllerService implements ProductControllerServiceInterfa
     }
 
     let localVarPath = `/api/product/reduce-price`;
-    return this.httpClient.request<any>('post', `${this.configuration.basePath}${localVarPath}`,
+    return this.httpClient.request<boolean>('post', `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
         params: localVarQueryParameters,
@@ -742,17 +746,17 @@ export class ProductControllerService implements ProductControllerServiceInterfa
   public get(id: number, observe?: 'body', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<Product>;
+  }): Observable<ProductDto>;
 
   public get(id: number, observe?: 'response', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpResponse<Product>>;
+  }): Observable<HttpResponse<ProductDto>>;
 
   public get(id: number, observe?: 'events', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpEvent<Product>>;
+  }): Observable<HttpEvent<ProductDto>>;
 
   public get(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {
     httpHeaderAccept?: 'application/json',
@@ -809,7 +813,7 @@ export class ProductControllerService implements ProductControllerServiceInterfa
       dataType: "number",
       dataFormat: "int64"
     })}`;
-    return this.httpClient.request<Product>('get', `${this.configuration.basePath}${localVarPath}`,
+    return this.httpClient.request<ProductDto>('get', `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
         responseType: <any>responseType_,
@@ -918,17 +922,17 @@ export class ProductControllerService implements ProductControllerServiceInterfa
   public list(pageable: Pageable, filter?: string, observe?: 'body', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<PageProduct>;
+  }): Observable<PageProductDto>;
 
   public list(pageable: Pageable, filter?: string, observe?: 'response', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpResponse<PageProduct>>;
+  }): Observable<HttpResponse<PageProductDto>>;
 
   public list(pageable: Pageable, filter?: string, observe?: 'events', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpEvent<PageProduct>>;
+  }): Observable<HttpEvent<PageProductDto>>;
 
   public list(pageable: Pageable, filter?: string, observe: any = 'body', reportProgress: boolean = false, options?: {
     httpHeaderAccept?: 'application/json',
@@ -987,10 +991,85 @@ export class ProductControllerService implements ProductControllerServiceInterfa
     }
 
     let localVarPath = `/api/product`;
-    return this.httpClient.request<PageProduct>('get', `${this.configuration.basePath}${localVarPath}`,
+    return this.httpClient.request<PageProductDto>('get', `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
         params: localVarQueryParameters,
+        responseType: <any>responseType_,
+        withCredentials: this.configuration.withCredentials,
+        headers: localVarHeaders,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  /**
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public listAll(observe?: 'body', reportProgress?: boolean, options?: {
+    httpHeaderAccept?: 'application/json',
+    context?: HttpContext
+  }): Observable<Array<ProductDto>>;
+
+  public listAll(observe?: 'response', reportProgress?: boolean, options?: {
+    httpHeaderAccept?: 'application/json',
+    context?: HttpContext
+  }): Observable<HttpResponse<Array<ProductDto>>>;
+
+  public listAll(observe?: 'events', reportProgress?: boolean, options?: {
+    httpHeaderAccept?: 'application/json',
+    context?: HttpContext
+  }): Observable<HttpEvent<Array<ProductDto>>>;
+
+  public listAll(observe: any = 'body', reportProgress: boolean = false, options?: {
+    httpHeaderAccept?: 'application/json',
+    context?: HttpContext
+  }): Observable<any> {
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (bearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('bearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = [
+        'application/json'
+      ];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let localVarPath = `/api/product/all`;
+    return this.httpClient.request<Array<ProductDto>>('get', `${this.configuration.basePath}${localVarPath}`,
+      {
+        context: localVarHttpContext,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
         headers: localVarHeaders,
@@ -1087,34 +1166,34 @@ export class ProductControllerService implements ProductControllerServiceInterfa
 
   /**
    * @param id
-   * @param product
+   * @param productDto
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public update(id: number, product: Product, observe?: 'body', reportProgress?: boolean, options?: {
+  public update(id: number, productDto: ProductDto, observe?: 'body', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<Product>;
+  }): Observable<ProductDto>;
 
-  public update(id: number, product: Product, observe?: 'response', reportProgress?: boolean, options?: {
+  public update(id: number, productDto: ProductDto, observe?: 'response', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpResponse<Product>>;
+  }): Observable<HttpResponse<ProductDto>>;
 
-  public update(id: number, product: Product, observe?: 'events', reportProgress?: boolean, options?: {
+  public update(id: number, productDto: ProductDto, observe?: 'events', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpEvent<Product>>;
+  }): Observable<HttpEvent<ProductDto>>;
 
-  public update(id: number, product: Product, observe: any = 'body', reportProgress: boolean = false, options?: {
+  public update(id: number, productDto: ProductDto, observe: any = 'body', reportProgress: boolean = false, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
   }): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error('Required parameter id was null or undefined when calling update.');
     }
-    if (product === null || product === undefined) {
-      throw new Error('Required parameter product was null or undefined when calling update.');
+    if (productDto === null || productDto === undefined) {
+      throw new Error('Required parameter productDto was null or undefined when calling update.');
     }
 
     let localVarHeaders = this.defaultHeaders;
@@ -1173,10 +1252,10 @@ export class ProductControllerService implements ProductControllerServiceInterfa
       dataType: "number",
       dataFormat: "int64"
     })}`;
-    return this.httpClient.request<Product>('put', `${this.configuration.basePath}${localVarPath}`,
+    return this.httpClient.request<ProductDto>('put', `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
-        body: product,
+        body: productDto,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
         headers: localVarHeaders,

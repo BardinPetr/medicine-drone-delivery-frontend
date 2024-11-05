@@ -13,7 +13,7 @@ import {HttpHeaders} from '@angular/common/http';
 
 import {Observable} from 'rxjs';
 
-import {AuditLogEntryProduct, Pageable, PageProduct, Product} from '../model/models';
+import {AuditLogEntryProduct, Pageable, PageProductDto, Product, ProductDto} from '../model/models';
 
 
 import {Configuration} from '../configuration';
@@ -53,16 +53,16 @@ export interface ProductControllerServiceInterface {
   /**
    *
    *
-   * @param product
+   * @param productDto
    */
-  create(product: Product, extraHttpRequestParams?: any): Observable<Product>;
+  create(productDto: ProductDto, extraHttpRequestParams?: any): Observable<ProductDto>;
 
   /**
    *
    *
    * @param percent
    */
-  decreaseProductPricesBy(percent: number, extraHttpRequestParams?: any): Observable<{}>;
+  decreaseProductPricesBy(percent: number, extraHttpRequestParams?: any): Observable<boolean>;
 
   /**
    *
@@ -82,7 +82,7 @@ export interface ProductControllerServiceInterface {
    *
    * @param id
    */
-  get(id: number, extraHttpRequestParams?: any): Observable<Product>;
+  get(id: number, extraHttpRequestParams?: any): Observable<ProductDto>;
 
   /**
    *
@@ -97,7 +97,13 @@ export interface ProductControllerServiceInterface {
    * @param pageable
    * @param filter
    */
-  list(pageable: Pageable, filter?: string, extraHttpRequestParams?: any): Observable<PageProduct>;
+  list(pageable: Pageable, filter?: string, extraHttpRequestParams?: any): Observable<PageProductDto>;
+
+  /**
+   *
+   *
+   */
+  listAll(extraHttpRequestParams?: any): Observable<Array<ProductDto>>;
 
   /**
    *
@@ -110,8 +116,8 @@ export interface ProductControllerServiceInterface {
    *
    *
    * @param id
-   * @param product
+   * @param productDto
    */
-  update(id: number, product: Product, extraHttpRequestParams?: any): Observable<Product>;
+  update(id: number, productDto: ProductDto, extraHttpRequestParams?: any): Observable<ProductDto>;
 
 }

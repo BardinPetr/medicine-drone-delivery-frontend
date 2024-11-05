@@ -36,8 +36,8 @@ export class ProductPageComponent {
     this.columnDefs = meta.getTableColumns('Product')
     this.unitOfMeasures = meta.getEnumValues('UnitOfMeasure')
     personApi
-      .list({})
-      .subscribe(data => this.persons = data.content!)
+      .listAll()
+      .subscribe(data => this.persons = data)
   }
 
   fetchWrapper = (page: any, filter: any) => {
@@ -87,6 +87,7 @@ export class ProductPageComponent {
     this.api
       .decreaseProductPricesBy(this.percentage)
       .subscribe(data => {
+        console.log(data)
         this.message.add({
           severity: 'success',
           summary: 'Succeeded'

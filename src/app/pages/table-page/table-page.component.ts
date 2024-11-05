@@ -9,6 +9,8 @@ import {MessageService} from "primeng/api";
 import {AuthService} from "../../services/auth/auth.service";
 import {CUDialogService} from "../../services/cudialog.service";
 import {map} from "rxjs";
+import {RegisterDto} from "../../../lib";
+import RoleEnum = RegisterDto.RoleEnum;
 
 @Component({
   selector: 'app-table-page',
@@ -83,12 +85,11 @@ export class TablePageComponent {
     this.entityMeta = meta.getEntity(viewId)
     this.columnDefs = meta.getTableColumns(viewId)
     this.auditColumnDefs = meta.getTableColumns('Audit')
-    console.log(this.columnDefs)
-    console.log(this.auditColumnDefs)
   }
 
   allowActivateOwned(x: any): boolean {
-    return this.authService.state?.username == x?.owner?.username
+    return this.authService.state?.username == x?.owner?.username ||
+      this.authService.state?.role == RoleEnum.Admin
   }
 
   successMessage() {

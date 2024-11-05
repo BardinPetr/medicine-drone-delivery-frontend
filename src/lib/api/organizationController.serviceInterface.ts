@@ -13,7 +13,7 @@ import {HttpHeaders} from '@angular/common/http';
 
 import {Observable} from 'rxjs';
 
-import {AuditLogEntryOrganization, Organization, Pageable, PageOrganization} from '../model/models';
+import {AuditLogEntryOrganization, OrganizationDto, Pageable, PageOrganizationDto} from '../model/models';
 
 
 import {Configuration} from '../configuration';
@@ -46,16 +46,16 @@ export interface OrganizationControllerServiceInterface {
   /**
    *
    *
-   * @param organization
+   * @param organizationDto
    */
-  create(organization: Organization, extraHttpRequestParams?: any): Observable<Organization>;
+  create(organizationDto: OrganizationDto, extraHttpRequestParams?: any): Observable<OrganizationDto>;
 
   /**
    *
    *
    * @param id
    */
-  get(id: number, extraHttpRequestParams?: any): Observable<Organization>;
+  get(id: number, extraHttpRequestParams?: any): Observable<OrganizationDto>;
 
   /**
    *
@@ -63,7 +63,13 @@ export interface OrganizationControllerServiceInterface {
    * @param pageable
    * @param filter
    */
-  list(pageable: Pageable, filter?: string, extraHttpRequestParams?: any): Observable<PageOrganization>;
+  list(pageable: Pageable, filter?: string, extraHttpRequestParams?: any): Observable<PageOrganizationDto>;
+
+  /**
+   *
+   *
+   */
+  listAll(extraHttpRequestParams?: any): Observable<Array<OrganizationDto>>;
 
   /**
    *
@@ -76,8 +82,8 @@ export interface OrganizationControllerServiceInterface {
    *
    *
    * @param id
-   * @param organization
+   * @param organizationDto
    */
-  update(id: number, organization: Organization, extraHttpRequestParams?: any): Observable<Organization>;
+  update(id: number, organizationDto: OrganizationDto, extraHttpRequestParams?: any): Observable<OrganizationDto>;
 
 }

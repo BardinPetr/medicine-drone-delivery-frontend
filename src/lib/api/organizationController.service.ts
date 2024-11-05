@@ -27,9 +27,9 @@ import {Observable} from 'rxjs';
 // @ts-ignore
 import {AuditLogEntryOrganization} from '../model/auditLogEntryOrganization';
 // @ts-ignore
-import {Organization} from '../model/organization';
+import {OrganizationDto} from '../model/organizationDto';
 // @ts-ignore
-import {PageOrganization} from '../model/pageOrganization';
+import {PageOrganizationDto} from '../model/pageOrganizationDto';
 // @ts-ignore
 import {Pageable} from '../model/pageable';
 
@@ -315,31 +315,31 @@ export class OrganizationControllerService implements OrganizationControllerServ
   }
 
   /**
-   * @param organization
+   * @param organizationDto
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public create(organization: Organization, observe?: 'body', reportProgress?: boolean, options?: {
+  public create(organizationDto: OrganizationDto, observe?: 'body', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<Organization>;
+  }): Observable<OrganizationDto>;
 
-  public create(organization: Organization, observe?: 'response', reportProgress?: boolean, options?: {
+  public create(organizationDto: OrganizationDto, observe?: 'response', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpResponse<Organization>>;
+  }): Observable<HttpResponse<OrganizationDto>>;
 
-  public create(organization: Organization, observe?: 'events', reportProgress?: boolean, options?: {
+  public create(organizationDto: OrganizationDto, observe?: 'events', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpEvent<Organization>>;
+  }): Observable<HttpEvent<OrganizationDto>>;
 
-  public create(organization: Organization, observe: any = 'body', reportProgress: boolean = false, options?: {
+  public create(organizationDto: OrganizationDto, observe: any = 'body', reportProgress: boolean = false, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
   }): Observable<any> {
-    if (organization === null || organization === undefined) {
-      throw new Error('Required parameter organization was null or undefined when calling create.');
+    if (organizationDto === null || organizationDto === undefined) {
+      throw new Error('Required parameter organizationDto was null or undefined when calling create.');
     }
 
     let localVarHeaders = this.defaultHeaders;
@@ -390,10 +390,10 @@ export class OrganizationControllerService implements OrganizationControllerServ
     }
 
     let localVarPath = `/api/organization`;
-    return this.httpClient.request<Organization>('post', `${this.configuration.basePath}${localVarPath}`,
+    return this.httpClient.request<OrganizationDto>('post', `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
-        body: organization,
+        body: organizationDto,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
         headers: localVarHeaders,
@@ -411,17 +411,17 @@ export class OrganizationControllerService implements OrganizationControllerServ
   public get(id: number, observe?: 'body', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<Organization>;
+  }): Observable<OrganizationDto>;
 
   public get(id: number, observe?: 'response', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpResponse<Organization>>;
+  }): Observable<HttpResponse<OrganizationDto>>;
 
   public get(id: number, observe?: 'events', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpEvent<Organization>>;
+  }): Observable<HttpEvent<OrganizationDto>>;
 
   public get(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {
     httpHeaderAccept?: 'application/json',
@@ -478,7 +478,7 @@ export class OrganizationControllerService implements OrganizationControllerServ
       dataType: "number",
       dataFormat: "int64"
     })}`;
-    return this.httpClient.request<Organization>('get', `${this.configuration.basePath}${localVarPath}`,
+    return this.httpClient.request<OrganizationDto>('get', `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
         responseType: <any>responseType_,
@@ -499,17 +499,17 @@ export class OrganizationControllerService implements OrganizationControllerServ
   public list(pageable: Pageable, filter?: string, observe?: 'body', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<PageOrganization>;
+  }): Observable<PageOrganizationDto>;
 
   public list(pageable: Pageable, filter?: string, observe?: 'response', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpResponse<PageOrganization>>;
+  }): Observable<HttpResponse<PageOrganizationDto>>;
 
   public list(pageable: Pageable, filter?: string, observe?: 'events', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpEvent<PageOrganization>>;
+  }): Observable<HttpEvent<PageOrganizationDto>>;
 
   public list(pageable: Pageable, filter?: string, observe: any = 'body', reportProgress: boolean = false, options?: {
     httpHeaderAccept?: 'application/json',
@@ -568,10 +568,85 @@ export class OrganizationControllerService implements OrganizationControllerServ
     }
 
     let localVarPath = `/api/organization`;
-    return this.httpClient.request<PageOrganization>('get', `${this.configuration.basePath}${localVarPath}`,
+    return this.httpClient.request<PageOrganizationDto>('get', `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
         params: localVarQueryParameters,
+        responseType: <any>responseType_,
+        withCredentials: this.configuration.withCredentials,
+        headers: localVarHeaders,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  /**
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public listAll(observe?: 'body', reportProgress?: boolean, options?: {
+    httpHeaderAccept?: 'application/json',
+    context?: HttpContext
+  }): Observable<Array<OrganizationDto>>;
+
+  public listAll(observe?: 'response', reportProgress?: boolean, options?: {
+    httpHeaderAccept?: 'application/json',
+    context?: HttpContext
+  }): Observable<HttpResponse<Array<OrganizationDto>>>;
+
+  public listAll(observe?: 'events', reportProgress?: boolean, options?: {
+    httpHeaderAccept?: 'application/json',
+    context?: HttpContext
+  }): Observable<HttpEvent<Array<OrganizationDto>>>;
+
+  public listAll(observe: any = 'body', reportProgress: boolean = false, options?: {
+    httpHeaderAccept?: 'application/json',
+    context?: HttpContext
+  }): Observable<any> {
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (bearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('bearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = [
+        'application/json'
+      ];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let localVarPath = `/api/organization/all`;
+    return this.httpClient.request<Array<OrganizationDto>>('get', `${this.configuration.basePath}${localVarPath}`,
+      {
+        context: localVarHttpContext,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
         headers: localVarHeaders,
@@ -668,34 +743,34 @@ export class OrganizationControllerService implements OrganizationControllerServ
 
   /**
    * @param id
-   * @param organization
+   * @param organizationDto
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public update(id: number, organization: Organization, observe?: 'body', reportProgress?: boolean, options?: {
+  public update(id: number, organizationDto: OrganizationDto, observe?: 'body', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<Organization>;
+  }): Observable<OrganizationDto>;
 
-  public update(id: number, organization: Organization, observe?: 'response', reportProgress?: boolean, options?: {
+  public update(id: number, organizationDto: OrganizationDto, observe?: 'response', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpResponse<Organization>>;
+  }): Observable<HttpResponse<OrganizationDto>>;
 
-  public update(id: number, organization: Organization, observe?: 'events', reportProgress?: boolean, options?: {
+  public update(id: number, organizationDto: OrganizationDto, observe?: 'events', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpEvent<Organization>>;
+  }): Observable<HttpEvent<OrganizationDto>>;
 
-  public update(id: number, organization: Organization, observe: any = 'body', reportProgress: boolean = false, options?: {
+  public update(id: number, organizationDto: OrganizationDto, observe: any = 'body', reportProgress: boolean = false, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
   }): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error('Required parameter id was null or undefined when calling update.');
     }
-    if (organization === null || organization === undefined) {
-      throw new Error('Required parameter organization was null or undefined when calling update.');
+    if (organizationDto === null || organizationDto === undefined) {
+      throw new Error('Required parameter organizationDto was null or undefined when calling update.');
     }
 
     let localVarHeaders = this.defaultHeaders;
@@ -754,10 +829,10 @@ export class OrganizationControllerService implements OrganizationControllerServ
       dataType: "number",
       dataFormat: "int64"
     })}`;
-    return this.httpClient.request<Organization>('put', `${this.configuration.basePath}${localVarPath}`,
+    return this.httpClient.request<OrganizationDto>('put', `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
-        body: organization,
+        body: organizationDto,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
         headers: localVarHeaders,

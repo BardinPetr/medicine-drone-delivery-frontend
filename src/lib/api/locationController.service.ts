@@ -27,9 +27,9 @@ import {Observable} from 'rxjs';
 // @ts-ignore
 import {AuditLogEntryLocation} from '../model/auditLogEntryLocation';
 // @ts-ignore
-import {Location} from '../model/location';
+import {LocationDto} from '../model/locationDto';
 // @ts-ignore
-import {PageLocation} from '../model/pageLocation';
+import {PageLocationDto} from '../model/pageLocationDto';
 // @ts-ignore
 import {Pageable} from '../model/pageable';
 
@@ -315,31 +315,31 @@ export class LocationControllerService implements LocationControllerServiceInter
   }
 
   /**
-   * @param location
+   * @param locationDto
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public create(location: Location, observe?: 'body', reportProgress?: boolean, options?: {
+  public create(locationDto: LocationDto, observe?: 'body', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<Location>;
+  }): Observable<LocationDto>;
 
-  public create(location: Location, observe?: 'response', reportProgress?: boolean, options?: {
+  public create(locationDto: LocationDto, observe?: 'response', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpResponse<Location>>;
+  }): Observable<HttpResponse<LocationDto>>;
 
-  public create(location: Location, observe?: 'events', reportProgress?: boolean, options?: {
+  public create(locationDto: LocationDto, observe?: 'events', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpEvent<Location>>;
+  }): Observable<HttpEvent<LocationDto>>;
 
-  public create(location: Location, observe: any = 'body', reportProgress: boolean = false, options?: {
+  public create(locationDto: LocationDto, observe: any = 'body', reportProgress: boolean = false, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
   }): Observable<any> {
-    if (location === null || location === undefined) {
-      throw new Error('Required parameter location was null or undefined when calling create.');
+    if (locationDto === null || locationDto === undefined) {
+      throw new Error('Required parameter locationDto was null or undefined when calling create.');
     }
 
     let localVarHeaders = this.defaultHeaders;
@@ -390,10 +390,10 @@ export class LocationControllerService implements LocationControllerServiceInter
     }
 
     let localVarPath = `/api/location`;
-    return this.httpClient.request<Location>('post', `${this.configuration.basePath}${localVarPath}`,
+    return this.httpClient.request<LocationDto>('post', `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
-        body: location,
+        body: locationDto,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
         headers: localVarHeaders,
@@ -411,17 +411,17 @@ export class LocationControllerService implements LocationControllerServiceInter
   public get(id: number, observe?: 'body', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<Location>;
+  }): Observable<LocationDto>;
 
   public get(id: number, observe?: 'response', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpResponse<Location>>;
+  }): Observable<HttpResponse<LocationDto>>;
 
   public get(id: number, observe?: 'events', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpEvent<Location>>;
+  }): Observable<HttpEvent<LocationDto>>;
 
   public get(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {
     httpHeaderAccept?: 'application/json',
@@ -478,7 +478,7 @@ export class LocationControllerService implements LocationControllerServiceInter
       dataType: "number",
       dataFormat: "int64"
     })}`;
-    return this.httpClient.request<Location>('get', `${this.configuration.basePath}${localVarPath}`,
+    return this.httpClient.request<LocationDto>('get', `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
         responseType: <any>responseType_,
@@ -499,17 +499,17 @@ export class LocationControllerService implements LocationControllerServiceInter
   public list(pageable: Pageable, filter?: string, observe?: 'body', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<PageLocation>;
+  }): Observable<PageLocationDto>;
 
   public list(pageable: Pageable, filter?: string, observe?: 'response', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpResponse<PageLocation>>;
+  }): Observable<HttpResponse<PageLocationDto>>;
 
   public list(pageable: Pageable, filter?: string, observe?: 'events', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpEvent<PageLocation>>;
+  }): Observable<HttpEvent<PageLocationDto>>;
 
   public list(pageable: Pageable, filter?: string, observe: any = 'body', reportProgress: boolean = false, options?: {
     httpHeaderAccept?: 'application/json',
@@ -568,10 +568,85 @@ export class LocationControllerService implements LocationControllerServiceInter
     }
 
     let localVarPath = `/api/location`;
-    return this.httpClient.request<PageLocation>('get', `${this.configuration.basePath}${localVarPath}`,
+    return this.httpClient.request<PageLocationDto>('get', `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
         params: localVarQueryParameters,
+        responseType: <any>responseType_,
+        withCredentials: this.configuration.withCredentials,
+        headers: localVarHeaders,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  /**
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public listAll(observe?: 'body', reportProgress?: boolean, options?: {
+    httpHeaderAccept?: 'application/json',
+    context?: HttpContext
+  }): Observable<Array<LocationDto>>;
+
+  public listAll(observe?: 'response', reportProgress?: boolean, options?: {
+    httpHeaderAccept?: 'application/json',
+    context?: HttpContext
+  }): Observable<HttpResponse<Array<LocationDto>>>;
+
+  public listAll(observe?: 'events', reportProgress?: boolean, options?: {
+    httpHeaderAccept?: 'application/json',
+    context?: HttpContext
+  }): Observable<HttpEvent<Array<LocationDto>>>;
+
+  public listAll(observe: any = 'body', reportProgress: boolean = false, options?: {
+    httpHeaderAccept?: 'application/json',
+    context?: HttpContext
+  }): Observable<any> {
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (bearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('bearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = [
+        'application/json'
+      ];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let localVarPath = `/api/location/all`;
+    return this.httpClient.request<Array<LocationDto>>('get', `${this.configuration.basePath}${localVarPath}`,
+      {
+        context: localVarHttpContext,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
         headers: localVarHeaders,
@@ -668,34 +743,34 @@ export class LocationControllerService implements LocationControllerServiceInter
 
   /**
    * @param id
-   * @param location
+   * @param locationDto
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public update(id: number, location: Location, observe?: 'body', reportProgress?: boolean, options?: {
+  public update(id: number, locationDto: LocationDto, observe?: 'body', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<Location>;
+  }): Observable<LocationDto>;
 
-  public update(id: number, location: Location, observe?: 'response', reportProgress?: boolean, options?: {
+  public update(id: number, locationDto: LocationDto, observe?: 'response', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpResponse<Location>>;
+  }): Observable<HttpResponse<LocationDto>>;
 
-  public update(id: number, location: Location, observe?: 'events', reportProgress?: boolean, options?: {
+  public update(id: number, locationDto: LocationDto, observe?: 'events', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpEvent<Location>>;
+  }): Observable<HttpEvent<LocationDto>>;
 
-  public update(id: number, location: Location, observe: any = 'body', reportProgress: boolean = false, options?: {
+  public update(id: number, locationDto: LocationDto, observe: any = 'body', reportProgress: boolean = false, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
   }): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error('Required parameter id was null or undefined when calling update.');
     }
-    if (location === null || location === undefined) {
-      throw new Error('Required parameter location was null or undefined when calling update.');
+    if (locationDto === null || locationDto === undefined) {
+      throw new Error('Required parameter locationDto was null or undefined when calling update.');
     }
 
     let localVarHeaders = this.defaultHeaders;
@@ -754,10 +829,10 @@ export class LocationControllerService implements LocationControllerServiceInter
       dataType: "number",
       dataFormat: "int64"
     })}`;
-    return this.httpClient.request<Location>('put', `${this.configuration.basePath}${localVarPath}`,
+    return this.httpClient.request<LocationDto>('put', `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
-        body: location,
+        body: locationDto,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
         headers: localVarHeaders,

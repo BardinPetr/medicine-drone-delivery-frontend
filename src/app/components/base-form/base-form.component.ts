@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {EntityFieldMeta, EntityFieldMetaType, EntityMeta} from "../../services/meta/model";
 import {FormControl, UntypedFormGroup, Validators} from "@angular/forms";
 import {MetamodelService} from "../../services/meta/metamodel.service";
-import {map, Observable} from "rxjs";
+import {Observable} from "rxjs";
 import {ApiProviderService} from "../../api/api-provider.service";
 import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
 import {MessageService} from "primeng/api";
@@ -120,11 +120,7 @@ export class BaseFormComponent {
     return this
       .apiProvider
       .getAPI(entityName)
-      .list({})
-      .pipe(map(res => {
-        // @ts-ignore
-        return res['content']
-      }))
+      .listAll()
   }
 
   private submit(data: any) {

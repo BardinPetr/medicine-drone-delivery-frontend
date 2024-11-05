@@ -27,11 +27,11 @@ import {Observable} from 'rxjs';
 // @ts-ignore
 import {AuditLogEntryPerson} from '../model/auditLogEntryPerson';
 // @ts-ignore
-import {PagePerson} from '../model/pagePerson';
+import {PagePersonDto} from '../model/pagePersonDto';
 // @ts-ignore
 import {Pageable} from '../model/pageable';
 // @ts-ignore
-import {Person} from '../model/person';
+import {PersonDto} from '../model/personDto';
 
 // @ts-ignore
 import {BASE_PATH, COLLECTION_FORMATS} from '../variables';
@@ -315,31 +315,31 @@ export class PersonControllerService implements PersonControllerServiceInterface
   }
 
   /**
-   * @param person
+   * @param personDto
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public create(person: Person, observe?: 'body', reportProgress?: boolean, options?: {
+  public create(personDto: PersonDto, observe?: 'body', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<Person>;
+  }): Observable<PersonDto>;
 
-  public create(person: Person, observe?: 'response', reportProgress?: boolean, options?: {
+  public create(personDto: PersonDto, observe?: 'response', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpResponse<Person>>;
+  }): Observable<HttpResponse<PersonDto>>;
 
-  public create(person: Person, observe?: 'events', reportProgress?: boolean, options?: {
+  public create(personDto: PersonDto, observe?: 'events', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpEvent<Person>>;
+  }): Observable<HttpEvent<PersonDto>>;
 
-  public create(person: Person, observe: any = 'body', reportProgress: boolean = false, options?: {
+  public create(personDto: PersonDto, observe: any = 'body', reportProgress: boolean = false, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
   }): Observable<any> {
-    if (person === null || person === undefined) {
-      throw new Error('Required parameter person was null or undefined when calling create.');
+    if (personDto === null || personDto === undefined) {
+      throw new Error('Required parameter personDto was null or undefined when calling create.');
     }
 
     let localVarHeaders = this.defaultHeaders;
@@ -390,10 +390,10 @@ export class PersonControllerService implements PersonControllerServiceInterface
     }
 
     let localVarPath = `/api/person`;
-    return this.httpClient.request<Person>('post', `${this.configuration.basePath}${localVarPath}`,
+    return this.httpClient.request<PersonDto>('post', `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
-        body: person,
+        body: personDto,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
         headers: localVarHeaders,
@@ -411,17 +411,17 @@ export class PersonControllerService implements PersonControllerServiceInterface
   public get(id: number, observe?: 'body', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<Person>;
+  }): Observable<PersonDto>;
 
   public get(id: number, observe?: 'response', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpResponse<Person>>;
+  }): Observable<HttpResponse<PersonDto>>;
 
   public get(id: number, observe?: 'events', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpEvent<Person>>;
+  }): Observable<HttpEvent<PersonDto>>;
 
   public get(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {
     httpHeaderAccept?: 'application/json',
@@ -478,7 +478,7 @@ export class PersonControllerService implements PersonControllerServiceInterface
       dataType: "number",
       dataFormat: "int64"
     })}`;
-    return this.httpClient.request<Person>('get', `${this.configuration.basePath}${localVarPath}`,
+    return this.httpClient.request<PersonDto>('get', `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
         responseType: <any>responseType_,
@@ -499,17 +499,17 @@ export class PersonControllerService implements PersonControllerServiceInterface
   public list(pageable: Pageable, filter?: string, observe?: 'body', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<PagePerson>;
+  }): Observable<PagePersonDto>;
 
   public list(pageable: Pageable, filter?: string, observe?: 'response', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpResponse<PagePerson>>;
+  }): Observable<HttpResponse<PagePersonDto>>;
 
   public list(pageable: Pageable, filter?: string, observe?: 'events', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpEvent<PagePerson>>;
+  }): Observable<HttpEvent<PagePersonDto>>;
 
   public list(pageable: Pageable, filter?: string, observe: any = 'body', reportProgress: boolean = false, options?: {
     httpHeaderAccept?: 'application/json',
@@ -568,10 +568,85 @@ export class PersonControllerService implements PersonControllerServiceInterface
     }
 
     let localVarPath = `/api/person`;
-    return this.httpClient.request<PagePerson>('get', `${this.configuration.basePath}${localVarPath}`,
+    return this.httpClient.request<PagePersonDto>('get', `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
         params: localVarQueryParameters,
+        responseType: <any>responseType_,
+        withCredentials: this.configuration.withCredentials,
+        headers: localVarHeaders,
+        observe: observe,
+        reportProgress: reportProgress
+      }
+    );
+  }
+
+  /**
+   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+   * @param reportProgress flag to report request and response progress.
+   */
+  public listAll(observe?: 'body', reportProgress?: boolean, options?: {
+    httpHeaderAccept?: 'application/json',
+    context?: HttpContext
+  }): Observable<Array<PersonDto>>;
+
+  public listAll(observe?: 'response', reportProgress?: boolean, options?: {
+    httpHeaderAccept?: 'application/json',
+    context?: HttpContext
+  }): Observable<HttpResponse<Array<PersonDto>>>;
+
+  public listAll(observe?: 'events', reportProgress?: boolean, options?: {
+    httpHeaderAccept?: 'application/json',
+    context?: HttpContext
+  }): Observable<HttpEvent<Array<PersonDto>>>;
+
+  public listAll(observe: any = 'body', reportProgress: boolean = false, options?: {
+    httpHeaderAccept?: 'application/json',
+    context?: HttpContext
+  }): Observable<any> {
+
+    let localVarHeaders = this.defaultHeaders;
+
+    let localVarCredential: string | undefined;
+    // authentication (bearerAuth) required
+    localVarCredential = this.configuration.lookupCredential('bearerAuth');
+    if (localVarCredential) {
+      localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
+    }
+
+    let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
+    if (localVarHttpHeaderAcceptSelected === undefined) {
+      // to determine the Accept header
+      const httpHeaderAccepts: string[] = [
+        'application/json'
+      ];
+      localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+    }
+    if (localVarHttpHeaderAcceptSelected !== undefined) {
+      localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
+    }
+
+    let localVarHttpContext: HttpContext | undefined = options && options.context;
+    if (localVarHttpContext === undefined) {
+      localVarHttpContext = new HttpContext();
+    }
+
+
+    let responseType_: 'text' | 'json' | 'blob' = 'json';
+    if (localVarHttpHeaderAcceptSelected) {
+      if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
+        responseType_ = 'text';
+      } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
+        responseType_ = 'json';
+      } else {
+        responseType_ = 'blob';
+      }
+    }
+
+    let localVarPath = `/api/person/all`;
+    return this.httpClient.request<Array<PersonDto>>('get', `${this.configuration.basePath}${localVarPath}`,
+      {
+        context: localVarHttpContext,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
         headers: localVarHeaders,
@@ -668,34 +743,34 @@ export class PersonControllerService implements PersonControllerServiceInterface
 
   /**
    * @param id
-   * @param person
+   * @param personDto
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    */
-  public update(id: number, person: Person, observe?: 'body', reportProgress?: boolean, options?: {
+  public update(id: number, personDto: PersonDto, observe?: 'body', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<Person>;
+  }): Observable<PersonDto>;
 
-  public update(id: number, person: Person, observe?: 'response', reportProgress?: boolean, options?: {
+  public update(id: number, personDto: PersonDto, observe?: 'response', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpResponse<Person>>;
+  }): Observable<HttpResponse<PersonDto>>;
 
-  public update(id: number, person: Person, observe?: 'events', reportProgress?: boolean, options?: {
+  public update(id: number, personDto: PersonDto, observe?: 'events', reportProgress?: boolean, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
-  }): Observable<HttpEvent<Person>>;
+  }): Observable<HttpEvent<PersonDto>>;
 
-  public update(id: number, person: Person, observe: any = 'body', reportProgress: boolean = false, options?: {
+  public update(id: number, personDto: PersonDto, observe: any = 'body', reportProgress: boolean = false, options?: {
     httpHeaderAccept?: 'application/json',
     context?: HttpContext
   }): Observable<any> {
     if (id === null || id === undefined) {
       throw new Error('Required parameter id was null or undefined when calling update.');
     }
-    if (person === null || person === undefined) {
-      throw new Error('Required parameter person was null or undefined when calling update.');
+    if (personDto === null || personDto === undefined) {
+      throw new Error('Required parameter personDto was null or undefined when calling update.');
     }
 
     let localVarHeaders = this.defaultHeaders;
@@ -754,10 +829,10 @@ export class PersonControllerService implements PersonControllerServiceInterface
       dataType: "number",
       dataFormat: "int64"
     })}`;
-    return this.httpClient.request<Person>('put', `${this.configuration.basePath}${localVarPath}`,
+    return this.httpClient.request<PersonDto>('put', `${this.configuration.basePath}${localVarPath}`,
       {
         context: localVarHttpContext,
-        body: person,
+        body: personDto,
         responseType: <any>responseType_,
         withCredentials: this.configuration.withCredentials,
         headers: localVarHeaders,

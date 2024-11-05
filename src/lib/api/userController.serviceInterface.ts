@@ -13,7 +13,7 @@ import {HttpHeaders} from '@angular/common/http';
 
 import {Observable} from 'rxjs';
 
-import {Pageable, PageUser, User} from '../model/models';
+import {Pageable, PageUserDto, User, UserDto} from '../model/models';
 
 
 import {Configuration} from '../configuration';
@@ -35,13 +35,13 @@ export interface UserControllerServiceInterface {
    * @param pageable
    * @param filter
    */
-  list(pageable: Pageable, filter?: string, extraHttpRequestParams?: any): Observable<PageUser>;
+  list(pageable: Pageable, filter?: string, extraHttpRequestParams?: any): Observable<PageUserDto>;
 
   /**
    *
    *
    * @param id
    */
-  verifyAdmin(id: number, extraHttpRequestParams?: any): Observable<User>;
+  verifyAdmin(id: number, extraHttpRequestParams?: any): Observable<UserDto>;
 
 }

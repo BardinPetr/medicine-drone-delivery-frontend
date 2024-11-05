@@ -13,7 +13,7 @@ import {HttpHeaders} from '@angular/common/http';
 
 import {Observable} from 'rxjs';
 
-import {Address, AuditLogEntryAddress, Pageable, PageAddress} from '../model/models';
+import {AddressDto, AuditLogEntryAddress, Pageable, PageAddressDto} from '../model/models';
 
 
 import {Configuration} from '../configuration';
@@ -46,16 +46,16 @@ export interface AddressControllerServiceInterface {
   /**
    *
    *
-   * @param address
+   * @param addressDto
    */
-  create(address: Address, extraHttpRequestParams?: any): Observable<Address>;
+  create(addressDto: AddressDto, extraHttpRequestParams?: any): Observable<AddressDto>;
 
   /**
    *
    *
    * @param id
    */
-  get(id: number, extraHttpRequestParams?: any): Observable<Address>;
+  get(id: number, extraHttpRequestParams?: any): Observable<AddressDto>;
 
   /**
    *
@@ -63,7 +63,13 @@ export interface AddressControllerServiceInterface {
    * @param pageable
    * @param filter
    */
-  list(pageable: Pageable, filter?: string, extraHttpRequestParams?: any): Observable<PageAddress>;
+  list(pageable: Pageable, filter?: string, extraHttpRequestParams?: any): Observable<PageAddressDto>;
+
+  /**
+   *
+   *
+   */
+  listAll(extraHttpRequestParams?: any): Observable<Array<AddressDto>>;
 
   /**
    *
@@ -76,8 +82,8 @@ export interface AddressControllerServiceInterface {
    *
    *
    * @param id
-   * @param address
+   * @param addressDto
    */
-  update(id: number, address: Address, extraHttpRequestParams?: any): Observable<Address>;
+  update(id: number, addressDto: AddressDto, extraHttpRequestParams?: any): Observable<AddressDto>;
 
 }

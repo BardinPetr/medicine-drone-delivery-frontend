@@ -13,7 +13,7 @@ import {HttpHeaders} from '@angular/common/http';
 
 import {Observable} from 'rxjs';
 
-import {AuditLogEntryLocation, Location, Pageable, PageLocation} from '../model/models';
+import {AuditLogEntryLocation, LocationDto, Pageable, PageLocationDto} from '../model/models';
 
 
 import {Configuration} from '../configuration';
@@ -46,16 +46,16 @@ export interface LocationControllerServiceInterface {
   /**
    *
    *
-   * @param location
+   * @param locationDto
    */
-  create(location: Location, extraHttpRequestParams?: any): Observable<Location>;
+  create(locationDto: LocationDto, extraHttpRequestParams?: any): Observable<LocationDto>;
 
   /**
    *
    *
    * @param id
    */
-  get(id: number, extraHttpRequestParams?: any): Observable<Location>;
+  get(id: number, extraHttpRequestParams?: any): Observable<LocationDto>;
 
   /**
    *
@@ -63,7 +63,13 @@ export interface LocationControllerServiceInterface {
    * @param pageable
    * @param filter
    */
-  list(pageable: Pageable, filter?: string, extraHttpRequestParams?: any): Observable<PageLocation>;
+  list(pageable: Pageable, filter?: string, extraHttpRequestParams?: any): Observable<PageLocationDto>;
+
+  /**
+   *
+   *
+   */
+  listAll(extraHttpRequestParams?: any): Observable<Array<LocationDto>>;
 
   /**
    *
@@ -76,8 +82,8 @@ export interface LocationControllerServiceInterface {
    *
    *
    * @param id
-   * @param location
+   * @param locationDto
    */
-  update(id: number, location: Location, extraHttpRequestParams?: any): Observable<Location>;
+  update(id: number, locationDto: LocationDto, extraHttpRequestParams?: any): Observable<LocationDto>;
 
 }

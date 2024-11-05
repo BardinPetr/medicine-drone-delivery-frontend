@@ -17,6 +17,12 @@ export class ApiAuthService implements HttpInterceptor {
           Authorization: `Bearer ${token}`
         }
       });
+    } else {
+      if (request.url.endsWith('/auth/login') || request.url.endsWith('/auth/register'))
+        return next.handle(request);
+      // not allowed without token
+      this.authService.logout()
+      return null
     }
     return next.handle(request);
   }
