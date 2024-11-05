@@ -15,8 +15,8 @@ import {UserDto} from './userDto';
 
 
 export interface PageUserDto {
-  totalElements?: number;
   totalPages?: number;
+  totalElements?: number;
   pageable?: PageableObject;
   first?: boolean;
   last?: boolean;

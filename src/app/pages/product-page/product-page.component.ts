@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {ColDef} from "@ag-grid-community/core";
 import {MetamodelService} from "../../services/meta/metamodel.service";
 import {Person, PersonControllerService, Product, ProductControllerService} from "../../../lib";
@@ -87,7 +87,6 @@ export class ProductPageComponent {
     this.api
       .decreaseProductPricesBy(this.percentage)
       .subscribe(data => {
-        console.log(data)
         this.message.add({
           severity: 'success',
           summary: 'Succeeded'

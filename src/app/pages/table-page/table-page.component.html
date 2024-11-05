@@ -12,6 +12,7 @@
   header="Audit"
 >
   <app-base-table
+    #auditTable
     [columnDefs]="auditColumnDefs"
     [fetchDataFunc]="auditFetchWrapper"
     [interactive]="false"

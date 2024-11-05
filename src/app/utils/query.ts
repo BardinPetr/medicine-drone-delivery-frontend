@@ -20,11 +20,19 @@ export function encodeFilter(filterModel: FilterModel): string {
   const items =
     Object
       .entries(filterModel)
-      .map(x => ({
-        field: x[0],
-        operator: FILTER_TYPE_MAP[x[1].type],
-        value: x[1].filter,
-        type: x[1].filterType
-      }))
+      .map(x => {
+        let filter: any = {
+          field: x[0],
+          operator: FILTER_TYPE_MAP[x[1].type],
+          type: x[1].filterType
+        }
+        if (x[1].filterType == 'date') {
+          filter.value = x[1].dateFrom
+          filter.operator = "DEQ"
+        } else {
+          filter["value"] = x[1].filter
+        }
+        return filter
+      })
   return jsonToBase64(items)
 }

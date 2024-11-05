@@ -15,8 +15,8 @@ import {LocationDto} from './locationDto';
 
 
 export interface PageLocationDto {
-  totalElements?: number;
   totalPages?: number;
+  totalElements?: number;
   pageable?: PageableObject;
   first?: boolean;
   last?: boolean;

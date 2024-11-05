@@ -1,10 +1,10 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {MetamodelService} from "../../services/meta/metamodel.service";
 import {ActivatedRoute} from "@angular/router";
 import {ApiProviderService} from "../../api/api-provider.service";
 import {ColDef} from "@ag-grid-community/core";
 import {EntityMeta} from "../../services/meta/model";
-import {ActionDef} from "../../components/base-table/base-table.component";
+import {ActionDef, BaseTableComponent} from "../../components/base-table/base-table.component";
 import {MessageService} from "primeng/api";
 import {AuthService} from "../../services/auth/auth.service";
 import {CUDialogService} from "../../services/cudialog.service";
@@ -18,6 +18,8 @@ import RoleEnum = RegisterDto.RoleEnum;
   styleUrl: './table-page.component.sass'
 })
 export class TablePageComponent {
+  @ViewChild('auditTable') auditTable?: BaseTableComponent = undefined;
+
   auditDialogVisible: boolean = false
 
   entityMeta: EntityMeta;
@@ -41,6 +43,7 @@ export class TablePageComponent {
       static: true,
       handler: (_) => {
         this.auditDialogVisible = true
+        this.auditTable!.refresh()
       }
     },
     {
@@ -99,12 +102,12 @@ export class TablePageComponent {
     })
   }
 
-  fetchWrapper = (page: any, filter: any) => {
-    return this.api.list(page, filter)
-  }
+  fetchWrapper = (page: any, filter: any) =>
+    this.api
+      .list(page, filter)
 
-  auditFetchWrapper = (page: any, filter: any) => {
-    return this.api.audit(page)
+  auditFetchWrapper = (page: any, filter: any) =>
+    this.api
+      .audit(page)
       .pipe(map((x: any[]) => ({content: x})))
-  }
 }

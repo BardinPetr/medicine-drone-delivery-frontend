@@ -11,13 +11,16 @@
 </p-buttonGroup>
 <ag-grid-angular
   #agGrid
+
   (gridReady)="onGridReady($event)"
+
   (selectionChanged)="onSelectionChanged($event)"
-
   [cacheBlockSize]="pageSize"
-  [cacheOverflowSize]="1"
 
+  [cacheOverflowSize]="1"
   [columnDefs]="outColumnDefs"
+
+  [dataTypeDefinitions]="typeDefs"
   [defaultColDef]="defaultColDef"
   [infiniteInitialRowCount]="1"
   [maxBlocksInCache]="1"
@@ -29,9 +32,9 @@
 
   [pagination]="paged"
 
+  [rowData]="staticRowData"
   [rowModelType]="staticData ? 'clientSide' : 'infinite'"
   [rowSelection]="rowSelection"
-  [rowData]="staticRowData"
 
   class="ag-theme-quartz-dark"
   style="height: 50vh;"

@@ -31,7 +31,7 @@ export class MetamodelService {
         const fieldDesc = this.resolveField(viewId, fieldName)
         return {
           "field": fieldName,
-          ...this.getFilter(fieldDesc)
+          ...this.getCell(fieldDesc)
         }
       })
   }
@@ -47,7 +47,7 @@ export class MetamodelService {
     return field!
   }
 
-  private getFilter(field: EntityFieldMeta): ColDef {
+  private getCell(field: EntityFieldMeta): ColDef {
     switch (field.type) {
       case MT.INTEGER:
       case MT.FLOAT:
@@ -56,6 +56,7 @@ export class MetamodelService {
           filterParams: {
             filterOptions: ["equals"],
           },
+          cellDataType: 'number'
         }
       case MT.STRING:
         return {
@@ -63,6 +64,7 @@ export class MetamodelService {
           filterParams: {
             filterOptions: ["equals", "contains"],
           },
+          cellDataType: 'text'
         }
       case MT.DATE:
         return {
@@ -70,6 +72,7 @@ export class MetamodelService {
           filterParams: {
             filterOptions: ["equals"],
           },
+          cellDataType: 'isoDateString'
         }
       case MT.ENUM:
         return {
@@ -78,6 +81,7 @@ export class MetamodelService {
             values: metamodelData.enums[field.entityRef!].values,
             filterOptions: ["equals"],
           },
+          cellDataType: 'text'
         }
     }
     return {}

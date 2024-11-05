@@ -1,5 +1,12 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {ColDef, GridReadyEvent, IDatasource, IGetRowsParams, RowSelectionOptions} from "@ag-grid-community/core";
+import {
+  ColDef,
+  DataTypeDefinition,
+  GridReadyEvent,
+  IDatasource,
+  IGetRowsParams,
+  RowSelectionOptions
+} from "@ag-grid-community/core";
 import {encodeFilter} from "../../utils/query";
 import {BehaviorSubject, map, Observable} from "rxjs";
 import {AgGridAngular} from "@ag-grid-community/angular";
@@ -38,6 +45,7 @@ export class BaseTableComponent implements OnInit {
   public rowSelection: RowSelectionOptions = {
     mode: 'singleRow',
   };
+  public typeDefs = typeConverters
 
   public pageSize: number = 5
 
@@ -61,7 +69,7 @@ export class BaseTableComponent implements OnInit {
   }
 
   onGridReady(params: GridReadyEvent) {
-    if(this.staticData) {
+    if (this.staticData) {
       this.fetchDataFunc!(null, null)
         .subscribe(x => this.staticRowData = x.content)
       return
@@ -98,7 +106,7 @@ export class BaseTableComponent implements OnInit {
   }
 
   refresh() {
-    if(this.staticData) {
+    if (this.staticData) {
       this.fetchDataFunc!(null, null)
         .subscribe(x => this.staticRowData = x.content)
       return
@@ -128,5 +136,23 @@ export class BaseTableComponent implements OnInit {
     setTimeout(() => {
       this.refresh()
     }, 500)
+  }
+}
+
+
+const typeConverters: { [cellDataType: string]: DataTypeDefinition } = {
+  isoDateString: {
+    baseDataType: "dateString",
+    extendsDataType: "dateString",
+    valueParser: (params) =>
+      params.newValue ? params.newValue : undefined,
+    valueFormatter: (params) => {
+      const text = params.value
+      if (!text) return ""
+      const date = new Date(Date.parse(text))
+      if (text.includes("T"))
+        return date.toLocaleString("ru-RU")
+      return date.toLocaleDateString("ru-RU")
+    },
   }
 }
