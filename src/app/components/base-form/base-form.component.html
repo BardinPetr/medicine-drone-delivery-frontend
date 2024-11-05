@@ -13,6 +13,8 @@
       <ng-container *ngSwitchCase="MT.INTEGER">
         <p-inputNumber
           class="w-full"
+          [useGrouping]="false"
+          mode="decimal"
           formControlName="{{ field.name }}"
           id="{{field.name}}"
         />
@@ -20,6 +22,9 @@
       <ng-container *ngSwitchCase="MT.FLOAT">
         <p-inputNumber
           [useGrouping]="false"
+          mode="decimal"
+          [minFractionDigits]="1"
+          [maxFractionDigits]="5"
           class="w-full"
           formControlName="{{ field.name }}"
           id="{{field.name}}"

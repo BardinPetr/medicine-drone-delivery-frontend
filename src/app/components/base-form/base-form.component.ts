@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {EntityFieldMeta, EntityFieldMetaType, EntityMeta} from "../../services/meta/model";
+import {EntityFieldMeta, EntityFieldMetaType, EntityMeta} from "../../services/meta/metamodel";
 import {FormControl, UntypedFormGroup, Validators} from "@angular/forms";
 import {MetamodelService} from "../../services/meta/metamodel.service";
 import {Observable} from "rxjs";
@@ -47,11 +47,15 @@ export class BaseFormComponent {
 
     this.ownApi = apiProvider.getAPI(this.entityName)
     this.entityMeta = this.meta.getEntity(this.entityName)
-    this.entityFields = this.flattenFields(Object.values(this.entityMeta.fields))
+      this.entityFields = Object.values(this.entityMeta.fields)
 
     this.entityFields
       .forEach((field) => {
         const name = field.name
+
+        if (field.type === EntityFieldMetaType.DATE && flatData[name])
+            flatData[name] = new Date(Date.parse(flatData[name]))
+
         const control = new FormControl(
           flatData[name],
           {
@@ -70,6 +74,8 @@ export class BaseFormComponent {
             this
               .meta
               .getEnumValues(field.entityRef!)
+          if(field.nullable)
+            this.relEnums[name] = ["", ...this.relEnums[name]]
         } else if (field.type === EntityFieldMetaType.REL) {
           this
             .getRelatedEntities(field.entityRef!)
@@ -87,33 +93,20 @@ export class BaseFormComponent {
     Object
       .values(this.entityMeta.fields)
       .forEach((field) => {
-        if (field.type === EntityFieldMetaType.EMB) {
-          let embeddableData: { [key: string]: any } = {};
-          Object
-            .keys(this.meta.getEntity(field.entityRef!).fields)
-            .forEach((embName) => {
-              embeddableData[embName] = formData[embName];
-              delete formData[embName];
-            });
-          formData[field.name] = embeddableData;
-        } else if (field.type === EntityFieldMetaType.REL) {
-          const orig = formData[field.name]
-          if (!orig || !Object.keys(orig).length)
-            formData[field.name] = null
+        switch (field.type) {
+          case EntityFieldMetaType.ENUM:
+          case EntityFieldMetaType.STRING:
+            if(formData[field.name].trim() === "")
+              formData[field.name] = null
+            break;
+          case EntityFieldMetaType.REL:
+            const orig = formData[field.name]
+            if (!orig || orig === "" || !Object.keys(orig).length)
+              formData[field.name] = null
+            break;
         }
       });
     this.submit(formData)
-  }
-
-  private flattenFields(fields: EntityFieldMeta[]): EntityFieldMeta[] {
-    return fields
-      .flatMap((x) => {
-        if (x.name === 'id' && !this.entityData[x.name]) return []
-
-        if (x.type === EntityFieldMetaType.EMB)
-          return Object.values(this.meta.getEntity(x.entityRef!).fields)
-        return [x]
-      })
   }
 
   private getRelatedEntities(entityName: string): Observable<any[]> {

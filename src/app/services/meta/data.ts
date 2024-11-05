@@ -1,4 +1,4 @@
-import {EntityFieldMetaType, Metamodel} from "./model";
+import {EntityFieldMetaType, Metamodel} from "./metamodel";
 
 export const metamodelData: Metamodel = {
   entities: {
@@ -55,7 +55,8 @@ export const metamodelData: Metamodel = {
       fields: {
         id: {name: 'id', readonly: true, type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
         name: {name: 'name', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
-        coordinates: {name: 'coordinates', type: EntityFieldMetaType.EMB, entityRef: 'Coordinates', nullable: false},
+        coordinateX: {name: 'coordinateX', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: false},
+        coordinateY: {name: 'coordinateY', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
         creationDate: {
           name: 'creationDate',
           type: EntityFieldMetaType.DATE,
@@ -74,7 +75,7 @@ export const metamodelData: Metamodel = {
         manufactureCost: {name: 'manufactureCost', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: false},
         rating: {name: 'rating', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
         partNumber: {name: 'partNumber', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
-        owner: {name: 'owner', type: EntityFieldMetaType.REL, entityRef: 'Person', nullable: true},
+        personOwner: {name: 'personOwner', type: EntityFieldMetaType.REL, entityRef: 'Person', nullable: true},
       }
     },
     Coordinates: {
@@ -154,8 +155,8 @@ export const metamodelData: Metamodel = {
     },
     Product: {
       name: 'Product',
-      columns: ['id', 'name', 'coordinates.x', 'coordinates.y', 'creationDate', 'unitOfMeasure', 'manufacturer.name', 'price', 'manufactureCost', 'rating', 'partNumber', 'owner.name'],
-      nested: ['manufacturer', 'owner']
+      columns: ['id', 'creationDate', 'name', 'coordinateX', 'coordinateY', 'unitOfMeasure', 'manufacturer.name', 'price', 'manufactureCost', 'rating', 'partNumber', 'personOwner.name'],
+      nested: ['manufacturer', 'personOwner']
     },
     User: {
       name: 'User',

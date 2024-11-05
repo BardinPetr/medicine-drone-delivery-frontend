@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {MenuItem} from "primeng/api";
-import {tableRouteData} from "../../services/meta/metaroutes";
+import {tableRouteData} from "../../services/meta/metamodel.routes";
 import {map} from "rxjs";
 import {RegisterDto} from "../../../lib";
 import {AuthService} from "../../services/auth/auth.service";

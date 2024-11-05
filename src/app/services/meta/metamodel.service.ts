@@ -1,19 +1,13 @@
 import {Injectable} from '@angular/core';
-import {metamodelData} from "./entities";
 import {ColDef} from "@ag-grid-community/core";
-import {TranslationService} from "../translate/translation.service";
-import {EntityFieldMeta, EntityFieldMetaType as MT, EntityMeta} from "./model";
+import {EntityFieldMeta, EntityFieldMetaType as MT, EntityMeta} from "./metamodel";
+import {metamodelData} from "./data";
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class MetamodelService {
-
-  constructor(
-    tr: TranslationService,
-  ) {
-  }
 
   getEntity(id: string): EntityMeta {
     return metamodelData.entities[id]
@@ -41,7 +35,7 @@ export class MetamodelService {
     let field: EntityFieldMeta
     for (let i of fieldName.split('.')) {
       field = e.fields[i]
-      if (field.type == MT.REL || field.type == MT.EMB)
+      if (field.type == MT.REL)
         e = metamodelData.entities[field.entityRef!]
     }
     return field!
@@ -54,6 +48,7 @@ export class MetamodelService {
         return {
           filter: "agNumberColumnFilter",
           filterParams: {
+            maxNumConditions: 1,
             filterOptions: ["equals"],
           },
           cellDataType: 'number'
@@ -62,6 +57,7 @@ export class MetamodelService {
         return {
           filter: "agTextColumnFilter",
           filterParams: {
+            maxNumConditions: 1,
             filterOptions: ["equals", "contains"],
           },
           cellDataType: 'text'
@@ -70,6 +66,7 @@ export class MetamodelService {
         return {
           filter: "agDateColumnFilter",
           filterParams: {
+            maxNumConditions: 1,
             filterOptions: ["equals"],
           },
           cellDataType: 'isoDateString'
@@ -78,6 +75,7 @@ export class MetamodelService {
         return {
           filter: "agTextColumnFilter",
           filterParams: {
+            maxNumConditions: 1,
             values: metamodelData.enums[field.entityRef!].values,
             filterOptions: ["equals"],
           },

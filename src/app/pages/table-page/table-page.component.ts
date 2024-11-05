@@ -3,7 +3,7 @@ import {MetamodelService} from "../../services/meta/metamodel.service";
 import {ActivatedRoute} from "@angular/router";
 import {ApiProviderService} from "../../api/api-provider.service";
 import {ColDef} from "@ag-grid-community/core";
-import {EntityMeta} from "../../services/meta/model";
+import {EntityMeta} from "../../services/meta/metamodel";
 import {ActionDef, BaseTableComponent} from "../../components/base-table/base-table.component";
 import {MessageService} from "primeng/api";
 import {AuthService} from "../../services/auth/auth.service";

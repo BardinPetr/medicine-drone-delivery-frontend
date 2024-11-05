@@ -1,4 +1,4 @@
-import {metamodelData} from "./entities";
+import {metamodelData} from "./data";
 import {Route} from "@angular/router";
 import {TablePageComponent} from "../../pages/table-page/table-page.component";
 import {ComponentType} from "@angular/cdk/overlay";

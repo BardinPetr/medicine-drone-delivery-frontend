@@ -7,7 +7,7 @@ import {PagesModule} from "../pages/pages.module";
 import {ButtonModule} from "primeng/button";
 import {ChipModule} from "primeng/chip";
 import {NavbarComponent} from "./navbar/navbar.component";
-import {tableRoutes} from "../services/meta/metaroutes";
+import {tableRoutes} from "../services/meta/metamodel.routes";
 import {ComponentsModule} from "../components/components.module";
 import {LoginPageComponent} from "../pages/login-page/login-page.component";
 import {RegisterPageComponent} from "../pages/register-page/register-page.component";

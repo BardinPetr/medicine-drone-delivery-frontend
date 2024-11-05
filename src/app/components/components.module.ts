@@ -9,13 +9,16 @@ import {UserPlateComponent} from "./user-plate/user-plate.component";
 import {BaseTableComponent} from './base-table/base-table.component';
 import {BaseFormComponent} from "./base-form/base-form.component";
 import {DropdownModule} from "primeng/dropdown";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {InputNumberModule} from "primeng/inputnumber";
 import {CalendarModule} from "primeng/calendar";
 import {CardModule} from "primeng/card";
 import {ChipsModule} from "primeng/chips";
 import {ButtonGroupModule} from "primeng/buttongroup";
 import {DialogModule} from "primeng/dialog";
+import {InputGroupModule} from "primeng/inputgroup";
+import {CheckboxModule} from "primeng/checkbox";
+import {InputGroupAddonModule} from "primeng/inputgroupaddon";
 
 @NgModule({
   imports: [
@@ -36,7 +39,11 @@ import {DialogModule} from "primeng/dialog";
     CardModule,
     ChipsModule,
     ButtonGroupModule,
-    DialogModule
+    DialogModule,
+    InputGroupModule,
+    CheckboxModule,
+    InputGroupAddonModule,
+    FormsModule
   ],
   declarations: [
     UserPlateComponent, BaseTableComponent, BaseFormComponent

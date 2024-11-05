@@ -1,5 +1,5 @@
 export enum EntityFieldMetaType {
-  INTEGER, FLOAT, STRING, DATE, ENUM, REL, EMB
+  INTEGER, FLOAT, STRING, DATE, ENUM, REL
 }
 
 export interface EntityFieldMeta {
