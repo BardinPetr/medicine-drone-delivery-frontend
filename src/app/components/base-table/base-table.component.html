@@ -27,10 +27,11 @@
   [paginationPageSizeSelector]="[5,10,20,50]"
   [paginationPageSize]="pageSize"
 
-  [pagination]="true"
+  [pagination]="paged"
 
-  [rowModelType]="'infinite'"
+  [rowModelType]="staticData ? 'clientSide' : 'infinite'"
   [rowSelection]="rowSelection"
+  [rowData]="staticRowData"
 
   class="ag-theme-quartz-dark"
   style="height: 50vh;"

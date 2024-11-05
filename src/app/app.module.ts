@@ -17,8 +17,9 @@ import {MessageService} from "primeng/api";
 import {AgGridAngular} from "@ag-grid-community/angular";
 import {ModuleRegistry} from "@ag-grid-community/core";
 import {InfiniteRowModelModule} from "@ag-grid-community/infinite-row-model";
+import {ClientSideRowModelModule} from "@ag-grid-community/client-side-row-model";
 
-ModuleRegistry.registerModules([InfiniteRowModelModule]);
+ModuleRegistry.registerModules([InfiniteRowModelModule, ClientSideRowModelModule]);
 
 @NgModule({
   declarations: [

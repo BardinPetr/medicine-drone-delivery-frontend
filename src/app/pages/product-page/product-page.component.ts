@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ColDef} from "@ag-grid-community/core";
 import {MetamodelService} from "../../services/meta/metamodel.service";
 import {Person, PersonControllerService, Product, ProductControllerService} from "../../../lib";
@@ -41,7 +41,7 @@ export class ProductPageComponent {
   }
 
   fetchWrapper = (page: any, filter: any) => {
-    return of({content: this.tableState})
+    return of({content: this.tableState, totalElements: this.tableState.length})
   }
 
   maxCost() {

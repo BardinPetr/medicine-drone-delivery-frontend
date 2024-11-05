@@ -22,12 +22,14 @@ export class BaseTableComponent implements OnInit {
   @ViewChild('agGrid') agGrid?: AgGridAngular = undefined;
 
   @Input() public paged: boolean = true;
-  @Input() public interactive: boolean = false;
+  @Input() public interactive: boolean = true;
+  @Input() public staticData: boolean = false;
   @Input() public actionDefs: ActionDef[] = []
   @Input() public fetchDataFunc?: ((paging: any, filter: any) => Observable<any>)
   @Input() columnDefs: ColDef[] = []
 
   public readonly selectedRow = new BehaviorSubject<any>(null);
+  public staticRowData?: any[] = undefined
 
   public defaultColDef: ColDef = {
     flex: 1,
@@ -59,6 +61,12 @@ export class BaseTableComponent implements OnInit {
   }
 
   onGridReady(params: GridReadyEvent) {
+    if(this.staticData) {
+      this.fetchDataFunc!(null, null)
+        .subscribe(x => this.staticRowData = x.content)
+      return
+    }
+
     const dataSource: IDatasource = {
       rowCount: undefined,
       getRows: (params: IGetRowsParams) => {
@@ -90,6 +98,12 @@ export class BaseTableComponent implements OnInit {
   }
 
   refresh() {
+    if(this.staticData) {
+      this.fetchDataFunc!(null, null)
+        .subscribe(x => this.staticRowData = x.content)
+      return
+    }
+
     this.agGrid!!.api.refreshInfiniteCache()
   }
 

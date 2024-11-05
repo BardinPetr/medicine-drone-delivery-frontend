@@ -3,7 +3,6 @@
     [actionDefs]="actionDefs"
     [columnDefs]="columnDefs"
     [fetchDataFunc]="fetchWrapper"
-    [interactive]="true"
   />
 </p-card>
 <p-dialog
@@ -15,5 +14,6 @@
   <app-base-table
     [columnDefs]="auditColumnDefs"
     [fetchDataFunc]="auditFetchWrapper"
+    [interactive]="false"
   />
 </p-dialog>
