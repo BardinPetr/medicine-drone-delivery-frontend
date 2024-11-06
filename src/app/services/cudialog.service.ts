@@ -36,7 +36,7 @@ export class CUDialogService implements OnDestroy {
       this.dialogRef.close();
   }
 
-  private show(edit: boolean, entityName: string, entityData: any) {
+  show(edit: boolean, entityName: string, entityData: any) {
     this.dialogRef = this
       .dialogService
       .open(BaseFormComponent, {

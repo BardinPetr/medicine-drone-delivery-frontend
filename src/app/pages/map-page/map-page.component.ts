@@ -22,7 +22,7 @@ export class MapPageComponent implements OnInit {
   };
 
   paintProducts: CirclePaint = {
-    "circle-opacity": 0.5,
+    "circle-opacity": 1,
   }
   paintPersons: SymbolPaint = {
     "icon-color": "#f00"
@@ -105,6 +105,14 @@ export class MapPageComponent implements OnInit {
 
   private updatePersons(data: any) {
     this.ptsPersons = data
+  }
+
+  onClickCreate(event: mapboxgl.MapMouseEvent & mapboxgl.EventData) {
+    if(!event.originalEvent.ctrlKey) return
+    this.cuDialog.show(false, 'Product', {
+      coordinateX: event.lngLat.lat * 1000,
+      coordinateY: event.lngLat.lng * 1000
+    })
   }
 }
 

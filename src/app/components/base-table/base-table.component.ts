@@ -99,9 +99,8 @@ export class BaseTableComponent implements OnInit {
     };
     params.api.setGridOption("datasource", dataSource)
 
-    // TODO
     setInterval(() => {
-      // this.refresh()
+      this.refresh()
     }, 1000)
   }
 
