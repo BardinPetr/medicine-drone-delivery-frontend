@@ -1,4 +1,5 @@
-<p-accordion>
+<p-card [header]="'Product operations'">
+  <p-accordion>
   <p-accordionTab header="Get Product with Max Manufacture Cost">
     <button (click)="maxCost()" label="Execute" pButton type="button"></button>
   </p-accordionTab>
@@ -74,3 +75,4 @@
   [paged]="false"
   [staticData]="true"
 />
+</p-card>

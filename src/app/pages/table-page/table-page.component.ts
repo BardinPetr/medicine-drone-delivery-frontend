@@ -91,7 +91,7 @@ export class TablePageComponent {
   }
 
   allowActivateOwned(x: any): boolean {
-    return this.authService.state?.username == x?.owner?.username ||
+    return this.authService.state?.username == x?.ownerUsername ||
       this.authService.state?.role == RoleEnum.Admin
   }
 

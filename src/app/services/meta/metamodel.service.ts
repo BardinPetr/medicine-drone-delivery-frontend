@@ -45,7 +45,7 @@ export class MetamodelService {
     switch (field.type) {
       case MT.INTEGER:
       case MT.FLOAT:
-        return {
+        let col : ColDef = {
           filter: "agNumberColumnFilter",
           filterParams: {
             maxNumConditions: 1,
@@ -53,6 +53,9 @@ export class MetamodelService {
           },
           cellDataType: 'number'
         }
+        if(field.name === 'id')
+          col.sort = 'asc'
+        return col
       case MT.STRING:
         return {
           filter: "agTextColumnFilter",

@@ -3,6 +3,7 @@ import {CommonModule} from "@angular/common";
 import {ButtonModule} from "primeng/button";
 import {ComponentsModule} from "../../components/components.module";
 import {AdminPageComponent} from "./admin-page.component";
+import {CardModule} from "primeng/card";
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import {AdminPageComponent} from "./admin-page.component";
   imports: [
     CommonModule,
     ButtonModule,
-    ComponentsModule
+    ComponentsModule,
+    CardModule
   ],
   exports: [
     AdminPageComponent

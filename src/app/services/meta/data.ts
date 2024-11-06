@@ -9,6 +9,7 @@ export const metamodelData: Metamodel = {
         id: {name: 'id', readonly: true, type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
         street: {name: 'street', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
         town: {name: 'town', type: EntityFieldMetaType.REL, entityRef: 'Location', nullable: false},
+        ownerUsername: {name: 'ownerUsername', type: EntityFieldMetaType.STRING, entityRef: null, readonly: true, nullable: false},
       }
     },
     Organization: {
@@ -23,6 +24,7 @@ export const metamodelData: Metamodel = {
         fullName: {name: 'fullName', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
         type: {name: 'type', type: EntityFieldMetaType.ENUM, entityRef: 'OrganizationType', nullable: true},
         postalAddress: {name: 'postalAddress', type: EntityFieldMetaType.REL, entityRef: 'Address', nullable: true},
+        ownerUsername: {name: 'ownerUsername', type: EntityFieldMetaType.STRING, entityRef: null, readonly: true, nullable: false},
       }
     },
     Location: {
@@ -34,6 +36,7 @@ export const metamodelData: Metamodel = {
         y: {name: 'y', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
         z: {name: 'z', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
         name: {name: 'name', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
+        ownerUsername: {name: 'ownerUsername', type: EntityFieldMetaType.STRING, entityRef: null, readonly: true, nullable: false},
       }
     },
     Person: {
@@ -47,6 +50,7 @@ export const metamodelData: Metamodel = {
         location: {name: 'location', type: EntityFieldMetaType.REL, entityRef: 'Location', nullable: true},
         height: {name: 'height', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: false},
         nationality: {name: 'nationality', type: EntityFieldMetaType.ENUM, entityRef: 'Country', nullable: true},
+        ownerUsername: {name: 'ownerUsername', type: EntityFieldMetaType.STRING, entityRef: null, readonly: true, nullable: false},
       }
     },
     Product: {
@@ -68,7 +72,7 @@ export const metamodelData: Metamodel = {
           name: 'unitOfMeasure',
           type: EntityFieldMetaType.ENUM,
           entityRef: 'UnitOfMeasure',
-          nullable: true
+          nullable: true,
         },
         manufacturer: {name: 'manufacturer', type: EntityFieldMetaType.REL, entityRef: 'Organization', nullable: true},
         price: {name: 'price', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: false},
@@ -76,6 +80,7 @@ export const metamodelData: Metamodel = {
         rating: {name: 'rating', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
         partNumber: {name: 'partNumber', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
         personOwner: {name: 'personOwner', type: EntityFieldMetaType.REL, entityRef: 'Person', nullable: true},
+        ownerUsername: {name: 'ownerUsername', type: EntityFieldMetaType.STRING, entityRef: null, readonly: true, nullable: false},
       }
     },
     Coordinates: {
@@ -135,27 +140,27 @@ export const metamodelData: Metamodel = {
   views: {
     Address: {
       name: 'Address',
-      columns: ['id', 'street', 'town.name'],
+      columns: ['id', 'street', 'town.name', 'ownerUsername'],
       nested: ['town']
     },
     Organization: {
       name: 'Organization',
-      columns: ['id', 'name', 'officialAddress.street', 'postalAddress.street', 'annualTurnover', 'employeesCount', 'fullName', 'type'],
+      columns: ['id', 'name', 'officialAddress.street', 'postalAddress.street', 'annualTurnover', 'employeesCount', 'fullName', 'type', 'ownerUsername'],
       nested: ['officialAddress', 'postalAddress']
     },
     Location: {
       name: 'Location',
-      columns: ['id', 'x', 'y', 'z', 'name'],
+      columns: ['id', 'x', 'y', 'z', 'name', 'ownerUsername'],
       nested: []
     },
     Person: {
       name: 'Person',
-      columns: ['id', 'name', 'eyeColor', 'hairColor', 'location.name', 'height', 'nationality'],
+      columns: ['id', 'name', 'eyeColor', 'hairColor', 'location.name', 'height', 'nationality', 'ownerUsername'],
       nested: ['location']
     },
     Product: {
       name: 'Product',
-      columns: ['id', 'creationDate', 'name', 'coordinateX', 'coordinateY', 'unitOfMeasure', 'manufacturer.name', 'price', 'manufactureCost', 'rating', 'partNumber', 'personOwner.name'],
+      columns: ['id', 'creationDate', 'name', 'coordinateX', 'coordinateY', 'unitOfMeasure', 'manufacturer.name', 'price', 'manufactureCost', 'rating', 'partNumber', 'personOwner.name', 'ownerUsername'],
       nested: ['manufacturer', 'personOwner']
     },
     User: {

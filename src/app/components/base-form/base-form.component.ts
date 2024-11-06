@@ -43,21 +43,23 @@ export class BaseFormComponent {
     this.isEdit = dialogConfig.data.edit
 
     this.entityData = dialogConfig.data.entityData
-    const flatData = flattenData(this.entityData)
 
     this.ownApi = apiProvider.getAPI(this.entityName)
     this.entityMeta = this.meta.getEntity(this.entityName)
-      this.entityFields = Object.values(this.entityMeta.fields)
+    this.entityFields = Object
+      .values(this.entityMeta.fields)
+      .filter(x => this.isEdit || !x.readonly)
 
     this.entityFields
       .forEach((field) => {
         const name = field.name
+        let startValue = this.entityData[name]
 
-        if (field.type === EntityFieldMetaType.DATE && flatData[name])
-            flatData[name] = new Date(Date.parse(flatData[name]))
+        if (field.type === EntityFieldMetaType.DATE && startValue)
+           startValue = new Date(Date.parse(startValue))
 
         const control = new FormControl(
-          flatData[name],
+          startValue,
           {
             validators: field.nullable ? [] : [Validators.required],
             nonNullable: !field.nullable
@@ -90,13 +92,14 @@ export class BaseFormComponent {
 
   onSubmit(): void {
     const formData = this.form.value;
-    Object
-      .values(this.entityMeta.fields)
+    this
+      .entityFields
       .forEach((field) => {
+        if(!(field.name in formData)) return
         switch (field.type) {
           case EntityFieldMetaType.ENUM:
           case EntityFieldMetaType.STRING:
-            if(formData[field.name].trim() === "")
+            if(formData[field.name]?.trim() === "")
               formData[field.name] = null
             break;
           case EntityFieldMetaType.REL:

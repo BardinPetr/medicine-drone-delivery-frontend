@@ -9,6 +9,7 @@ import {FormsModule} from "@angular/forms";
 import {InputNumberModule} from "primeng/inputnumber";
 import {DropdownModule} from "primeng/dropdown";
 import {MultiSelectModule} from "primeng/multiselect";
+import {CardModule} from "primeng/card";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {MultiSelectModule} from "primeng/multiselect";
     FormsModule,
     InputNumberModule,
     DropdownModule,
-    MultiSelectModule
+    MultiSelectModule,
+    CardModule
   ],
   exports: [
     ProductPageComponent
