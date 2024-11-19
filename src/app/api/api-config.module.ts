@@ -9,7 +9,7 @@ import {MessageService} from "primeng/api";
 
 export function apiConfigFactory(): Configuration {
   return new Configuration({
-    basePath: environment.apiUrl,
+    basePath: environment.apiUrl || window.location.origin,
   });
 }
 

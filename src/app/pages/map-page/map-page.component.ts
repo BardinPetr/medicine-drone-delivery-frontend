@@ -1,17 +1,18 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MapControllerService} from "../../../lib";
 import {AnyLayout, CirclePaint, SymbolPaint} from "mapbox-gl";
 import Palette from "iwanthue/palette";
 import {CUDialogService} from "../../services/cudialog.service";
-import {forkJoin} from "rxjs";
+import {forkJoin, Subscription} from "rxjs";
 import {ApiProviderService} from "../../api/api-provider.service";
+import {IMqttMessage, MqttService} from "ngx-mqtt";
 
 @Component({
   selector: 'app-map-page',
   templateUrl: './map-page.component.html',
   styleUrl: './map-page.component.sass'
 })
-export class MapPageComponent implements OnInit {
+export class MapPageComponent implements OnInit, OnDestroy {
   ptsProducts: GeoJSON.FeatureCollection = {
     type: 'FeatureCollection',
     features: []
@@ -31,16 +32,35 @@ export class MapPageComponent implements OnInit {
     "icon-image": 'pitch',
     "icon-size": 1.6
   }
+  private subs: Subscription[] = [];
 
   constructor(
     private mapApi: MapControllerService,
     private cuDialog: CUDialogService,
-    private apiProvider: ApiProviderService) {
+    private apiProvider: ApiProviderService,
+    private mqtt: MqttService) {
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach(x => x.unsubscribe())
   }
 
   ngOnInit(): void {
     this.fetchPersons()
     this.fetchProducts()
+
+    this.subs.push(this.mqtt
+      .observe('/notify/Person')
+      .subscribe((msg: IMqttMessage) => {
+        console.warn("MQTT PERSON : " + msg.payload)
+        this.fetchPersons()
+      }));
+    this.subs.push(this.mqtt
+      .observe('/notify/Product')
+      .subscribe((msg: IMqttMessage) => {
+        console.warn("MQTT PRODUCT : " + msg.payload)
+        this.fetchProducts()
+      }));
   }
 
   onClick(entityType: string, event: any) {
@@ -60,7 +80,6 @@ export class MapPageComponent implements OnInit {
       // @ts-ignore
       .subscribe(data => {
         this.updatePersons(JSON.parse(data))
-        setTimeout(() => this.fetchPersons(), 1000)
       })
   }
 
@@ -71,7 +90,6 @@ export class MapPageComponent implements OnInit {
       // @ts-ignore
       .subscribe(data => {
         this.updateProducts(JSON.parse(data))
-        setTimeout(() => this.fetchProducts(), 1000)
       })
   }
 
@@ -81,26 +99,28 @@ export class MapPageComponent implements OnInit {
       .ptsProducts
       .features
       .map(x => x.properties?.['price']!)
-    this.paintProducts['circle-radius'] = [
-      'interpolate',
-      ['linear'],
-      ['get', 'price'],
-      Math.min(...prices),
-      5,
-      Math.max(...prices),
-      12
-    ]
     const owners = distinct(this
       .ptsProducts
       .features
       .map(x => x.properties?.['owner']!))
     const palette = genPaletteFromValues(owners);
-    this.paintProducts["circle-color"] = [
-      'match',
-      ['get', 'owner'],
-      ...owners.flatMap(x => [x, palette.get(x)]),
-      "#f00"
-    ]
+    this.paintProducts = {
+      "circle-color": [
+        'match',
+        ['get', 'owner'],
+        ...owners.flatMap(x => [x, palette.get(x)]),
+        "#f00"
+      ],
+      'circle-radius': [
+        'interpolate',
+        ['linear'],
+        ['get', 'price'],
+        Math.min(...prices),
+        5,
+        Math.max(...prices),
+        12
+      ]
+    }
   }
 
   private updatePersons(data: any) {
@@ -108,10 +128,10 @@ export class MapPageComponent implements OnInit {
   }
 
   onClickCreate(event: mapboxgl.MapMouseEvent & mapboxgl.EventData) {
-    if(!event.originalEvent.ctrlKey) return
+    if (!event.originalEvent.ctrlKey) return
     this.cuDialog.show(false, 'Product', {
       coordinateX: event.lngLat.lat * 1000,
-      coordinateY: event.lngLat.lng * 1000
+      coordinateY: Math.round(event.lngLat.lng * 1000)
     })
   }
 }

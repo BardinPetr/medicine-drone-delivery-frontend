@@ -8,8 +8,9 @@ import {
   RowSelectionOptions
 } from "@ag-grid-community/core";
 import {encodeFilter} from "../../utils/query";
-import {BehaviorSubject, map, Observable} from "rxjs";
+import {BehaviorSubject, map, Observable, Subscription} from "rxjs";
 import {AgGridAngular} from "@ag-grid-community/angular";
+import {IMqttMessage, MqttService} from "ngx-mqtt";
 
 export interface ActionDef {
   label: string
@@ -47,7 +48,7 @@ export class BaseTableComponent implements OnInit {
   };
   public typeDefs = typeConverters
 
-  public pageSize: number = 5
+  public pageSize: number = 20
 
   public get outColumnDefs(): ColDef[] {
     if (this.interactive)
@@ -79,6 +80,7 @@ export class BaseTableComponent implements OnInit {
       rowCount: undefined,
       getRows: (params: IGetRowsParams) => {
         const size = params.endRow - params.startRow
+        this.pageSize = size
         this.fetchDataFunc!(
           {
             size: size,
@@ -99,9 +101,9 @@ export class BaseTableComponent implements OnInit {
     };
     params.api.setGridOption("datasource", dataSource)
 
-    setInterval(() => {
-      this.refresh()
-    }, 1000)
+    // setInterval(() => {
+    //   this.refresh()
+    // }, 1000)
   }
 
   refresh() {

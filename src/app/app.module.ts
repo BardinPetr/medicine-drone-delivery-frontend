@@ -18,8 +18,15 @@ import {AgGridAngular} from "@ag-grid-community/angular";
 import {ModuleRegistry} from "@ag-grid-community/core";
 import {InfiniteRowModelModule} from "@ag-grid-community/infinite-row-model";
 import {ClientSideRowModelModule} from "@ag-grid-community/client-side-row-model";
+import {MqttModule} from "ngx-mqtt";
 
 ModuleRegistry.registerModules([InfiniteRowModelModule, ClientSideRowModelModule]);
+
+const MQTT_SERVICE_OPTIONS = {
+  hostname: '78.24.218.122',
+  port: 9001,
+  path: '/'
+}
 
 @NgModule({
   declarations: [
@@ -39,9 +46,12 @@ ModuleRegistry.registerModules([InfiniteRowModelModule, ClientSideRowModelModule
     BrowserAnimationsModule,
     ToastModule,
     MessageModule,
-    AgGridAngular
+    AgGridAngular,
+    MqttModule.forRoot(MQTT_SERVICE_OPTIONS)
   ],
-  providers: [MessageService],
+  providers: [
+    MessageService,
+  ],
   exports: [],
   bootstrap: [AppComponent]
 })

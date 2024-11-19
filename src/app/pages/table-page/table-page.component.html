@@ -1,5 +1,6 @@
 <p-card [header]="entityMeta.name">
   <app-base-table
+    #mainTable
     [actionDefs]="actionDefs"
     [columnDefs]="columnDefs"
     [fetchDataFunc]="fetchWrapper"

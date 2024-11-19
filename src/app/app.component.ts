@@ -9,7 +9,8 @@ import {UserControllerService} from "../lib";
 })
 export class AppComponent implements OnInit {
 
-  constructor(private authService: AuthService, private userApi: UserControllerService) {
+  constructor(private authService: AuthService,
+              private userApi: UserControllerService) {
   }
 
   ngOnInit(): void {

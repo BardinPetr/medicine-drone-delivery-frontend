@@ -1,5 +1,6 @@
 <p-card [header]="'Manage admins'">
   <app-base-table
+    #table
     [actionDefs]="actionDefs"
     [columnDefs]="columnDefs"
     [fetchDataFunc]="fetchWrapper"
