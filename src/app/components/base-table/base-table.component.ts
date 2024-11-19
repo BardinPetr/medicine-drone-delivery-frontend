@@ -8,9 +8,8 @@ import {
   RowSelectionOptions
 } from "@ag-grid-community/core";
 import {encodeFilter} from "../../utils/query";
-import {BehaviorSubject, map, Observable, Subscription} from "rxjs";
+import {BehaviorSubject, map, Observable} from "rxjs";
 import {AgGridAngular} from "@ag-grid-community/angular";
-import {IMqttMessage, MqttService} from "ngx-mqtt";
 
 export interface ActionDef {
   label: string

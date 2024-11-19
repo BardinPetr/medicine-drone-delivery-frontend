@@ -1,8 +1,8 @@
 <mgl-map
+  (mapClick)="onClickCreate($event)"
   [center]="[30.310030, 59.956360]"
   [style]="'mapbox://styles/bardinpetr/cll6rvres00m801p878kx3fu4'"
   [zoom]="[11]"
-  (mapClick)="onClickCreate($event)"
 >
   <mgl-geojson-source
     *ngIf="ptsProducts"

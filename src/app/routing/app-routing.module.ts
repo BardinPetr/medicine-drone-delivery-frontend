@@ -11,10 +11,8 @@ import {tableRoutes} from "../services/meta/metamodel.routes";
 import {ComponentsModule} from "../components/components.module";
 import {LoginPageComponent} from "../pages/login-page/login-page.component";
 import {RegisterPageComponent} from "../pages/register-page/register-page.component";
-import {AdminPageComponent} from "../pages/admin-page/admin-page.component";
-import {isAdmin, isAuthenticated} from "../services/auth/auth-guard.service";
+import {isAuthenticated} from "../services/auth/auth-guard.service";
 import {MapPageComponent} from "../pages/map-page/map-page.component";
-import {ProductPageComponent} from "../pages/product-page/product-page.component";
 
 
 const routes: Routes = [
@@ -24,21 +22,9 @@ const routes: Routes = [
     component: HomePageComponent
   },
   {
-    title: "Admin page",
-    path: "admin",
-    component: AdminPageComponent,
-    canActivate: [isAdmin]
-  },
-  {
     title: "Map",
     path: "map",
     component: MapPageComponent,
-    canActivate: [isAuthenticated]
-  },
-  {
-    title: "Product Ops",
-    path: "product-ops",
-    component: ProductPageComponent,
     canActivate: [isAuthenticated]
   },
   ...tableRoutes,

@@ -1,18 +1,14 @@
 import {NgModule} from "@angular/core";
 import {HomePageModule} from "./home-page/home-page.module";
 import {TablePageModule} from "./table-page/table-page.module";
-import {AdminPageModule} from "./admin-page/admin-page.module";
 import {MapPageModule} from "./map-page/map-page.module";
-import {ProductPageModule} from "./product-page/product-page.module";
 
 @NgModule({
   declarations: [],
   imports: [
     HomePageModule,
     TablePageModule,
-    AdminPageModule,
-    MapPageModule,
-    ProductPageModule
+    MapPageModule
   ]
 })
 export class PagesModule {

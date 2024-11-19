@@ -11,19 +11,11 @@
  */
 
 
-export interface UserDto {
-  username: string;
-  role: UserDto.RoleEnum;
+export interface MedicalFacilityDto {
+  name?: string;
+  responsibleUserUsername?: string;
+  locationLat?: number;
+  locationLon?: number;
   id?: number;
 }
-
-export namespace UserDto {
-  export type RoleEnum = 'USER' | 'ADMIN' | 'ADMIN_PENDING';
-  export const RoleEnum = {
-    User: 'USER' as RoleEnum,
-    Admin: 'ADMIN' as RoleEnum,
-    AdminPending: 'ADMIN_PENDING' as RoleEnum
-  };
-}
-
 

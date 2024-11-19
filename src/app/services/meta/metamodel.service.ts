@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {ColDef} from "@ag-grid-community/core";
-import {EntityFieldMeta, EntityFieldMetaType as MT, EntityMeta} from "./metamodel";
+import {EntityFieldMeta, EntityFieldMetaType as MT, EntityMeta, ViewMeta} from "./metamodel";
 import {metamodelData} from "./data";
 
 
@@ -10,16 +10,22 @@ import {metamodelData} from "./data";
 export class MetamodelService {
 
   getEntity(id: string): EntityMeta {
-    return metamodelData.entities[id]
+    return metamodelData.entities.filter(x => x.name == id)[0];
+  }
+
+  getView(id: string): ViewMeta {
+    return metamodelData.views.filter(x => x.name == id)[0];
   }
 
   getEnumValues(id: string): string[] {
-    return metamodelData.enums[id].values
+    return metamodelData.enums.filter(x => x.name == id)[0].values;
   }
 
   getTableColumns(viewId: string): ColDef[] {
-    return metamodelData
-      .views[viewId]
+    console.log(viewId)
+    console.log(this.getView(viewId))
+    return this
+      .getView(viewId)
       .columns
       .map(fieldName => {
         const fieldDesc = this.resolveField(viewId, fieldName)
@@ -31,12 +37,12 @@ export class MetamodelService {
   }
 
   private resolveField(rootEntityName: string, fieldName: string): EntityFieldMeta {
-    let e = metamodelData.entities[rootEntityName]
+    let e = this.getEntity(rootEntityName)
     let field: EntityFieldMeta
     for (let i of fieldName.split('.')) {
-      field = e.fields[i]
+      field = e.fields.find(x => x.name == i)!!
       if (field.type == MT.REL)
-        e = metamodelData.entities[field.entityRef!]
+        e = this.getEntity(field.entityRef!)
     }
     return field!
   }
@@ -45,7 +51,7 @@ export class MetamodelService {
     switch (field.type) {
       case MT.INTEGER:
       case MT.FLOAT:
-        let col : ColDef = {
+        let col: ColDef = {
           filter: "agNumberColumnFilter",
           filterParams: {
             maxNumConditions: 1,
@@ -53,7 +59,7 @@ export class MetamodelService {
           },
           cellDataType: 'number'
         }
-        if(field.name === 'id')
+        if (field.name === 'id')
           col.sort = 'asc'
         return col
       case MT.STRING:
@@ -79,7 +85,7 @@ export class MetamodelService {
           filter: "agTextColumnFilter",
           filterParams: {
             maxNumConditions: 1,
-            values: metamodelData.enums[field.entityRef!].values,
+            values: this.getEnumValues(field.entityRef!),
             filterOptions: ["equals"],
           },
           cellDataType: 'text'

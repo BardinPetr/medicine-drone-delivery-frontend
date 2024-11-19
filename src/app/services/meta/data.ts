@@ -1,177 +1,240 @@
 import {EntityFieldMetaType, Metamodel} from "./metamodel";
 
 export const metamodelData: Metamodel = {
-  entities: {
-    Address: {
-      name: 'Address',
-      titleField: 'street',
-      fields: {
-        id: {name: 'id', readonly: true, type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
-        street: {name: 'street', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
-        town: {name: 'town', type: EntityFieldMetaType.REL, entityRef: 'Location', nullable: false},
-        ownerUsername: {name: 'ownerUsername', type: EntityFieldMetaType.STRING, entityRef: null, readonly: true, nullable: false},
-      }
+  entities: [
+    {
+      name: 'Drone',
+      titleField: 'typeOfDroneName',
+      fields: [
+        {name: 'typeOfDroneName', type: EntityFieldMetaType.STRING, entityRef: null, nullable: true},
+        {name: 'status', type: EntityFieldMetaType.ENUM, entityRef: 'DroneStatus', nullable: true},
+        {name: 'locationLat', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true},
+        {name: 'locationLon', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true},
+        {name: 'flightTaskId', type: EntityFieldMetaType.INTEGER, entityRef: 'FlightTask', nullable: true},
+        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+      ]
     },
-    Organization: {
-      name: 'Organization',
+    {
+      name: 'Request',
+      titleField: 'userUsername',
+      fields: [
+        {name: 'userUsername', type: EntityFieldMetaType.STRING, entityRef: null, nullable: true},
+        {name: 'status', type: EntityFieldMetaType.ENUM, entityRef: 'TaskStatus', nullable: true},
+        {name: 'medicalFacilityName', type: EntityFieldMetaType.STRING, entityRef: null, nullable: true},
+        {name: 'requestEntries', type: EntityFieldMetaType.COL, entityRef: 'RequestEntry', nullable: false},
+        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+      ]
+    },
+    {
+      name: 'Route',
+      titleField: 'warehouseId',
+      fields: [
+        {name: 'warehouseId', type: EntityFieldMetaType.INTEGER, entityRef: 'Warehouse', nullable: true},
+        {name: 'medicalFacilityId', type: EntityFieldMetaType.INTEGER, entityRef: 'MedicalFacility', nullable: true},
+        {name: 'routePoints', type: EntityFieldMetaType.COL, entityRef: 'RoutePoint', nullable: false},
+        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+      ]
+    },
+    {
+      name: 'MedicalFacility',
       titleField: 'name',
-      fields: {
-        id: {name: 'id', readonly: true, type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
-        name: {name: 'name', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
-        officialAddress: {name: 'officialAddress', type: EntityFieldMetaType.REL, entityRef: 'Address', nullable: true},
-        annualTurnover: {name: 'annualTurnover', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true},
-        employeesCount: {name: 'employeesCount', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
-        fullName: {name: 'fullName', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
-        type: {name: 'type', type: EntityFieldMetaType.ENUM, entityRef: 'OrganizationType', nullable: true},
-        postalAddress: {name: 'postalAddress', type: EntityFieldMetaType.REL, entityRef: 'Address', nullable: true},
-        ownerUsername: {name: 'ownerUsername', type: EntityFieldMetaType.STRING, entityRef: null, readonly: true, nullable: false},
-      }
+      fields: [
+        {name: 'name', type: EntityFieldMetaType.STRING, entityRef: null, nullable: true},
+        {name: 'responsibleUserUsername', type: EntityFieldMetaType.STRING, entityRef: null, nullable: true},
+        {name: 'locationLat', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true},
+        {name: 'locationLon', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true},
+        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+      ]
     },
-    Location: {
-      name: 'Location',
+    {
+      name: 'RoutePoint',
+      titleField: 'idRouteId',
+      fields: [
+        {name: 'idRouteId', type: EntityFieldMetaType.INTEGER, entityRef: 'Route', nullable: false},
+        {name: 'idPointNumber', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
+        {name: 'locationLat', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true},
+        {name: 'locationLon', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true},
+      ]
+    },
+    {
+      name: 'Warehouse',
       titleField: 'name',
-      fields: {
-        id: {name: 'id', readonly: true, type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
-        x: {name: 'x', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
-        y: {name: 'y', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
-        z: {name: 'z', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
-        name: {name: 'name', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
-        ownerUsername: {name: 'ownerUsername', type: EntityFieldMetaType.STRING, entityRef: null, readonly: true, nullable: false},
-      }
+      fields: [
+        {name: 'name', type: EntityFieldMetaType.STRING, entityRef: null, nullable: true},
+        {name: 'locationLat', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true},
+        {name: 'locationLon', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true},
+        {name: 'products', type: EntityFieldMetaType.COL, entityRef: 'WarehouseProducts', nullable: false},
+        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+      ]
     },
-    Person: {
-      name: 'Person',
+    {
+      name: 'ProductType',
+      titleField: 'type',
+      fields: [
+        {name: 'type', type: EntityFieldMetaType.STRING, entityRef: null, nullable: true},
+        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+      ]
+    },
+    {
+      name: 'FlightTask',
+      titleField: 'requestId',
+      fields: [
+        {name: 'requestId', type: EntityFieldMetaType.INTEGER, entityRef: 'Request', nullable: true},
+        {name: 'status', type: EntityFieldMetaType.ENUM, entityRef: 'TaskStatus', nullable: true},
+        {name: 'productTypeProductTypeName', type: EntityFieldMetaType.STRING, entityRef: null, nullable: true},
+        {name: 'warehouseWarehouseName', type: EntityFieldMetaType.STRING, entityRef: null, nullable: true},
+        {name: 'medicalFacilityMedicalFacilityName', type: EntityFieldMetaType.STRING, entityRef: null, nullable: true},
+        {name: 'quantity', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+        {name: 'routeId', type: EntityFieldMetaType.INTEGER, entityRef: 'Route', nullable: true},
+        {name: 'timestamp', type: EntityFieldMetaType.DATE, entityRef: null, nullable: true},
+        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+      ]
+    },
+    {
+      name: 'TypeOfDrone',
       titleField: 'name',
-      fields: {
-        id: {name: 'id', readonly: true, type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
-        name: {name: 'name', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
-        eyeColor: {name: 'eyeColor', type: EntityFieldMetaType.ENUM, entityRef: 'Color', nullable: false},
-        hairColor: {name: 'hairColor', type: EntityFieldMetaType.ENUM, entityRef: 'Color', nullable: true},
-        location: {name: 'location', type: EntityFieldMetaType.REL, entityRef: 'Location', nullable: true},
-        height: {name: 'height', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: false},
-        nationality: {name: 'nationality', type: EntityFieldMetaType.ENUM, entityRef: 'Country', nullable: true},
-        ownerUsername: {name: 'ownerUsername', type: EntityFieldMetaType.STRING, entityRef: null, readonly: true, nullable: false},
-      }
+      fields: [
+        {name: 'name', type: EntityFieldMetaType.STRING, entityRef: null, nullable: true},
+        {name: 'maxWeight', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+        {name: 'speed', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true},
+        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+      ]
     },
-    Product: {
-      name: 'Product',
-      titleField: 'name',
-      fields: {
-        id: {name: 'id', readonly: true, type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
-        name: {name: 'name', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
-        coordinateX: {name: 'coordinateX', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: false},
-        coordinateY: {name: 'coordinateY', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
-        creationDate: {
-          name: 'creationDate',
-          type: EntityFieldMetaType.DATE,
-          entityRef: null,
-          nullable: false,
-          readonly: true
-        },
-        unitOfMeasure: {
-          name: 'unitOfMeasure',
-          type: EntityFieldMetaType.ENUM,
-          entityRef: 'UnitOfMeasure',
-          nullable: true,
-        },
-        manufacturer: {name: 'manufacturer', type: EntityFieldMetaType.REL, entityRef: 'Organization', nullable: true},
-        price: {name: 'price', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: false},
-        manufactureCost: {name: 'manufactureCost', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: false},
-        rating: {name: 'rating', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
-        partNumber: {name: 'partNumber', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
-        personOwner: {name: 'personOwner', type: EntityFieldMetaType.REL, entityRef: 'Person', nullable: true},
-        ownerUsername: {name: 'ownerUsername', type: EntityFieldMetaType.STRING, entityRef: null, readonly: true, nullable: false},
-      }
+    {
+      name: 'NoFlightZone',
+      titleField: 'radius',
+      fields: [
+        {name: 'radius', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true},
+        {name: 'centerLat', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true},
+        {name: 'centerLon', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true},
+        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+      ]
     },
-    Coordinates: {
-      name: 'Coordinates',
-      fields: {
-        x: {name: 'x', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: false},
-        y: {name: 'y', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
-      }
+    {
+      name: 'RequestEntry',
+      titleField: 'requestId',
+      fields: [
+        {name: 'requestId', type: EntityFieldMetaType.INTEGER, entityRef: 'Request', nullable: true},
+        {name: 'productTypeType', type: EntityFieldMetaType.STRING, entityRef: null, nullable: true},
+        {name: 'quantity', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+        {name: 'fulfilledQuantity', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
+        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+      ]
     },
-    User: {
-      name: 'User',
-      titleField: 'username',
-      fields: {
-        id: {name: 'id', readonly: true, type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
-        username: {name: 'username', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
-        role: {name: 'role', type: EntityFieldMetaType.ENUM, entityRef: 'UserRole', nullable: false},
-      }
+    {
+      name: 'WarehouseProducts',
+      titleField: 'idProductId',
+      fields: [
+        {name: 'idProductId', type: EntityFieldMetaType.INTEGER, entityRef: 'ProductType', nullable: false},
+        {name: 'idWarehouseId', type: EntityFieldMetaType.INTEGER, entityRef: 'Warehouse', nullable: false},
+        {name: 'quantity', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+      ]
     },
-    Audit: {
-      name: 'Audit',
-      titleField: 'id',
-      fields: {
-        revision: {name: 'revision', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
-        entityId: {name: 'entityId', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
-        author: {name: 'author', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
-        timestamp: {name: 'timestamp', type: EntityFieldMetaType.DATE, entityRef: null, nullable: false},
-        type: {name: 'type', type: EntityFieldMetaType.ENUM, entityRef: 'RevisionType', nullable: false},
-      }
-    }
-  },
-  enums: {
-    OrganizationType: {
-      name: 'OrganizationType',
-      values: ['COMMERCIAL', 'PUBLIC', 'GOVERNMENT', 'TRUST', 'PRIVATE_LIMITED_COMPANY']
+  ],
+  enums: [
+    {
+      name: 'DroneStatus',
+      values: ['IDLE', 'READY', 'FLYING_TO', 'FLYING_FROM']
     },
-    Color: {
-      name: 'Color',
-      values: ['GREEN', 'BLUE', 'YELLOW']
+    {
+      name: 'TaskStatus',
+      values: ['QUEUED', 'READY', 'PACKING', 'IN_PROGRESS', 'COMPLETED']
     },
-    Country: {
-      name: 'Country',
-      values: ['RUSSIA', 'SPAIN', 'VATICAN', 'NORTH_KOREA', 'JAPAN']
-    },
-    UnitOfMeasure: {
-      name: 'UnitOfMeasure',
-      values: ['METERS', 'CENTIMETERS', 'MILLILITERS']
-    },
-    UserRole: {
+    {
       name: 'UserRole',
-      values: ['ADMIN', 'ADMIN_PENDING', 'USER']
-    },
-    RevisionType: {
-      name: 'RevisionType',
-      values: ['ADD', 'MOD', 'DEL']
+      values: ['ADMIN', 'WAREHOUSE', 'MEDIC', 'USER']
     }
-  },
-  views: {
-    Address: {
-      name: 'Address',
-      columns: ['id', 'street', 'town.name', 'ownerUsername'],
-      nested: ['town']
+  ],
+  views: [
+    {
+      name: 'Drone',
+      columns: ['typeOfDroneName', 'status', 'locationLat', 'locationLon', 'flightTaskId'],
+      nested: [],
+      icon: 'pi pi-drone',
+      update: true,
+      delete: true,
+      insert: true,
     },
-    Organization: {
-      name: 'Organization',
-      columns: ['id', 'name', 'officialAddress.street', 'postalAddress.street', 'annualTurnover', 'employeesCount', 'fullName', 'type', 'ownerUsername'],
-      nested: ['officialAddress', 'postalAddress']
+    {
+      name: 'Request',
+      columns: ['userUsername', 'status', 'medicalFacilityName'],
+      nested: ['requestEntries'],
+      icon: 'pi pi-file',
+      update: true,
+      delete: true,
+      insert: true,
     },
-    Location: {
-      name: 'Location',
-      columns: ['id', 'x', 'y', 'z', 'name', 'ownerUsername'],
-      nested: []
+    {
+      name: 'Route',
+      columns: ['warehouseId', 'medicalFacilityId'],
+      nested: ['routePoints'],
+      icon: 'pi pi-map',
+      update: true,
+      delete: true,
+      insert: true,
     },
-    Person: {
-      name: 'Person',
-      columns: ['id', 'name', 'eyeColor', 'hairColor', 'location.name', 'height', 'nationality', 'ownerUsername'],
-      nested: ['location']
+    {
+      name: 'MedicalFacility',
+      columns: ['name', 'responsibleUserUsername', 'locationLat', 'locationLon'],
+      nested: [],
+      icon: 'pi pi-building',
+      update: true,
+      delete: true,
+      insert: true,
     },
-    Product: {
-      name: 'Product',
-      columns: ['id', 'creationDate', 'name', 'coordinateX', 'coordinateY', 'unitOfMeasure', 'manufacturer.name', 'price', 'manufactureCost', 'rating', 'partNumber', 'personOwner.name', 'ownerUsername'],
-      nested: ['manufacturer', 'personOwner']
+    {
+      name: 'Warehouse',
+      columns: ['name', 'locationLat', 'locationLon'],
+      nested: ['products'],
+      icon: 'pi pi-home',
+      update: true,
+      delete: true,
+      insert: true,
     },
-    User: {
-      name: 'User',
-      columns: ['id', 'username', 'role'],
-      nested: []
+    {
+      name: 'ProductType',
+      columns: ['type'],
+      nested: [],
+      icon: 'pi pi-tag',
+      update: true,
+      delete: true,
+      insert: true,
     },
-    Audit: {
-      name: 'Audit',
-      columns: ['revision', 'timestamp', 'type', 'entityId', 'author'],
-      nested: []
-    }
-  }
+    {
+      name: 'FlightTask',
+      columns: ['requestId', 'status', 'productTypeProductTypeName', 'warehouseWarehouseName', 'medicalFacilityMedicalFacilityName'],
+      nested: [],
+      icon: 'pi pi-plane',
+      update: true,
+      delete: true,
+      insert: true,
+    },
+    {
+      name: 'TypeOfDrone',
+      columns: ['name', 'maxWeight', 'speed'],
+      nested: [],
+      icon: 'pi pi-drone',
+      update: true,
+      delete: true,
+      insert: true,
+    },
+    {
+      name: 'NoFlightZone',
+      columns: ['radius', 'centerLat', 'centerLon'],
+      nested: [],
+      icon: 'pi pi-ban',
+      update: true,
+      delete: true,
+      insert: true,
+    },
+    {
+      name: 'WarehouseProducts',
+      columns: ['idProductId', 'idWarehouseId', 'quantity'],
+      nested: [],
+      icon: 'pi pi-box',
+      update: true,
+      delete: true,
+      insert: true,
+    },
+  ]
 }

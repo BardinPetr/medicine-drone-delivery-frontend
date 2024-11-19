@@ -7,7 +7,6 @@ import {ApiProviderService} from "../../api/api-provider.service";
 import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
 import {MessageService} from "primeng/api";
 import {TranslationService} from "../../services/translate/translation.service";
-import {flattenData} from "./utils";
 
 
 @Component({
@@ -46,8 +45,8 @@ export class BaseFormComponent {
 
     this.ownApi = apiProvider.getAPI(this.entityName)
     this.entityMeta = this.meta.getEntity(this.entityName)
-    this.entityFields = Object
-      .values(this.entityMeta.fields)
+    this.entityFields = this.entityMeta
+      .fields
       .filter(x => this.isEdit || !x.readonly)
 
     this.entityFields
@@ -56,7 +55,7 @@ export class BaseFormComponent {
         let startValue = this.entityData[name]
 
         if (field.type === EntityFieldMetaType.DATE && startValue)
-           startValue = new Date(Date.parse(startValue))
+          startValue = new Date(Date.parse(startValue))
 
         const control = new FormControl(
           startValue,
@@ -76,7 +75,7 @@ export class BaseFormComponent {
             this
               .meta
               .getEnumValues(field.entityRef!)
-          if(field.nullable)
+          if (field.nullable)
             this.relEnums[name] = ["", ...this.relEnums[name]]
         } else if (field.type === EntityFieldMetaType.REL) {
           this
@@ -95,11 +94,11 @@ export class BaseFormComponent {
     this
       .entityFields
       .forEach((field) => {
-        if(!(field.name in formData)) return
+        if (!(field.name in formData)) return
         switch (field.type) {
           case EntityFieldMetaType.ENUM:
           case EntityFieldMetaType.STRING:
-            if(formData[field.name]?.trim() === "")
+            if (formData[field.name]?.trim() === "")
               formData[field.name] = null
             break;
           case EntityFieldMetaType.REL:

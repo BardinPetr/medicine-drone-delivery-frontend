@@ -11,19 +11,10 @@
  */
 
 
-export interface UserDto {
-  username: string;
-  role: UserDto.RoleEnum;
+export interface TypeOfDroneDto {
+  name?: string;
+  maxWeight?: number;
+  speed?: number;
   id?: number;
 }
-
-export namespace UserDto {
-  export type RoleEnum = 'USER' | 'ADMIN' | 'ADMIN_PENDING';
-  export const RoleEnum = {
-    User: 'USER' as RoleEnum,
-    Admin: 'ADMIN' as RoleEnum,
-    AdminPending: 'ADMIN_PENDING' as RoleEnum
-  };
-}
-
 

@@ -12,22 +12,22 @@
     <ng-container [ngSwitch]="field.type">
       <ng-container *ngSwitchCase="MT.INTEGER">
         <p-inputNumber
-          class="w-full"
           [useGrouping]="false"
-          mode="decimal"
+          class="w-full"
           formControlName="{{ field.name }}"
           id="{{field.name}}"
+          mode="decimal"
         />
       </ng-container>
       <ng-container *ngSwitchCase="MT.FLOAT">
         <p-inputNumber
-          [useGrouping]="false"
-          mode="decimal"
-          [minFractionDigits]="1"
           [maxFractionDigits]="5"
+          [minFractionDigits]="1"
+          [useGrouping]="false"
           class="w-full"
           formControlName="{{ field.name }}"
           id="{{field.name}}"
+          mode="decimal"
         />
       </ng-container>
       <ng-container *ngSwitchCase="MT.STRING">

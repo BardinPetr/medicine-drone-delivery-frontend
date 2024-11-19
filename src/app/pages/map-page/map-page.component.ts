@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {MapControllerService} from "../../../lib";
+// import {MapControllerService} from "../../../lib";
 import {AnyLayout, CirclePaint, SymbolPaint} from "mapbox-gl";
 import Palette from "iwanthue/palette";
 import {CUDialogService} from "../../services/cudialog.service";
@@ -35,7 +35,7 @@ export class MapPageComponent implements OnInit, OnDestroy {
   private subs: Subscription[] = [];
 
   constructor(
-    private mapApi: MapControllerService,
+    // private mapApi: MapControllerService,
     private cuDialog: CUDialogService,
     private apiProvider: ApiProviderService,
     private mqtt: MqttService) {
@@ -73,24 +73,32 @@ export class MapPageComponent implements OnInit, OnDestroy {
       })
   }
 
+  onClickCreate(event: mapboxgl.MapMouseEvent & mapboxgl.EventData) {
+    if (!event.originalEvent.ctrlKey) return
+    this.cuDialog.show(false, 'Product', {
+      coordinateX: event.lngLat.lat * 1000,
+      coordinateY: Math.round(event.lngLat.lng * 1000)
+    })
+  }
+
   private fetchPersons() {
-    this
-      .mapApi
-      .persons()
-      // @ts-ignore
-      .subscribe(data => {
-        this.updatePersons(JSON.parse(data))
-      })
+    // this
+    //   .mapApi
+    //   .persons()
+    //   // @ts-ignore
+    //   .subscribe(data => {
+    //     this.updatePersons(JSON.parse(data))
+    //   })
   }
 
   private fetchProducts() {
-    this
-      .mapApi
-      .products()
-      // @ts-ignore
-      .subscribe(data => {
-        this.updateProducts(JSON.parse(data))
-      })
+    // this
+    //   .mapApi
+    //   .products()
+    //   // @ts-ignore
+    //   .subscribe(data => {
+    //     this.updateProducts(JSON.parse(data))
+    //   })
   }
 
   private updateProducts(data: any) {
@@ -125,14 +133,6 @@ export class MapPageComponent implements OnInit, OnDestroy {
 
   private updatePersons(data: any) {
     this.ptsPersons = data
-  }
-
-  onClickCreate(event: mapboxgl.MapMouseEvent & mapboxgl.EventData) {
-    if (!event.originalEvent.ctrlKey) return
-    this.cuDialog.show(false, 'Product', {
-      coordinateX: event.lngLat.lat * 1000,
-      coordinateY: Math.round(event.lngLat.lng * 1000)
-    })
   }
 }
 

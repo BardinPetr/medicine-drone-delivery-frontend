@@ -9,21 +9,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import {RoutePointDto} from './routePointDto';
 
 
-export interface UserDto {
-  username: string;
-  role: UserDto.RoleEnum;
+export interface RouteDto {
+  warehouseId?: number;
+  medicalFacilityId?: number;
+  routePoints: Array<RoutePointDto>;
   id?: number;
 }
-
-export namespace UserDto {
-  export type RoleEnum = 'USER' | 'ADMIN' | 'ADMIN_PENDING';
-  export const RoleEnum = {
-    User: 'USER' as RoleEnum,
-    Admin: 'ADMIN' as RoleEnum,
-    AdminPending: 'ADMIN_PENDING' as RoleEnum
-  };
-}
-
 

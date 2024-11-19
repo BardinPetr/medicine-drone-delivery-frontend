@@ -11,19 +11,10 @@
  */
 
 
-export interface UserDto {
-  username: string;
-  role: UserDto.RoleEnum;
-  id?: number;
+export interface RoutePointDto {
+  idRouteId: number;
+  idPointNumber: number;
+  locationLat?: number;
+  locationLon?: number;
 }
-
-export namespace UserDto {
-  export type RoleEnum = 'USER' | 'ADMIN' | 'ADMIN_PENDING';
-  export const RoleEnum = {
-    User: 'USER' as RoleEnum,
-    Admin: 'ADMIN' as RoleEnum,
-    AdminPending: 'ADMIN_PENDING' as RoleEnum
-  };
-}
-
 

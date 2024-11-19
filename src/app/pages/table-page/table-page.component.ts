@@ -3,14 +3,12 @@ import {MetamodelService} from "../../services/meta/metamodel.service";
 import {ActivatedRoute} from "@angular/router";
 import {ApiProviderService} from "../../api/api-provider.service";
 import {ColDef} from "@ag-grid-community/core";
-import {EntityMeta} from "../../services/meta/metamodel";
+import {EntityMeta, ViewMeta} from "../../services/meta/metamodel";
 import {ActionDef, BaseTableComponent} from "../../components/base-table/base-table.component";
 import {MessageService} from "primeng/api";
 import {AuthService} from "../../services/auth/auth.service";
 import {CUDialogService} from "../../services/cudialog.service";
-import {map, Subscription} from "rxjs";
-import {RegisterDto} from "../../../lib";
-import RoleEnum = RegisterDto.RoleEnum;
+import {Subscription} from "rxjs";
 import {IMqttMessage, MqttService} from "ngx-mqtt";
 
 @Component({
@@ -27,52 +25,10 @@ export class TablePageComponent implements OnDestroy {
   entityMeta: EntityMeta;
   columnDefs: ColDef[] = [];
   auditColumnDefs: ColDef[] = [];
-
+  actionDefs: ActionDef[] = [];
   private api: any;
   private subs: Subscription[] = [];
-  actionDefs: ActionDef[] = [
-    {
-      label: "Create",
-      icon: "plus",
-      severity: "success",
-      static: true,
-      handler: (_) => {
-        this.cuDialogService.openCreate(this.entityMeta.name)
-      }
-    },
-    {
-      label: "Audit",
-      icon: "search",
-      severity: "info",
-      static: true,
-      handler: (_) => {
-        this.auditDialogVisible = true
-        this.auditTable!.refresh()
-      }
-    },
-    {
-      label: "Edit",
-      icon: "file-edit",
-      severity: "warning",
-      allowActivate: (x) => this.allowActivateOwned(x),
-      handler: (x) => {
-        this.cuDialogService.openEdit(this.entityMeta.name, x)
-      }
-    },
-    {
-      label: "Delete",
-      icon: "trash",
-      severity: "danger",
-      allowActivate: (x) => this.allowActivateOwned(x),
-      handler: (x) => {
-        this.api
-          .remove(x.id)
-          .subscribe({
-            complete: () => this.successMessage()
-          })
-      }
-    }
-  ]
+  private viewMeta: ViewMeta;
 
   constructor(
     apiProvider: ApiProviderService,
@@ -92,14 +48,16 @@ export class TablePageComponent implements OnDestroy {
     this.api = apiProvider.getAPI(viewId)
     this.entityMeta = meta.getEntity(viewId)
     this.columnDefs = meta.getTableColumns(viewId)
-    this.auditColumnDefs = meta.getTableColumns('Audit')
+    this.viewMeta = meta.getView(viewId)
+    // this.auditColumnDefs = meta.getTableColumns('Audit')
+    this.createActionDefs()
 
     this.subs.push(this.mqtt
       .observe(`/notify/${viewId}`)
       .subscribe((msg: IMqttMessage) => {
         console.warn("MQTT UPDATE : " + msg.payload)
         this.mainTable!.refresh()
-        this.auditTable!.refresh()
+        // this.auditTable!.refresh()
       }));
   }
 
@@ -108,8 +66,9 @@ export class TablePageComponent implements OnDestroy {
   }
 
   allowActivateOwned(x: any): boolean {
-    return this.authService.state?.username == x?.ownerUsername ||
-      this.authService.state?.role == RoleEnum.Admin
+    return true // TODO
+    // return this.authService.state?.username == x?.ownerUsername ||
+    //   this.authService.state?.role == RoleEnum.Admin
   }
 
   successMessage() {
@@ -123,8 +82,49 @@ export class TablePageComponent implements OnDestroy {
     this.api
       .list(page, filter)
 
-  auditFetchWrapper = (page: any, filter: any) =>
-    this.api
-      .audit(page)
-      .pipe(map((x: any[]) => ({content: x})))
+  // auditFetchWrapper = (page: any, filter: any) =>
+  //   this.api
+  //     .audit(page)
+  //     .pipe(map((x: any[]) => ({content: x})))
+
+  createActionDefs() {
+    this.actionDefs = []
+    if (this.viewMeta.insert) {
+      this.actionDefs.push({
+        label: "Create",
+        icon: "plus",
+        severity: "success",
+        static: true,
+        handler: (_) => {
+          this.cuDialogService.openCreate(this.entityMeta.name)
+        }
+      })
+    }
+    if (this.viewMeta.delete) {
+      this.actionDefs.push({
+        label: "Delete",
+        icon: "trash",
+        severity: "danger",
+        allowActivate: (x) => this.allowActivateOwned(x) && (this.viewMeta.delete || false),
+        handler: (x) => {
+          this.api
+            .remove(x.id)
+            .subscribe({
+              complete: () => this.successMessage()
+            })
+        }
+      })
+    }
+    if (this.viewMeta.update) {
+      this.actionDefs.push({
+        label: "Edit",
+        icon: "file-edit",
+        severity: "warning",
+        allowActivate: (x) => this.allowActivateOwned(x),
+        handler: (x) => {
+          this.cuDialogService.openEdit(this.entityMeta.name, x)
+        }
+      })
+    }
+  }
 }

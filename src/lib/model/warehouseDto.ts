@@ -9,21 +9,14 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import {WarehouseProductsDto} from './warehouseProductsDto';
 
 
-export interface UserDto {
-  username: string;
-  role: UserDto.RoleEnum;
+export interface WarehouseDto {
+  name?: string;
+  locationLat?: number;
+  locationLon?: number;
+  products: Array<WarehouseProductsDto>;
   id?: number;
 }
-
-export namespace UserDto {
-  export type RoleEnum = 'USER' | 'ADMIN' | 'ADMIN_PENDING';
-  export const RoleEnum = {
-    User: 'USER' as RoleEnum,
-    Admin: 'ADMIN' as RoleEnum,
-    AdminPending: 'ADMIN_PENDING' as RoleEnum
-  };
-}
-
 

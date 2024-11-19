@@ -1,5 +1,5 @@
 export enum EntityFieldMetaType {
-  INTEGER, FLOAT, STRING, DATE, ENUM, REL
+  INTEGER, FLOAT, STRING, DATE, ENUM, REL, COL
 }
 
 export interface EntityFieldMeta {
@@ -7,13 +7,14 @@ export interface EntityFieldMeta {
   type: EntityFieldMetaType,
   entityRef: string | null,
   nullable: boolean,
-  readonly?: boolean
+  readonly?: boolean,
+  hidden?: boolean
 }
 
 export interface EntityMeta {
   name: string,
   titleField?: string,
-  fields: { [key: string]: EntityFieldMeta }
+  fields: EntityFieldMeta[]
 }
 
 export interface EnumMeta {
@@ -25,10 +26,14 @@ export interface ViewMeta {
   name: string,
   columns: string[],
   nested: string[],
+  icon: string,
+  update?: boolean,
+  delete?: boolean,
+  insert?: boolean,
 }
 
 export interface Metamodel {
-  entities: { [key: string]: EntityMeta },
-  enums: { [key: string]: EnumMeta },
-  views: { [key: string]: ViewMeta }
+  entities: EntityMeta[],
+  enums: EnumMeta[],
+  views: ViewMeta[]
 }
