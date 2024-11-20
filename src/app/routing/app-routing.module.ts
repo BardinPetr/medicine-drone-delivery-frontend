@@ -13,6 +13,7 @@ import {LoginPageComponent} from "../pages/login-page/login-page.component";
 import {RegisterPageComponent} from "../pages/register-page/register-page.component";
 import {isAuthenticated} from "../services/auth/auth-guard.service";
 import {MapPageComponent} from "../pages/map-page/map-page.component";
+import {RequestPageComponent} from "../pages/admin-page/request-page.component";
 
 
 const routes: Routes = [
@@ -26,6 +27,12 @@ const routes: Routes = [
     path: "map",
     component: MapPageComponent,
     canActivate: [isAuthenticated]
+  },
+  {
+    title: "New Request",
+    path: "new",
+    component: RequestPageComponent,
+    canActivate: [isAuthenticated] // TODO
   },
   ...tableRoutes,
   {

@@ -1,0 +1,30 @@
+<p-card [header]="'New request'">
+
+  <div class="p-grid">
+    <div class="p-col-6">
+      <p-pickList
+        [source]="availableProducts"
+        [target]="selectedProducts">
+        <ng-template let-product pTemplate="item">
+          {{ product.productTypeType }}
+        </ng-template>
+      </p-pickList>
+    </div>
+    <div class="p-col-6">
+      <h4>Selected Products</h4>
+      <ul>
+        <li *ngFor="let product of selectedProducts">
+          {{ product.productTypeType }} - Quantity:
+          <p-inputNumber
+            [(ngModel)]="product.quantity"
+            [min]="1"
+            [useGrouping]="false"
+            mode="decimal"
+          />
+        </li>
+      </ul>
+    </div>
+  </div>
+  <p-button label="Send" (onClick)="sendOrder()"></p-button>
+
+</p-card>

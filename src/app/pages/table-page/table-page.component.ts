@@ -18,7 +18,7 @@ import {IMqttMessage, MqttService} from "ngx-mqtt";
 })
 export class TablePageComponent implements OnDestroy {
   @ViewChild('mainTable') mainTable?: BaseTableComponent = undefined;
-  @ViewChild('auditTable') auditTable?: BaseTableComponent = undefined;
+  // @ViewChild('auditTable') auditTable?: BaseTableComponent = undefined;
 
   auditDialogVisible: boolean = false
 

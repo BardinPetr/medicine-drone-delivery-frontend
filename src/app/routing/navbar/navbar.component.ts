@@ -27,6 +27,12 @@ export class NavbarComponent {
             routerLink: "/map",
             disabled: roles.length == 0
           },
+          {
+            label: "New Request",
+            icon: "pi pi-fw pi-send",
+            routerLink: "/new",
+            disabled: roles.length == 0 // TODO
+          },
           ...tableRouteData
             .map(x => ({
               label: x.title,

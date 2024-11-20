@@ -28,6 +28,8 @@ export interface ActionDef {
 export class BaseTableComponent implements OnInit {
   @ViewChild('agGrid') agGrid?: AgGridAngular = undefined;
 
+  @Input() public filtered: boolean = false;
+  @Input() public sorted: boolean = false;
   @Input() public paged: boolean = true;
   @Input() public interactive: boolean = true;
   @Input() public staticData: boolean = false;
@@ -50,14 +52,17 @@ export class BaseTableComponent implements OnInit {
   public pageSize: number = 20
 
   public get outColumnDefs(): ColDef[] {
-    if (this.interactive)
-      return this.columnDefs
     return this.columnDefs.map(x => {
+      if (this.filtered)
+        return {
+          ...x,
+          sortable: this.sorted
+        }
       return {
         ...x,
         filter: null,
         filterParams: null,
-        sortable: false
+        sortable: this.sorted
       }
     })
   }
@@ -65,7 +70,7 @@ export class BaseTableComponent implements OnInit {
   ngOnInit(): void {
     this.rowSelection.checkboxes = this.interactive
     this.rowSelection.enableClickSelection = this.interactive
-    this.defaultColDef.floatingFilter = this.interactive
+    this.defaultColDef.floatingFilter = this.filtered
   }
 
   onGridReady(params: GridReadyEvent) {
