@@ -13,8 +13,8 @@ import { HttpHeaders }                                       from '@angular/comm
 
 import { Observable }                                        from 'rxjs';
 
-import { DroneDto } from '../model/models';
-import { PageDroneDto } from '../model/models';
+import { FsNodeDto } from '../model/models';
+import { PageFsNodeDto } from '../model/models';
 import { Pageable } from '../model/models';
 
 
@@ -22,7 +22,7 @@ import { Configuration }                                     from '../configurat
 
 
 
-export interface DroneControllerServiceInterface {
+export interface FsNodeControllerServiceInterface {
     defaultHeaders: HttpHeaders;
     configuration: Configuration;
 
@@ -35,16 +35,16 @@ export interface DroneControllerServiceInterface {
     /**
      * 
      * 
-     * @param droneDto 
+     * @param fsNodeDto 
      */
-    create(droneDto: DroneDto, extraHttpRequestParams?: any): Observable<DroneDto>;
+    create(fsNodeDto: FsNodeDto, extraHttpRequestParams?: any): Observable<FsNodeDto>;
 
     /**
      * 
      * 
      * @param id 
      */
-    get(id: number, extraHttpRequestParams?: any): Observable<DroneDto>;
+    get(id: number, extraHttpRequestParams?: any): Observable<FsNodeDto>;
 
     /**
      * 
@@ -52,13 +52,13 @@ export interface DroneControllerServiceInterface {
      * @param pageable 
      * @param filter 
      */
-    list(pageable: Pageable, filter?: string, extraHttpRequestParams?: any): Observable<PageDroneDto>;
+    list(pageable: Pageable, filter?: string, extraHttpRequestParams?: any): Observable<PageFsNodeDto>;
 
     /**
      * 
      * 
      */
-    listAll(extraHttpRequestParams?: any): Observable<Array<DroneDto>>;
+    listAll(extraHttpRequestParams?: any): Observable<Array<FsNodeDto>>;
 
     /**
      * 
@@ -71,15 +71,8 @@ export interface DroneControllerServiceInterface {
      * 
      * 
      * @param id 
+     * @param fsNodeDto 
      */
-    sendDrone(id: number, extraHttpRequestParams?: any): Observable<boolean>;
-
-    /**
-     * 
-     * 
-     * @param id 
-     * @param droneDto 
-     */
-    update(id: number, droneDto: DroneDto, extraHttpRequestParams?: any): Observable<DroneDto>;
+    update(id: number, fsNodeDto: FsNodeDto, extraHttpRequestParams?: any): Observable<FsNodeDto>;
 
 }

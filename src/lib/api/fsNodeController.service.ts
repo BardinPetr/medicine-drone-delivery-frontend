@@ -19,9 +19,9 @@ import { CustomHttpParameterCodec }                          from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 // @ts-ignore
-import { DroneDto } from '../model/droneDto';
+import { FsNodeDto } from '../model/fsNodeDto';
 // @ts-ignore
-import { PageDroneDto } from '../model/pageDroneDto';
+import { PageFsNodeDto } from '../model/pageFsNodeDto';
 // @ts-ignore
 import { Pageable } from '../model/pageable';
 
@@ -29,15 +29,15 @@ import { Pageable } from '../model/pageable';
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 import {
-    DroneControllerServiceInterface
-} from './droneController.serviceInterface';
+    FsNodeControllerServiceInterface
+} from './fsNodeController.serviceInterface';
 
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class DroneControllerService implements DroneControllerServiceInterface {
+export class FsNodeControllerService implements FsNodeControllerServiceInterface {
 
     protected basePath = 'http://0.0.0.0:8080';
     public defaultHeaders = new HttpHeaders();
@@ -145,7 +145,7 @@ export class DroneControllerService implements DroneControllerServiceInterface {
             }
         }
 
-        let localVarPath = `/api/drone/count`;
+        let localVarPath = `/api/rest/count`;
         return this.httpClient.request<number>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -159,16 +159,16 @@ export class DroneControllerService implements DroneControllerServiceInterface {
     }
 
     /**
-     * @param droneDto 
+     * @param fsNodeDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public create(droneDto: DroneDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<DroneDto>;
-    public create(droneDto: DroneDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<DroneDto>>;
-    public create(droneDto: DroneDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<DroneDto>>;
-    public create(droneDto: DroneDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-        if (droneDto === null || droneDto === undefined) {
-            throw new Error('Required parameter droneDto was null or undefined when calling create.');
+    public create(fsNodeDto: FsNodeDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<FsNodeDto>;
+    public create(fsNodeDto: FsNodeDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<FsNodeDto>>;
+    public create(fsNodeDto: FsNodeDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<FsNodeDto>>;
+    public create(fsNodeDto: FsNodeDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+        if (fsNodeDto === null || fsNodeDto === undefined) {
+            throw new Error('Required parameter fsNodeDto was null or undefined when calling create.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -218,11 +218,11 @@ export class DroneControllerService implements DroneControllerServiceInterface {
             }
         }
 
-        let localVarPath = `/api/drone`;
-        return this.httpClient.request<DroneDto>('post', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/api/rest`;
+        return this.httpClient.request<FsNodeDto>('post', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: droneDto,
+                body: fsNodeDto,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
@@ -237,9 +237,9 @@ export class DroneControllerService implements DroneControllerServiceInterface {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public get(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<DroneDto>;
-    public get(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<DroneDto>>;
-    public get(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<DroneDto>>;
+    public get(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<FsNodeDto>;
+    public get(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<FsNodeDto>>;
+    public get(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<FsNodeDto>>;
     public get(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling get.');
@@ -283,8 +283,8 @@ export class DroneControllerService implements DroneControllerServiceInterface {
             }
         }
 
-        let localVarPath = `/api/drone/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
-        return this.httpClient.request<DroneDto>('get', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/api/rest/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
+        return this.httpClient.request<FsNodeDto>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -302,9 +302,9 @@ export class DroneControllerService implements DroneControllerServiceInterface {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public list(pageable: Pageable, filter?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<PageDroneDto>;
-    public list(pageable: Pageable, filter?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<PageDroneDto>>;
-    public list(pageable: Pageable, filter?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<PageDroneDto>>;
+    public list(pageable: Pageable, filter?: string, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<PageFsNodeDto>;
+    public list(pageable: Pageable, filter?: string, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<PageFsNodeDto>>;
+    public list(pageable: Pageable, filter?: string, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<PageFsNodeDto>>;
     public list(pageable: Pageable, filter?: string, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (pageable === null || pageable === undefined) {
             throw new Error('Required parameter pageable was null or undefined when calling list.');
@@ -358,8 +358,8 @@ export class DroneControllerService implements DroneControllerServiceInterface {
             }
         }
 
-        let localVarPath = `/api/drone`;
-        return this.httpClient.request<PageDroneDto>('get', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/api/rest`;
+        return this.httpClient.request<PageFsNodeDto>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 params: localVarQueryParameters,
@@ -376,9 +376,9 @@ export class DroneControllerService implements DroneControllerServiceInterface {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public listAll(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<DroneDto>>;
-    public listAll(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<DroneDto>>>;
-    public listAll(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<DroneDto>>>;
+    public listAll(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<FsNodeDto>>;
+    public listAll(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<FsNodeDto>>>;
+    public listAll(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<FsNodeDto>>>;
     public listAll(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
 
         let localVarHeaders = this.defaultHeaders;
@@ -419,8 +419,8 @@ export class DroneControllerService implements DroneControllerServiceInterface {
             }
         }
 
-        let localVarPath = `/api/drone/all`;
-        return this.httpClient.request<Array<DroneDto>>('get', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/api/rest/all`;
+        return this.httpClient.request<Array<FsNodeDto>>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 responseType: <any>responseType_,
@@ -483,7 +483,7 @@ export class DroneControllerService implements DroneControllerServiceInterface {
             }
         }
 
-        let localVarPath = `/api/drone/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
+        let localVarPath = `/api/rest/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
         return this.httpClient.request<boolean>('delete', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
@@ -498,83 +498,19 @@ export class DroneControllerService implements DroneControllerServiceInterface {
 
     /**
      * @param id 
+     * @param fsNodeDto 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public sendDrone(id: number, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<boolean>;
-    public sendDrone(id: number, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<boolean>>;
-    public sendDrone(id: number, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<boolean>>;
-    public sendDrone(id: number, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling sendDrone.');
-        }
-
-        let localVarHeaders = this.defaultHeaders;
-
-        let localVarCredential: string | undefined;
-        // authentication (bearerAuth) required
-        localVarCredential = this.configuration.lookupCredential('bearerAuth');
-        if (localVarCredential) {
-            localVarHeaders = localVarHeaders.set('Authorization', 'Bearer ' + localVarCredential);
-        }
-
-        let localVarHttpHeaderAcceptSelected: string | undefined = options && options.httpHeaderAccept;
-        if (localVarHttpHeaderAcceptSelected === undefined) {
-            // to determine the Accept header
-            const httpHeaderAccepts: string[] = [
-                'application/json'
-            ];
-            localVarHttpHeaderAcceptSelected = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        }
-        if (localVarHttpHeaderAcceptSelected !== undefined) {
-            localVarHeaders = localVarHeaders.set('Accept', localVarHttpHeaderAcceptSelected);
-        }
-
-        let localVarHttpContext: HttpContext | undefined = options && options.context;
-        if (localVarHttpContext === undefined) {
-            localVarHttpContext = new HttpContext();
-        }
-
-
-        let responseType_: 'text' | 'json' | 'blob' = 'json';
-        if (localVarHttpHeaderAcceptSelected) {
-            if (localVarHttpHeaderAcceptSelected.startsWith('text')) {
-                responseType_ = 'text';
-            } else if (this.configuration.isJsonMime(localVarHttpHeaderAcceptSelected)) {
-                responseType_ = 'json';
-            } else {
-                responseType_ = 'blob';
-            }
-        }
-
-        let localVarPath = `/api/drone/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}/send`;
-        return this.httpClient.request<boolean>('post', `${this.configuration.basePath}${localVarPath}`,
-            {
-                context: localVarHttpContext,
-                responseType: <any>responseType_,
-                withCredentials: this.configuration.withCredentials,
-                headers: localVarHeaders,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * @param id 
-     * @param droneDto 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public update(id: number, droneDto: DroneDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<DroneDto>;
-    public update(id: number, droneDto: DroneDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<DroneDto>>;
-    public update(id: number, droneDto: DroneDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<DroneDto>>;
-    public update(id: number, droneDto: DroneDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public update(id: number, fsNodeDto: FsNodeDto, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<FsNodeDto>;
+    public update(id: number, fsNodeDto: FsNodeDto, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<FsNodeDto>>;
+    public update(id: number, fsNodeDto: FsNodeDto, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<FsNodeDto>>;
+    public update(id: number, fsNodeDto: FsNodeDto, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling update.');
         }
-        if (droneDto === null || droneDto === undefined) {
-            throw new Error('Required parameter droneDto was null or undefined when calling update.');
+        if (fsNodeDto === null || fsNodeDto === undefined) {
+            throw new Error('Required parameter fsNodeDto was null or undefined when calling update.');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -624,11 +560,11 @@ export class DroneControllerService implements DroneControllerServiceInterface {
             }
         }
 
-        let localVarPath = `/api/drone/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
-        return this.httpClient.request<DroneDto>('put', `${this.configuration.basePath}${localVarPath}`,
+        let localVarPath = `/api/rest/${this.configuration.encodeParam({name: "id", value: id, in: "path", style: "simple", explode: false, dataType: "number", dataFormat: "int64"})}`;
+        return this.httpClient.request<FsNodeDto>('put', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
-                body: droneDto,
+                body: fsNodeDto,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

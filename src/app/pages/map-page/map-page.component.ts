@@ -1,11 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 // import {MapControllerService} from "../../../lib";
-import {AnyLayout, CirclePaint, SymbolPaint} from "mapbox-gl";
+import {AnyLayout, CirclePaint, FillPaint, SymbolPaint} from "mapbox-gl";
 import Palette from "iwanthue/palette";
 import {CUDialogService} from "../../services/cudialog.service";
 import {forkJoin, Subscription} from "rxjs";
 import {ApiProviderService} from "../../api/api-provider.service";
 import {IMqttMessage, MqttService} from "ngx-mqtt";
+import {MapControllerService} from "../../../lib";
 
 @Component({
   selector: 'app-map-page',
@@ -13,29 +14,42 @@ import {IMqttMessage, MqttService} from "ngx-mqtt";
   styleUrl: './map-page.component.sass'
 })
 export class MapPageComponent implements OnInit, OnDestroy {
-  ptsProducts: GeoJSON.FeatureCollection = {
+  ptsWh: GeoJSON.FeatureCollection = {
     type: 'FeatureCollection',
     features: []
   };
-  ptsPersons: GeoJSON.FeatureCollection = {
+  ptsMd: GeoJSON.FeatureCollection = {
     type: 'FeatureCollection',
     features: []
   };
-
-  paintProducts: CirclePaint = {
-    "circle-opacity": 1,
+  ptsDr: GeoJSON.FeatureCollection = {
+    type: 'FeatureCollection',
+    features: []
+  };
+  ptsNfz: GeoJSON.FeatureCollection = {
+    type: 'FeatureCollection',
+    features: []
+  };
+  paintNfz: FillPaint = {
+    "fill-color": "red",
+    "fill-opacity": 0.3
   }
-  paintPersons: SymbolPaint = {
-    "icon-color": "#f00"
-  }
-  layoutPersons: AnyLayout = {
-    "icon-image": 'pitch',
+  paintDr: CirclePaint = {}
+  paintWh: SymbolPaint = {}
+  layoutWh: AnyLayout = {
+    "icon-image": 'museum',
     "icon-size": 1.6
   }
+  paintMd: SymbolPaint = {}
+  layoutMd: AnyLayout = {
+    "icon-image": 'hospital',
+    "icon-size": 1.6
+  }
+
   private subs: Subscription[] = [];
 
   constructor(
-    // private mapApi: MapControllerService,
+    private mapApi: MapControllerService,
     private cuDialog: CUDialogService,
     private apiProvider: ApiProviderService,
     private mqtt: MqttService) {
@@ -46,93 +60,74 @@ export class MapPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.fetchPersons()
-    this.fetchProducts()
-
     this.subs.push(this.mqtt
-      .observe('/notify/Person')
+      .observe('/notify')
       .subscribe((msg: IMqttMessage) => {
-        console.warn("MQTT PERSON : " + msg.payload)
-        this.fetchPersons()
-      }));
-    this.subs.push(this.mqtt
-      .observe('/notify/Product')
-      .subscribe((msg: IMqttMessage) => {
-        console.warn("MQTT PRODUCT : " + msg.payload)
-        this.fetchProducts()
+        // console.warn("MQTT NOTIFY : " + msg.payload)
+        this.fetch()
       }));
   }
 
-  onClick(entityType: string, event: any) {
-    const ids = entityIdsOfEvent(event)
-    fetchAll(this.apiProvider.getAPI(entityType), ids)
-      .subscribe(data => {
-        data.forEach(i => {
-          this.cuDialog.openEdit(entityType, i)
-        })
-      })
+  private fetch() {
+    this.mapApi
+      .warehouses()
+      .subscribe(data => this.ptsWh = JSON.parse(data))
+    this.mapApi
+      .medicalFacilities()
+      .subscribe(data => this.ptsMd = JSON.parse(data))
+    this.mapApi
+      .drones()
+      .subscribe(data => this.updateDrone(JSON.parse(data)))
+    this.mapApi
+      .noZones()
+      .subscribe(data => this.updateNfz(JSON.parse(data)))
   }
 
-  onClickCreate(event: mapboxgl.MapMouseEvent & mapboxgl.EventData) {
-    if (!event.originalEvent.ctrlKey) return
-    this.cuDialog.show(false, 'Product', {
-      coordinateX: event.lngLat.lat * 1000,
-      coordinateY: Math.round(event.lngLat.lng * 1000)
-    })
-  }
-
-  private fetchPersons() {
-    // this
-    //   .mapApi
-    //   .persons()
-    //   // @ts-ignore
-    //   .subscribe(data => {
-    //     this.updatePersons(JSON.parse(data))
-    //   })
-  }
-
-  private fetchProducts() {
-    // this
-    //   .mapApi
-    //   .products()
-    //   // @ts-ignore
-    //   .subscribe(data => {
-    //     this.updateProducts(JSON.parse(data))
-    //   })
-  }
-
-  private updateProducts(data: any) {
-    this.ptsProducts = data
-    const prices = this
-      .ptsProducts
-      .features
-      .map(x => x.properties?.['price']!)
-    const owners = distinct(this
-      .ptsProducts
-      .features
-      .map(x => x.properties?.['owner']!))
-    const palette = genPaletteFromValues(owners);
-    this.paintProducts = {
-      "circle-color": [
-        'match',
-        ['get', 'owner'],
-        ...owners.flatMap(x => [x, palette.get(x)]),
-        "#f00"
-      ],
-      'circle-radius': [
-        'interpolate',
-        ['linear'],
-        ['get', 'price'],
-        Math.min(...prices),
-        5,
-        Math.max(...prices),
-        12
-      ]
+  private updateNfz(data: any) {
+    // console.log(data)
+    this.ptsNfz = {
+      "type": "FeatureCollection",
+      "features": data.features.map((x: any) => makeCircle(x))
     }
   }
 
-  private updatePersons(data: any) {
-    this.ptsPersons = data
+  private updateDrone(data: any) {
+    this.ptsDr = data
+    const types = distinct(this
+      .ptsDr
+      .features
+      .map(x => x.properties?.['type']!)
+    )
+    const palette = genPaletteFromValues(types);
+    this.paintDr = {
+      "circle-color": [
+        'match',
+        ['get', 'type'],
+        'TYP1', "#f00", 'TYP2', '#0f0',
+        "#fff"
+      ],
+      "circle-opacity": 1,
+      "circle-radius": 6,
+    }
+  }
+
+  onClick(entityType: string, event: any) {
+    //   const ids = entityIdsOfEvent(event)
+    //   fetchAll(this.apiProvider.getAPI(entityType), ids)
+    //     .subscribe(data => {
+    //       data.forEach(i => {
+    //         this.cuDialog.openEdit(entityType, i)
+    //       })
+    //     })
+  }
+
+  onClickCreate(event: mapboxgl.MapMouseEvent & mapboxgl.EventData) {
+    console.log(`${event.lngLat.lat}, ${event.lngLat.lng}`)
+    //   if (!event.originalEvent.ctrlKey) return
+    //   this.cuDialog.show(false, 'Product', {
+    //     coordinateX: event.lngLat.lat * 1000,
+    //     coordinateY: Math.round(event.lngLat.lng * 1000)
+    //   })
   }
 }
 
@@ -148,3 +143,34 @@ const entityIdsOfEvent = (event: any) =>
 const fetchAll = (api: any, ids: number[]) =>
   forkJoin(ids.map(id => api.get(id)))
 
+
+const makeCircle = (feature: any) => {
+  const points = 32
+  const coords = {
+    latitude: feature.geometry.coordinates[1],
+    longitude: feature.geometry.coordinates[0]
+  };
+
+  const km = feature.properties.radius / 0.013; // 0.018
+  const ret = [];
+  const distanceX = km / (111.320 * Math.cos(coords.latitude * Math.PI / 180));
+  const distanceY = km / 110.574;
+
+  let theta, x, y;
+  for (let i = 0; i < points; i++) {
+    theta = (i / points) * (2 * Math.PI);
+    x = distanceX * Math.cos(theta);
+    y = distanceY * Math.sin(theta);
+
+    ret.push([coords.longitude + x, coords.latitude + y]);
+  }
+  ret.push(ret[0]);
+
+  return {
+    "type": "Feature",
+    "geometry": {
+      "type": "Polygon",
+      "coordinates": [ret]
+    }
+  }
+};

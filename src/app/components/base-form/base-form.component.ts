@@ -47,7 +47,7 @@ export class BaseFormComponent {
     this.entityMeta = this.meta.getEntity(this.entityName)
     this.entityFields = this.entityMeta
       .fields
-      .filter(x => this.isEdit || !x.readonly)
+      // .filter(x => ((this.isEdit && !x.readonly) || !this.isEdit))
 
     this.entityFields
       .forEach((field) => {
@@ -94,7 +94,10 @@ export class BaseFormComponent {
     this
       .entityFields
       .forEach((field) => {
-        if (!(field.name in formData)) return
+        if (!(field.name in formData)) {
+          formData[field.name] = this.entityData[field.name]
+          return
+        }
         switch (field.type) {
           case EntityFieldMetaType.ENUM:
           case EntityFieldMetaType.STRING:
@@ -119,7 +122,7 @@ export class BaseFormComponent {
   }
 
   private submit(data: any) {
-    let cmd = this.isEdit ? this.ownApi.update(this.entityData.id, data) : this.ownApi.create(data)
+    let cmd = this.isEdit ? this.ownApi.update(this.entityData.id || 0, data) : this.ownApi.create(data)
     cmd.subscribe({
       complete: () => {
         this.messageApi.add({

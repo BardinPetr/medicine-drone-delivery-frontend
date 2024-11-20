@@ -32,7 +32,7 @@ const routes: Routes = [
     title: "New Request",
     path: "new",
     component: RequestPageComponent,
-    canActivate: [isAuthenticated] // TODO
+    canActivate: [isAuthenticated]
   },
   ...tableRoutes,
   {

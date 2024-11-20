@@ -53,9 +53,10 @@ export class TablePageComponent implements OnDestroy {
     this.createActionDefs()
 
     this.subs.push(this.mqtt
-      .observe(`/notify/${viewId}`)
+      // .observe(`/notify/${viewId}`)
+      .observe('/notify')
       .subscribe((msg: IMqttMessage) => {
-        console.warn("MQTT UPDATE : " + msg.payload)
+        // console.warn("MQTT UPDATE : " + msg.payload)
         this.mainTable!.refresh()
         // this.auditTable!.refresh()
       }));
@@ -66,7 +67,7 @@ export class TablePageComponent implements OnDestroy {
   }
 
   allowActivateOwned(x: any): boolean {
-    return true // TODO
+    return true
     // return this.authService.state?.username == x?.ownerUsername ||
     //   this.authService.state?.role == RoleEnum.Admin
   }

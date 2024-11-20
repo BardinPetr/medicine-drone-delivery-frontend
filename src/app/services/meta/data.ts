@@ -132,11 +132,11 @@ export const metamodelData: Metamodel = {
     },
     {
       name: 'WarehouseProducts',
-      titleField: 'idProductId',
+      titleField: 'product.name',
       fields: [
-        {name: 'idProductId', type: EntityFieldMetaType.INTEGER, entityRef: 'ProductType', nullable: false},
-        {name: 'idWarehouseId', type: EntityFieldMetaType.INTEGER, entityRef: 'Warehouse', nullable: false},
-        {name: 'quantity', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+        {name: 'warehouse', type: EntityFieldMetaType.REL, entityRef: 'Warehouse', nullable: false, readonly: true},
+        {name: 'product', type: EntityFieldMetaType.REL, entityRef: 'ProductType', nullable: false, readonly: true},
+        {name: 'quantity', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
       ]
     },
   ],
@@ -182,15 +182,15 @@ export const metamodelData: Metamodel = {
       delete: false,
       insert: false,
     },
-    {
-      name: 'NoFlightZone',
-      columns: ['id', 'radius', 'centerLat', 'centerLon'],
-      nested: [],
-      icon: 'pi pi-ban',
-      update: true,
-      delete: true,
-      insert: true,
-    },
+    // {
+    //   name: 'NoFlightZone',
+    //   columns: ['id', 'radius', 'centerLat', 'centerLon'],
+    //   nested: [],
+    //   icon: 'pi pi-ban',
+    //   update: true,
+    //   delete: true,
+    //   insert: true,
+    // },
     {
       name: 'TypeOfDrone',
       columns: ['id', 'name', 'maxWeight', 'speed'],
@@ -227,16 +227,14 @@ export const metamodelData: Metamodel = {
       delete: false,
       insert: true,
     },
-    /*
     {
       name: 'WarehouseProducts',
-      columns: ['idProductId', 'idWarehouseId', 'quantity'],
+      columns: ['warehouse.name', 'product.type', 'quantity'],
       nested: [],
       icon: 'pi pi-box',
       update: true,
-      delete: true,
+      delete: false,
       insert: true,
     },
-    */
   ]
 }

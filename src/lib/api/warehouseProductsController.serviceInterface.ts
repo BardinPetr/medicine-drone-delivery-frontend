@@ -13,38 +13,40 @@ import { HttpHeaders }                                       from '@angular/comm
 
 import { Observable }                                        from 'rxjs';
 
+import { PageWarehouseProductsDto } from '../model/models';
+import { Pageable } from '../model/models';
+import { WarehouseProductsDto } from '../model/models';
 
 
 import { Configuration }                                     from '../configuration';
 
 
 
-export interface MapControllerServiceInterface {
+export interface WarehouseProductsControllerServiceInterface {
     defaultHeaders: HttpHeaders;
     configuration: Configuration;
 
     /**
      * 
      * 
+     * @param warehouseProductsDto 
      */
-    drones(extraHttpRequestParams?: any): Observable<string>;
+    create(warehouseProductsDto: WarehouseProductsDto, extraHttpRequestParams?: any): Observable<WarehouseProductsDto>;
 
     /**
      * 
      * 
+     * @param pageable 
+     * @param filter 
      */
-    medicalFacilities(extraHttpRequestParams?: any): Observable<string>;
+    list(pageable: Pageable, filter?: string, extraHttpRequestParams?: any): Observable<PageWarehouseProductsDto>;
 
     /**
      * 
      * 
+     * @param id 
+     * @param warehouseProductsDto 
      */
-    noZones(extraHttpRequestParams?: any): Observable<string>;
-
-    /**
-     * 
-     * 
-     */
-    warehouses(extraHttpRequestParams?: any): Observable<string>;
+    update(id: number, warehouseProductsDto: WarehouseProductsDto, extraHttpRequestParams?: any): Observable<WarehouseProductsDto>;
 
 }

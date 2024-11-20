@@ -4,34 +4,60 @@
   [style]="'mapbox://styles/bardinpetr/cll6rvres00m801p878kx3fu4'"
   [zoom]="[11]"
 >
-  <mgl-geojson-source
-    *ngIf="ptsProducts"
-    [data]="ptsProducts"
-    id="products"
-  />
 
   <mgl-geojson-source
-    *ngIf="ptsPersons"
-    [data]="ptsPersons"
-    id="persons"
+    *ngIf="ptsNfz"
+    [data]="ptsNfz"
+    id="nfz"
   />
-
   <mgl-layer
-    (layerClick)="onClick('Product', $event)"
-    *ngIf="ptsProducts"
-    [paint]="paintProducts"
-    id="products"
-    source="products"
+    *ngIf="ptsNfz"
+    [paint]="paintNfz"
+    id="nfz"
+    source="nfz"
+    type="fill"
+  />
+  <mgl-geojson-source
+    *ngIf="ptsDr"
+    [data]="ptsDr"
+    id="dr"
+  />
+  <mgl-layer
+    *ngIf="ptsDr"
+    [paint]="paintDr"
+    id="dr"
+    source="dr"
     type="circle"
   />
 
+
+  <mgl-geojson-source
+    *ngIf="ptsMd"
+    [data]="ptsMd"
+    id="md"
+  />
   <mgl-layer
-    (layerClick)="onClick('Person', $event)"
-    *ngIf="ptsPersons"
-    [layout]="layoutPersons"
-    [paint]="paintPersons"
-    id="persons"
-    source="persons"
+    *ngIf="ptsMd"
+    [layout]="layoutMd"
+    [paint]="paintMd"
+    id="md"
+    source="md"
     type="symbol"
   />
+
+
+  <mgl-geojson-source
+    *ngIf="ptsWh"
+    [data]="ptsWh"
+    id="wh"
+  />
+  <mgl-layer
+    *ngIf="ptsWh"
+    [layout]="layoutWh"
+    [paint]="paintWh"
+    id="wh"
+    source="wh"
+    type="symbol"
+  />
+
 </mgl-map>

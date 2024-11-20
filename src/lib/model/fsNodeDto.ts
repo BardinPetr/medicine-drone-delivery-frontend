@@ -9,12 +9,21 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { FsNode } from './fsNode';
+import { NodePermission } from './nodePermission';
 
 
-export interface WarehouseDto { 
-    name?: string;
-    locationLat?: number;
-    locationLon?: number;
+export interface FsNodeDto { 
     id?: number;
+    name?: string;
+    fileId?: string;
+    ownerUid?: number;
+    ownerGid?: number;
+    accessRights?: NodePermission;
+    isDirectory?: boolean;
+    createdAt?: string;
+    modifiedAt?: string;
+    parentId?: number;
+    children: Array<FsNode>;
 }
 

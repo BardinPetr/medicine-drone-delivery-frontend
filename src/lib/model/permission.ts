@@ -9,15 +9,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { ProductTypeDto } from './productTypeDto';
-import { WarehouseDto } from './warehouseDto';
 
 
-export interface WarehouseProductsDto { 
-    idProductId: number;
-    idWarehouseId: number;
-    product?: ProductTypeDto;
-    warehouse?: WarehouseDto;
-    quantity?: number;
+export interface Permission { 
+    r: boolean;
+    w: boolean;
+    x: boolean;
 }
 

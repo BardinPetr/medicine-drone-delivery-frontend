@@ -11,7 +11,7 @@ import {
   RequestEntryControllerService,
   RouteControllerService,
   TypeOfDroneControllerService, UserControllerService,
-  WarehouseControllerService
+  WarehouseControllerService, WarehouseProductsControllerService
 } from "../../lib"
 
 @Injectable({
@@ -31,8 +31,8 @@ export class ApiProviderService {
     Route: RouteControllerService,
     ProductType: ProductTypeControllerService,
     User: UserControllerService,
+    WarehouseProducts: WarehouseProductsControllerService,
     // RoutePoint: RoutePointControllerService,
-    // WarehouseProducts: WarehouseProductsControllerService,
   }
 
   constructor(
