@@ -9,16 +9,21 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { ProductTypeDto } from './productTypeDto';
+import { RequestDto } from './requestDto';
+import { MedicalFacilityDto } from './medicalFacilityDto';
+import { RouteDto } from './routeDto';
+import { WarehouseDto } from './warehouseDto';
 
 
 export interface FlightTaskDto { 
-    requestId?: number;
+    request?: RequestDto;
     status?: FlightTaskDto.StatusEnum;
-    productTypeProductTypeName?: string;
-    warehouseWarehouseName?: string;
-    medicalFacilityMedicalFacilityName?: string;
+    productType?: ProductTypeDto;
+    warehouse?: WarehouseDto;
+    medicalFacility?: MedicalFacilityDto;
     quantity?: number;
-    routeId?: number;
+    route?: RouteDto;
     timestamp?: string;
     id?: number;
 }

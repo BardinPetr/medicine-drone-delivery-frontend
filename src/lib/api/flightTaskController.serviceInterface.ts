@@ -37,7 +37,7 @@ export interface FlightTaskControllerServiceInterface {
      * 
      * @param flightTaskDto 
      */
-    create(flightTaskDto: FlightTaskDto, extraHttpRequestParams?: any): Observable<FlightTaskDto>;
+    create(flightTaskDto: FlightTaskDto, extraHttpRequestParams?: any): Observable<{}>;
 
     /**
      * 
@@ -65,7 +65,7 @@ export interface FlightTaskControllerServiceInterface {
      * 
      * @param id 
      */
-    remove(id: number, extraHttpRequestParams?: any): Observable<boolean>;
+    remove(id: number, extraHttpRequestParams?: any): Observable<{}>;
 
     /**
      * 
@@ -73,6 +73,6 @@ export interface FlightTaskControllerServiceInterface {
      * @param id 
      * @param flightTaskDto 
      */
-    update(id: number, flightTaskDto: FlightTaskDto, extraHttpRequestParams?: any): Observable<FlightTaskDto>;
+    update(id: number, flightTaskDto: FlightTaskDto, extraHttpRequestParams?: any): Observable<{}>;
 
 }
