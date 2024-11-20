@@ -2,6 +2,7 @@ import {Component, OnDestroy, ViewChild} from '@angular/core';
 import {ColDef} from "@ag-grid-community/core";
 import {MetamodelService} from "../../services/meta/metamodel.service";
 import {
+  DroneControllerService, DroneDto,
   ProductTypeControllerService, RequestControllerService,
   RequestEntryDto,
   User,
@@ -11,6 +12,7 @@ import {
 import {ActionDef, BaseTableComponent} from "../../components/base-table/base-table.component";
 import {Product} from "../../../lib/model/product";
 import {MessageService} from "primeng/api";
+import {AuthService} from "../../services/auth/auth.service";
 
 @Component({
   selector: 'app-request-page',
@@ -21,21 +23,34 @@ export class RequestPageComponent implements OnDestroy {
   availableProducts: RequestEntryDto[] = [];
   selectedProducts: RequestEntryDto[] = [];
 
+  drones: DroneDto[] = [];
+  selectedDrone?: DroneDto;
+
   constructor(
     private message: MessageService,
     private requestService: RequestControllerService,
+    private droneService: DroneControllerService,
+    public authService: AuthService,
     productTypeService: ProductTypeControllerService
     ) {
 
+    this.loadDrones()
     productTypeService
       .listAll()
-      .subscribe(x =>
-        this.availableProducts = x.map(x => ({
+      .subscribe(p =>
+        this.availableProducts = p.map(x => ({
           productTypeType: x.type,
           quantity: 0,
           fulfilledQuantity: 0
         }))
       )
+  }
+
+  loadDrones() {
+    this.droneService
+      .listAll()
+      .subscribe(x =>
+        this.drones = x.filter(i => i.status == 'READY'))
   }
 
   ngOnDestroy(): void {
@@ -59,6 +74,18 @@ export class RequestPageComponent implements OnDestroy {
           severity: 'success',
           summary: 'OK',
         })
+      }
+    })
+  }
+
+  sendDrone() {
+    this.droneService.sendDrone(this.selectedDrone!!.id!!).subscribe({
+      next: (x) => {
+        this.message.add({
+          severity: 'success',
+          summary: 'OK',
+        })
+        this.loadDrones()
       }
     })
   }

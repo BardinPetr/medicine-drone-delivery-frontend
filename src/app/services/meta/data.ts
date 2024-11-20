@@ -218,25 +218,16 @@ export const metamodelData: Metamodel = {
       delete: false,
       insert: true,
     },
-    /*
-    {
-      name: 'Route',
-      columns: ['warehouseId', 'medicalFacilityId'],
-      nested: ['routePoints'],
-      icon: 'pi pi-map',
-      update: false,
-      delete: false,
-      insert: false,
-    },
     {
       name: 'ProductType',
-      columns: ['type'],
+      columns: ['id', 'type'],
       nested: [],
       icon: 'pi pi-tag',
-      update: false,
-      delete: true,
+      update: true,
+      delete: false,
       insert: true,
     },
+    /*
     {
       name: 'WarehouseProducts',
       columns: ['idProductId', 'idWarehouseId', 'quantity'],

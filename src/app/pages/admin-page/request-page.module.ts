@@ -7,6 +7,7 @@ import {CardModule} from "primeng/card";
 import {PickListModule} from "primeng/picklist";
 import {InputNumberModule} from "primeng/inputnumber";
 import {FormsModule} from "@angular/forms";
+import {DropdownModule} from "primeng/dropdown";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {FormsModule} from "@angular/forms";
     CardModule,
     PickListModule,
     InputNumberModule,
-    FormsModule
+    FormsModule,
+    DropdownModule
   ],
   exports: [
     RequestPageComponent

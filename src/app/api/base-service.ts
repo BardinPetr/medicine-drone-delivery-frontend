@@ -1,11 +1,7 @@
 import {Observable} from "rxjs";
-import {AuditLogEntryOrganization, Pageable} from "../../lib";
+import {Pageable} from "../../lib";
 
 export interface BaseService {
-  audit2(extraHttpRequestParams?: any): Observable<Array<AuditLogEntryOrganization>>;
-
-  auditItem2(id: number, extraHttpRequestParams?: any): Observable<Array<AuditLogEntryOrganization>>;
-
   count2(extraHttpRequestParams?: any): Observable<number>;
 
   create2(organization: any, extraHttpRequestParams?: any): Observable<any>;
