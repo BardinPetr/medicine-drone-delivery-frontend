@@ -10,7 +10,7 @@ import {
   RequestControllerService,
   RequestEntryControllerService,
   RouteControllerService,
-  TypeOfDroneControllerService,
+  TypeOfDroneControllerService, UserControllerService,
   WarehouseControllerService
 } from "../../lib"
 
@@ -30,6 +30,7 @@ export class ApiProviderService {
     FlightTask: FlightTaskControllerService,
     Route: RouteControllerService,
     ProductType: ProductTypeControllerService,
+    User: UserControllerService,
     // RoutePoint: RoutePointControllerService,
     // WarehouseProducts: WarehouseProductsControllerService,
   }

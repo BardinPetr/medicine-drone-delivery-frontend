@@ -29,7 +29,7 @@ export class NavbarComponent {
           },
           {
             label: "New Request",
-            icon: "pi pi-fw pi-send",
+            icon: "pi pi-fw pi-external-link",
             routerLink: "/new",
             disabled: roles.length == 0 // TODO
           },

@@ -3,15 +3,24 @@ import {EntityFieldMetaType, Metamodel} from "./metamodel";
 export const metamodelData: Metamodel = {
   entities: [
     {
+      name: 'User',
+      titleField: 'username',
+      fields: [
+        {name: 'id', readonly: true, type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+        {name: 'username', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
+        {name: 'role', type: EntityFieldMetaType.ENUM, entityRef: 'UserRole', nullable: false, hidden: true},
+      ]
+    },
+    {
       name: 'Drone',
       titleField: 'typeOfDroneName',
       fields: [
-        {name: 'typeOfDroneName', type: EntityFieldMetaType.STRING, entityRef: null, nullable: true},
-        {name: 'status', type: EntityFieldMetaType.ENUM, entityRef: 'DroneStatus', nullable: true},
-        {name: 'locationLat', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true},
-        {name: 'locationLon', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true},
-        {name: 'flightTaskId', type: EntityFieldMetaType.INTEGER, entityRef: 'FlightTask', nullable: true},
-        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+        {name: 'typeOfDrone', type: EntityFieldMetaType.REL, entityRef: 'TypeOfDrone', nullable: false, readonly: false},
+        {name: 'status', type: EntityFieldMetaType.ENUM, entityRef: 'DroneStatus', nullable: true, readonly: true},
+        {name: 'locationLat', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true, readonly: true},
+        {name: 'locationLon', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true, readonly: true},
+        {name: 'flightTask', type: EntityFieldMetaType.REL, entityRef: 'FlightTask', nullable: true, readonly: true},
+        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true, readonly: true},
       ]
     },
     {
@@ -22,7 +31,7 @@ export const metamodelData: Metamodel = {
         {name: 'status', type: EntityFieldMetaType.ENUM, entityRef: 'TaskStatus', nullable: true},
         {name: 'medicalFacilityName', type: EntityFieldMetaType.STRING, entityRef: null, nullable: true},
         {name: 'requestEntries', type: EntityFieldMetaType.COL, entityRef: 'RequestEntry', nullable: false},
-        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true, readonly: true},
       ]
     },
     {
@@ -32,18 +41,18 @@ export const metamodelData: Metamodel = {
         {name: 'warehouseId', type: EntityFieldMetaType.INTEGER, entityRef: 'Warehouse', nullable: true},
         {name: 'medicalFacilityId', type: EntityFieldMetaType.INTEGER, entityRef: 'MedicalFacility', nullable: true},
         {name: 'routePoints', type: EntityFieldMetaType.COL, entityRef: 'RoutePoint', nullable: false},
-        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true, readonly: true},
       ]
     },
     {
       name: 'MedicalFacility',
       titleField: 'name',
       fields: [
-        {name: 'name', type: EntityFieldMetaType.STRING, entityRef: null, nullable: true},
-        {name: 'responsibleUserUsername', type: EntityFieldMetaType.STRING, entityRef: null, nullable: true},
-        {name: 'locationLat', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true},
-        {name: 'locationLon', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true},
-        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+        {name: 'name', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
+        {name: 'responsibleUser', type: EntityFieldMetaType.REL, entityRef: 'User', nullable: false},
+        {name: 'locationLat', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: false},
+        {name: 'locationLon', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: false},
+        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true, readonly: true},
       ]
     },
     {
@@ -60,11 +69,11 @@ export const metamodelData: Metamodel = {
       name: 'Warehouse',
       titleField: 'name',
       fields: [
-        {name: 'name', type: EntityFieldMetaType.STRING, entityRef: null, nullable: true},
-        {name: 'locationLat', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true},
-        {name: 'locationLon', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true},
-        {name: 'products', type: EntityFieldMetaType.COL, entityRef: 'WarehouseProducts', nullable: false},
-        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+        {name: 'name', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
+        {name: 'locationLat', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: false},
+        {name: 'locationLon', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: false},
+        {name: 'products', type: EntityFieldMetaType.COL, entityRef: 'WarehouseProducts', nullable: true, hidden: true, readonly: true},
+        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true, readonly: true},
       ]
     },
     {
@@ -72,12 +81,12 @@ export const metamodelData: Metamodel = {
       titleField: 'type',
       fields: [
         {name: 'type', type: EntityFieldMetaType.STRING, entityRef: null, nullable: true},
-        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true, readonly: true},
       ]
     },
     {
       name: 'FlightTask',
-      titleField: 'requestId',
+      titleField: 'id',
       fields: [
         {name: 'requestId', type: EntityFieldMetaType.INTEGER, entityRef: 'Request', nullable: true},
         {name: 'status', type: EntityFieldMetaType.ENUM, entityRef: 'TaskStatus', nullable: true},
@@ -87,17 +96,17 @@ export const metamodelData: Metamodel = {
         {name: 'quantity', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
         {name: 'routeId', type: EntityFieldMetaType.INTEGER, entityRef: 'Route', nullable: true},
         {name: 'timestamp', type: EntityFieldMetaType.DATE, entityRef: null, nullable: true},
-        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true, readonly: true},
       ]
     },
     {
       name: 'TypeOfDrone',
       titleField: 'name',
       fields: [
-        {name: 'name', type: EntityFieldMetaType.STRING, entityRef: null, nullable: true},
-        {name: 'maxWeight', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
-        {name: 'speed', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true},
-        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+        {name: 'name', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
+        {name: 'maxWeight', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
+        {name: 'speed', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: false},
+        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true, readonly: true},
       ]
     },
     {
@@ -107,7 +116,7 @@ export const metamodelData: Metamodel = {
         {name: 'radius', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true},
         {name: 'centerLat', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true},
         {name: 'centerLon', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true},
-        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true, readonly: true},
       ]
     },
     {
@@ -118,7 +127,7 @@ export const metamodelData: Metamodel = {
         {name: 'productTypeType', type: EntityFieldMetaType.STRING, entityRef: null, nullable: true},
         {name: 'quantity', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
         {name: 'fulfilledQuantity', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: false},
-        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true},
+        {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true, readonly: true},
       ]
     },
     {
@@ -147,56 +156,66 @@ export const metamodelData: Metamodel = {
   ],
   views: [
     {
+      name: 'Request',
+      columns: ['id', 'userUsername', 'status', 'medicalFacilityName'],
+      nested: ['requestEntries'],
+      icon: 'pi pi-file',
+      update: false,
+      delete: false,
+      insert: false,
+    },
+    {
       name: 'Drone',
-      columns: ['typeOfDroneName', 'status', 'locationLat', 'locationLon', 'flightTaskId'],
+      columns: ['id', 'typeOfDrone.name', 'status', 'flightTask.id', 'locationLat', 'locationLon'],
       nested: [],
-      icon: 'pi pi-drone',
-      update: true,
+      icon: 'pi pi-send',
+      update: false,
       delete: true,
       insert: true,
     },
     {
-      name: 'Request',
-      columns: ['userUsername', 'status', 'medicalFacilityName'],
-      nested: ['requestEntries'],
-      icon: 'pi pi-file',
+      name: 'TypeOfDrone',
+      columns: ['id', 'name', 'maxWeight', 'speed'],
+      nested: [],
+      icon: 'pi pi-sliders-h',
       update: true,
-      delete: true,
+      delete: false,
       insert: true,
     },
+    {
+      name: 'Warehouse',
+      columns: ['id', 'name', 'locationLat', 'locationLon'],
+      nested: ['products'],
+      icon: 'pi pi-home',
+      update: false,
+      delete: false,
+      insert: true,
+    },
+    {
+      name: 'MedicalFacility',
+      columns: ['id', 'name', 'responsibleUser.username', 'locationLat', 'locationLon'],
+      nested: [],
+      icon: 'pi pi-building',
+      update: false,
+      delete: false,
+      insert: true,
+    },
+    /*
     {
       name: 'Route',
       columns: ['warehouseId', 'medicalFacilityId'],
       nested: ['routePoints'],
       icon: 'pi pi-map',
-      update: true,
-      delete: true,
-      insert: true,
-    },
-    {
-      name: 'MedicalFacility',
-      columns: ['name', 'responsibleUserUsername', 'locationLat', 'locationLon'],
-      nested: [],
-      icon: 'pi pi-building',
-      update: true,
-      delete: true,
-      insert: true,
-    },
-    {
-      name: 'Warehouse',
-      columns: ['name', 'locationLat', 'locationLon'],
-      nested: ['products'],
-      icon: 'pi pi-home',
-      update: true,
-      delete: true,
-      insert: true,
+      update: false,
+      delete: false,
+      insert: false,
     },
     {
       name: 'ProductType',
       columns: ['type'],
       nested: [],
       icon: 'pi pi-tag',
-      update: true,
+      update: false,
       delete: true,
       insert: true,
     },
@@ -204,19 +223,10 @@ export const metamodelData: Metamodel = {
       name: 'FlightTask',
       columns: ['requestId', 'status', 'productTypeProductTypeName', 'warehouseWarehouseName', 'medicalFacilityMedicalFacilityName'],
       nested: [],
-      icon: 'pi pi-plane',
-      update: true,
-      delete: true,
-      insert: true,
-    },
-    {
-      name: 'TypeOfDrone',
-      columns: ['name', 'maxWeight', 'speed'],
-      nested: [],
-      icon: 'pi pi-drone',
-      update: true,
-      delete: true,
-      insert: true,
+      icon: 'pi pi-book',
+      update: false,
+      delete: false,
+      insert: false,
     },
     {
       name: 'NoFlightZone',
@@ -236,5 +246,6 @@ export const metamodelData: Metamodel = {
       delete: true,
       insert: true,
     },
+    */
   ]
 }
