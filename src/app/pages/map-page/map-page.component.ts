@@ -1,12 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-// import {MapControllerService} from "../../../lib";
 import {AnyLayout, CirclePaint, FillPaint, SymbolPaint} from "mapbox-gl";
 import Palette from "iwanthue/palette";
 import {CUDialogService} from "../../services/cudialog.service";
 import {forkJoin, Subscription} from "rxjs";
 import {ApiProviderService} from "../../api/api-provider.service";
 import {IMqttMessage, MqttService} from "ngx-mqtt";
-import {MapControllerService} from "../../../lib";
+import {MapControllerService} from "medicine-drone-delivery-fe-lib";
 
 @Component({
   selector: 'app-map-page',

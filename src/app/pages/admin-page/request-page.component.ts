@@ -1,16 +1,11 @@
-import {Component, OnDestroy, ViewChild} from '@angular/core';
-import {ColDef} from "@ag-grid-community/core";
-import {MetamodelService} from "../../services/meta/metamodel.service";
+import {Component, OnDestroy} from '@angular/core';
 import {
-  DroneControllerService, DroneDto,
-  ProductTypeControllerService, RequestControllerService,
-  RequestEntryDto,
-  User,
-  UserControllerService,
-  WarehouseProductsDto
-} from "../../../lib";
-import {ActionDef, BaseTableComponent} from "../../components/base-table/base-table.component";
-import {Product} from "../../../lib/model/product";
+  DroneControllerService,
+  DroneDto,
+  ProductTypeControllerService,
+  RequestControllerService,
+  RequestEntryDto
+} from "medicine-drone-delivery-fe-lib";
 import {MessageService} from "primeng/api";
 import {AuthService} from "../../services/auth/auth.service";
 
@@ -32,7 +27,7 @@ export class RequestPageComponent implements OnDestroy {
     private droneService: DroneControllerService,
     public authService: AuthService,
     productTypeService: ProductTypeControllerService
-    ) {
+  ) {
 
     this.loadDrones()
     productTypeService
@@ -57,7 +52,7 @@ export class RequestPageComponent implements OnDestroy {
   }
 
   sendOrder() {
-    if(this.selectedProducts.filter(x => !x.quantity || x.quantity < 1).length){
+    if (this.selectedProducts.filter(x => !x.quantity || x.quantity < 1).length) {
       this.message.add({
         severity: 'error',
         summary: 'Error',

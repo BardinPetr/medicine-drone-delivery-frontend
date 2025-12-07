@@ -1,5 +1,5 @@
 import {Observable} from "rxjs";
-import {Pageable} from "../../lib";
+import {Pageable} from "medicine-drone-delivery-fe-lib";
 
 export interface BaseService {
   count2(extraHttpRequestParams?: any): Observable<number>;

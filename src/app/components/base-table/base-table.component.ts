@@ -89,7 +89,7 @@ export class BaseTableComponent implements OnInit {
           {
             size: size,
             page: Math.floor(params.startRow / size),
-            sort: params.sortModel.map(x => `${x.colId},${x.sort}`)
+            sort: params.sortModel.map(x => `${x.colId},${x.sort}`).join(';')
           }, encodeFilter(params.filterModel)
         )
           .subscribe(

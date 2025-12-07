@@ -1,7 +1,7 @@
 import {inject} from '@angular/core';
 import {Router} from '@angular/router';
 import {map, take} from 'rxjs/operators';
-import {RegisterDto} from "../../../lib";
+import {RegisterDto} from "medicine-drone-delivery-fe-lib";
 import {AuthService} from "./auth.service";
 
 export const isAuthenticated = () => {

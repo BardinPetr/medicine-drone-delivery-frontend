@@ -23,7 +23,7 @@ import {MqttModule} from "ngx-mqtt";
 ModuleRegistry.registerModules([InfiniteRowModelModule, ClientSideRowModelModule]);
 
 const MQTT_SERVICE_OPTIONS = {
-  hostname: '78.24.218.122',
+  hostname: 'localhost',
   port: 9001,
   path: '/'
 }
