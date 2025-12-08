@@ -7,7 +7,7 @@ import {CardModule} from "primeng/card";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Router, RouterLink} from "@angular/router";
 import {LoginControllerService, LoginDto} from "medicine-drone-delivery-fe-lib";
-import {AuthService} from "../../services/auth/auth.service";
+import {AuthService} from "@/services/auth/auth.service";
 
 @Component({
   selector: 'app-login-page',

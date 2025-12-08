@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ColDef, GridReadyEvent, IDatasource, IGetRowsParams, RowSelectionOptions} from "@ag-grid-community/core";
-import {encodeFilter} from "../../utils/query";
+import {encodeFilter} from "@/utils/query";
 import {BehaviorSubject, map, Observable} from "rxjs";
 import {AgGridAngular} from "@ag-grid-community/angular";
 import {IActionDef} from "./action-def";

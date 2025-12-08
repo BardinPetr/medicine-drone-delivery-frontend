@@ -6,7 +6,7 @@ import {Ripple} from "primeng/ripple";
 import {InputTextModule} from "primeng/inputtext";
 import {DropdownModule} from "primeng/dropdown";
 import {LoginControllerService, RegisterDto} from "medicine-drone-delivery-fe-lib";
-import {AuthService} from "../../services/auth/auth.service";
+import {AuthService} from "@/services/auth/auth.service";
 
 @Component({
   selector: 'app-register-page',

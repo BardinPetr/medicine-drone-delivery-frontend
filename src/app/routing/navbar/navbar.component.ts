@@ -1,8 +1,8 @@
 import {Component} from "@angular/core";
 import {MenuItem} from "primeng/api";
-import {ICON_MAP, tableRouteData} from "../../services/meta/metamodel.routes";
+import {ICON_MAP, tableRouteData} from "@/services/meta/metamodel.routes";
 import {map} from "rxjs";
-import {AuthService} from "../../services/auth/auth.service";
+import {AuthService} from "@/services/auth/auth.service";
 
 
 @Component({

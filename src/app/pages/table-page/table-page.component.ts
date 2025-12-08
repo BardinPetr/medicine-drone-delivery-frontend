@@ -1,16 +1,15 @@
 import {Component, OnDestroy, ViewChild} from '@angular/core';
-import {MetamodelService} from "../../services/meta/metamodel.service";
+import {MetamodelService} from "@/services/meta/metamodel.service";
 import {ActivatedRoute} from "@angular/router";
-import {ApiProviderService} from "../../api/api-provider.service";
+import {ApiProviderService} from "@/api/api-provider.service";
 import {ColDef} from "@ag-grid-community/core";
-import {EntityMeta, ViewMeta} from "../../services/meta/metamodel";
-import {BaseTableComponent} from "../../components/base-table/base-table.component";
+import {EntityMeta, ViewMeta} from "@/services/meta/metamodel";
+import {BaseTableComponent} from "@/components/base-table/base-table.component";
 import {MessageService} from "primeng/api";
-import {AuthService} from "../../services/auth/auth.service";
-import {CUDialogService} from "../../services/cudialog.service";
+import {CUDialogService} from "@/services/cudialog.service";
 import {Subscription} from "rxjs";
 import {IMqttMessage, MqttService} from "ngx-mqtt";
-import {IActionDef} from "../../components/base-table/action-def";
+import {IActionDef} from "@/components/base-table/action-def";
 
 @Component({
   selector: 'app-table-page',

@@ -1,6 +1,6 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
-import {BaseFormComponent} from "../components/base-form/base-form.component";
+import {BaseFormComponent} from "@/components/base-form/base-form.component";
 
 @Injectable({
   providedIn: 'root'

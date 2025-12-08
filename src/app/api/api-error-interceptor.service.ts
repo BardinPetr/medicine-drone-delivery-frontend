@@ -9,7 +9,7 @@ import {
 } from "@angular/common/http";
 import {MessageService} from "primeng/api";
 import {map, Observable, throwError} from "rxjs";
-import {AuthService} from "../services/auth/auth.service";
+import {AuthService} from "@/services/auth/auth.service";
 import {catchError} from "rxjs/operators";
 
 @Injectable()

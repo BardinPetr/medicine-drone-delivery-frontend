@@ -4,8 +4,7 @@ import {Subscription} from "rxjs";
 import {IMqttMessage, MqttService} from "ngx-mqtt";
 import {MapControllerService} from "medicine-drone-delivery-fe-lib";
 import {makeCircle} from "./geo-utils";
-// TODO fix home resolving
-import {distinct, genPaletteFromValues} from "../../utils/iter";
+import {distinct, genPaletteFromValues} from "@/utils/iter";
 
 @Component({
   selector: 'app-map-page',

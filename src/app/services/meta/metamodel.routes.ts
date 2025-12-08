@@ -1,7 +1,7 @@
 import {metamodelData} from "./data";
 import {Route} from "@angular/router";
-import {TablePageComponent} from "../../pages/table-page/table-page.component";
-import {isAuthenticated} from "../auth/auth-guard.service";
+import {TablePageComponent} from "@/pages/table-page/table-page.component";
+import {isAuthenticated} from "@/services/auth/auth-guard.service";
 
 const COMPONENT_MAP =
   new Map(metamodelData.views.map(obj => [obj.name, TablePageComponent]));

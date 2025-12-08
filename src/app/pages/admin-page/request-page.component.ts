@@ -7,7 +7,7 @@ import {
   RequestEntryDto
 } from "medicine-drone-delivery-fe-lib";
 import {MessageService} from "primeng/api";
-import {AuthService} from "../../services/auth/auth.service";
+import {AuthService} from "@/services/auth/auth.service";
 
 @Component({
   selector: 'app-request-page',

@@ -1,9 +1,9 @@
 import {Component, Input} from '@angular/core';
-import {EntityFieldMeta, EntityFieldMetaType, EntityMeta} from "../../services/meta/metamodel";
+import {EntityFieldMeta, EntityFieldMetaType, EntityMeta} from "@/services/meta/metamodel";
 import {FormControl, UntypedFormGroup, Validators} from "@angular/forms";
-import {MetamodelService} from "../../services/meta/metamodel.service";
+import {MetamodelService} from "@/services/meta/metamodel.service";
 import {Observable} from "rxjs";
-import {ApiProviderService} from "../../api/api-provider.service";
+import {ApiProviderService} from "@/api/api-provider.service";
 import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
 import {MessageService} from "primeng/api";
 
@@ -111,6 +111,10 @@ export class BaseFormComponent {
     this.submit(formData)
   }
 
+  fieldLabel(fieldName: string): string {
+    return fieldName
+  }
+
   private getRelatedEntities(entityName: string): Observable<any[]> {
     return this
       .apiProvider
@@ -129,9 +133,5 @@ export class BaseFormComponent {
         this.dialogApi.close()
       }
     })
-  }
-
-  fieldLabel(fieldName: string) : string {
-    return fieldName
   }
 }
