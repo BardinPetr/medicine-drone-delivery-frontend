@@ -17,18 +17,18 @@ export class NavbarComponent {
       .roles
       .pipe(map(roles => ([
           {
-            label: "Home",
+            label: `Home`,
             icon: "pi pi-fw pi-home",
             routerLink: "/",
           },
           {
-            label: "Map",
+            label: $localize`Map`,
             icon: "pi pi-fw pi-map",
             routerLink: "/map",
             disabled: roles.length == 0
           },
           {
-            label: "New Request",
+            label: $localize`New Request`,
             icon: "pi pi-fw pi-external-link",
             routerLink: "/new",
             disabled: roles.length == 0

@@ -31,7 +31,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
               error: errors,
               headers: event.headers,
               status: status,
-              statusText: 'Error',
+              statusText: $localize`Error`,
               url: event.url!
             });
           }
@@ -45,12 +45,11 @@ export class ApiErrorInterceptor implements HttpInterceptor {
   }
 
   private handleError(err: HttpErrorResponse) {
-    // TODO localize
     if (err.error instanceof Array) {
       err.error.forEach((e: string) =>
         this.message.add({
           severity: 'error',
-          summary: 'Error',
+          summary: $localize`Error`,
           detail: e
         })
       )
@@ -60,32 +59,31 @@ export class ApiErrorInterceptor implements HttpInterceptor {
     if (err.status === 403) {
       this.message.add({
         severity: 'error',
-        summary: 'Forbidden'
+        summary: $localize`Forbidden`
       })
     } else if (err.status === 0) {
       this.message.add({
         severity: 'error',
-        summary: 'Error',
-        detail: 'Could not contact server'
+        summary: $localize`Error`,
+        detail: $localize`Could not contact server`
       })
     } else if (err.status === 401) {
       this.message.add({
         severity: 'error',
-        summary: 'Authentication failed',
-        detail: 'Please go to login'
+        summary: $localize`Authentication failed`,
+        detail: $localize`Please go to login`
       })
-      // TODO check too frequent logouts
       setTimeout(() => this.auth.logout(), 500)
     } else if (err.status === 500) {
       this.message.add({
         severity: 'warning',
-        summary: 'Server error',
+        summary: $localize`Server error`,
       })
     } else {
       console.warn(err)
       this.message.add({
         severity: 'error',
-        summary: 'Error',
+        summary: $localize`Error`,
         detail: err.message
       })
     }

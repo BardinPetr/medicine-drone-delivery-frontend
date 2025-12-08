@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="1519954996184640001" datatype="html">
+        <source>Error</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/api-error-interceptor.service.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/api-error-interceptor.service.ts</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/api-error-interceptor.service.ts</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/api-error-interceptor.service.ts</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3511239665776204882" datatype="html">
+        <source>Forbidden</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/api-error-interceptor.service.ts</context>
+          <context context-type="linenumber">62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2861181355489804046" datatype="html">
+        <source>Could not contact server</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/api-error-interceptor.service.ts</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3959422294831496607" datatype="html">
+        <source>Authentication failed</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/api-error-interceptor.service.ts</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1718791598721512868" datatype="html">
+        <source>Please go to login</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/api-error-interceptor.service.ts</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1677142486230902467" datatype="html">
+        <source>Server error</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/api/api-error-interceptor.service.ts</context>
+          <context context-type="linenumber">81</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2821179408673282599" datatype="html">
+        <source>Home</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routing/app-routing.module.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5813867925497374051" datatype="html">
+        <source>Map</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routing/app-routing.module.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routing/navbar/navbar.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3312816458112607142" datatype="html">
+        <source>New Request</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routing/app-routing.module.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routing/navbar/navbar.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2454050363478003966" datatype="html">
+        <source>Login</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routing/app-routing.module.ts</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3301086086650990787" datatype="html">
+        <source>Register</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/routing/app-routing.module.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

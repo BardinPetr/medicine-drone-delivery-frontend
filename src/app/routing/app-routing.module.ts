@@ -19,29 +19,29 @@ import {RequestPageComponent} from "../pages/admin-page/request-page.component";
 const routes: Routes = [
   {
     path: "",
-    title: "Home",
+    title: $localize`Home`,
     component: HomePageComponent
   },
   {
-    title: "Map",
+    title: $localize`Map`,
     path: "map",
     component: MapPageComponent,
     canActivate: [isAuthenticated]
   },
   {
-    title: "New Request",
+    title: $localize`New Request`,
     path: "new",
     component: RequestPageComponent,
     canActivate: [isAuthenticated]
   },
   ...tableRoutes,
   {
-    title: "Login",
+    title: $localize`Login`,
     path: 'login',
     component: LoginPageComponent,
   },
   {
-    title: "Register",
+    title: $localize`Register`,
     path: 'register',
     component: RegisterPageComponent
   },

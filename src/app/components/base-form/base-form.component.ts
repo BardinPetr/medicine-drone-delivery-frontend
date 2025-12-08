@@ -6,7 +6,6 @@ import {Observable} from "rxjs";
 import {ApiProviderService} from "../../api/api-provider.service";
 import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
 import {MessageService} from "primeng/api";
-import {TranslationService} from "../../services/translate/translation.service";
 
 
 @Component({
@@ -35,7 +34,6 @@ export class BaseFormComponent {
               private apiProvider: ApiProviderService,
               private dialogApi: DynamicDialogRef,
               private messageApi: MessageService,
-              public trs: TranslationService,
               dialogConfig: DynamicDialogConfig,
   ) {
     this.entityName = dialogConfig.data.entityName
@@ -131,5 +129,9 @@ export class BaseFormComponent {
         this.dialogApi.close()
       }
     })
+  }
+
+  fieldLabel(fieldName: string) : string {
+    return fieldName
   }
 }
