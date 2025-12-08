@@ -59,12 +59,32 @@ export class MapPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // TODO make per-item subscriptions
     this.subs.push(this.mqtt
       .observe('/notify')
       .subscribe((msg: IMqttMessage) => {
         // console.warn("MQTT NOTIFY : " + msg.payload)
         this.fetch()
       }));
+  }
+
+  onClick(entityType: string, event: any) {
+    //   const ids = entityIdsOfEvent(event)
+    //   fetchAll(this.apiProvider.getAPI(entityType), ids)
+    //     .subscribe(data => {
+    //       data.forEach(i => {
+    //         this.cuDialog.openEdit(entityType, i)
+    //       })
+    //     })
+  }
+
+  onClickCreate(event: mapboxgl.MapMouseEvent & mapboxgl.EventData) {
+    console.log(`${event.lngLat.lat}, ${event.lngLat.lng}`)
+    //   if (!event.originalEvent.ctrlKey) return
+    //   this.cuDialog.show(false, 'Product', {
+    //     coordinateX: event.lngLat.lat * 1000,
+    //     coordinateY: Math.round(event.lngLat.lng * 1000)
+    //   })
   }
 
   private fetch() {
@@ -109,25 +129,6 @@ export class MapPageComponent implements OnInit, OnDestroy {
       "circle-radius": 6,
     }
   }
-
-  onClick(entityType: string, event: any) {
-    //   const ids = entityIdsOfEvent(event)
-    //   fetchAll(this.apiProvider.getAPI(entityType), ids)
-    //     .subscribe(data => {
-    //       data.forEach(i => {
-    //         this.cuDialog.openEdit(entityType, i)
-    //       })
-    //     })
-  }
-
-  onClickCreate(event: mapboxgl.MapMouseEvent & mapboxgl.EventData) {
-    console.log(`${event.lngLat.lat}, ${event.lngLat.lng}`)
-    //   if (!event.originalEvent.ctrlKey) return
-    //   this.cuDialog.show(false, 'Product', {
-    //     coordinateX: event.lngLat.lat * 1000,
-    //     coordinateY: Math.round(event.lngLat.lng * 1000)
-    //   })
-  }
 }
 
 
@@ -149,8 +150,8 @@ const makeCircle = (feature: any) => {
     latitude: feature.geometry.coordinates[1],
     longitude: feature.geometry.coordinates[0]
   };
-
-  const km = feature.properties.radius / 0.013; // 0.018
+  // TODO: make adequate formulae
+  const km = feature.properties.radius / 1000;
   const ret = [];
   const distanceX = km / (111.320 * Math.cos(coords.latitude * Math.PI / 180));
   const distanceY = km / 110.574;
