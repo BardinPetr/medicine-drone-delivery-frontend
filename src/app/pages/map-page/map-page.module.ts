@@ -7,6 +7,7 @@ import {PanelModule} from "primeng/panel";
 import {DialogModule} from "primeng/dialog";
 import {MapPageComponent} from "./map-page.component";
 import {NgxMapboxGLModule} from "ngx-mapbox-gl";
+import {environment} from "../../../environments/environment";
 
 @NgModule({
   declarations: [
@@ -19,9 +20,8 @@ import {NgxMapboxGLModule} from "ngx-mapbox-gl";
     CardModule,
     PanelModule,
     DialogModule,
-    // TODO extract token
     NgxMapboxGLModule.withConfig({
-      accessToken: 'pk.eyJ1IjoiYmFyZGlucGV0ciIsImEiOiJjajhpbjVtNW8wejByMzNzMTl1ajE3MnNmIn0.cxr8oxFntLscHf75rGMz9A'
+      accessToken: environment.mapboxKey
     })
   ],
   exports: [
