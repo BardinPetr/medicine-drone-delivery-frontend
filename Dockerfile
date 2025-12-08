@@ -9,6 +9,7 @@ RUN npm install
 COPY tsconfig* ./
 COPY angular.json .
 COPY src src
+COPY src/environments/environment.prod.ts /app/src/environments/
 
 RUN npm run build
 

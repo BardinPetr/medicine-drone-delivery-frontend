@@ -4,7 +4,6 @@ import {Subscription} from "rxjs";
 import {IMqttMessage, MqttService} from "ngx-mqtt";
 import {MapControllerService} from "medicine-drone-delivery-fe-lib";
 import {makeCircle} from "./geo-utils";
-import {distinct, genPaletteFromValues} from "@/utils/iter";
 
 @Component({
   selector: 'app-map-page',
@@ -88,18 +87,11 @@ export class MapPageComponent implements OnInit, OnDestroy {
 
   private updateDrone(data: any) {
     this.ptsDr = data
-    const types = distinct(this
-      .ptsDr
-      .features
-      .map(x => x.properties?.['type']!)
-    )
-    // TODO color drones according to state
-    const palette = genPaletteFromValues(types);
     this.paintDr = {
       "circle-color": [
         'match',
-        ['get', 'type'],
-        'TYP1', "#f00", 'TYP2', '#0f0',
+        ['get', 'status'],
+        'IDLE', '#0f0', 'READY', '#ff0', 'FLYING_TO', '#0af', 'FLYING_FROM', '#f00',
         "#fff"
       ],
       "circle-opacity": 1,
@@ -107,4 +99,3 @@ export class MapPageComponent implements OnInit, OnDestroy {
     }
   }
 }
-
