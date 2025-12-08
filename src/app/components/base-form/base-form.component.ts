@@ -45,10 +45,9 @@ export class BaseFormComponent {
 
     this.ownApi = apiProvider.getAPI(this.entityName)
     this.entityMeta = this.meta.getEntity(this.entityName)
-    this.entityFields = this.entityMeta
-      .fields
-      // .filter(x => ((this.isEdit && !x.readonly) || !this.isEdit))
+    this.entityFields = this.entityMeta.fields
 
+    // TODO cleanup
     this.entityFields
       .forEach((field) => {
         const name = field.name

@@ -24,7 +24,6 @@ import {AuthService} from "../../services/auth/auth.service";
 })
 export class RegisterPageComponent implements OnInit {
   roles = [
-    // {label: 'User', value: RegisterDto.RoleEnum.User},
     {label: 'Admin', value: RegisterDto.RoleEnum.Admin},
     {label: 'Warehouse', value: RegisterDto.RoleEnum.Warehouse},
     {label: 'Medic', value: RegisterDto.RoleEnum.Medic},

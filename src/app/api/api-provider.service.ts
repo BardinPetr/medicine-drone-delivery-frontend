@@ -1,14 +1,16 @@
 import {Injectable, Injector, Type} from '@angular/core';
 import {
-  DroneControllerService, FlightTaskControllerService,
-  MedicalFacilityControllerService, NoFlightZoneControllerService,
+  DroneControllerService,
+  FlightTaskControllerService,
+  MedicalFacilityControllerService,
+  NoFlightZoneControllerService,
   ProductTypeControllerService,
   RequestControllerService,
   RequestEntryControllerService,
+  RouteControllerService,
   TypeOfDroneControllerService,
   UserControllerService,
   WarehouseControllerService,
-  RouteControllerService,
   WarehouseProductsControllerService
 } from 'medicine-drone-delivery-fe-lib';
 

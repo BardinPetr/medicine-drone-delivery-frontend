@@ -28,7 +28,3 @@ export const tableRoutes: Route[] =
     },
     canActivate: [isAuthenticated]
   }))
-
-console.log(tableRouteData)
-
-console.log(tableRoutes)

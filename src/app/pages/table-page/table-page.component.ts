@@ -4,12 +4,13 @@ import {ActivatedRoute} from "@angular/router";
 import {ApiProviderService} from "../../api/api-provider.service";
 import {ColDef} from "@ag-grid-community/core";
 import {EntityMeta, ViewMeta} from "../../services/meta/metamodel";
-import {ActionDef, BaseTableComponent} from "../../components/base-table/base-table.component";
+import {BaseTableComponent} from "../../components/base-table/base-table.component";
 import {MessageService} from "primeng/api";
 import {AuthService} from "../../services/auth/auth.service";
 import {CUDialogService} from "../../services/cudialog.service";
 import {Subscription} from "rxjs";
 import {IMqttMessage, MqttService} from "ngx-mqtt";
+import {IActionDef} from "../../components/base-table/action-def";
 
 @Component({
   selector: 'app-table-page',
@@ -18,14 +19,10 @@ import {IMqttMessage, MqttService} from "ngx-mqtt";
 })
 export class TablePageComponent implements OnDestroy {
   @ViewChild('mainTable') mainTable?: BaseTableComponent = undefined;
-  // @ViewChild('auditTable') auditTable?: BaseTableComponent = undefined;
-
-  auditDialogVisible: boolean = false
 
   entityMeta: EntityMeta;
   columnDefs: ColDef[] = [];
-  auditColumnDefs: ColDef[] = [];
-  actionDefs: ActionDef[] = [];
+  actionDefs: IActionDef[] = [];
   private api: any;
   private subs: Subscription[] = [];
   private viewMeta: ViewMeta;
@@ -35,7 +32,6 @@ export class TablePageComponent implements OnDestroy {
     meta: MetamodelService,
     route: ActivatedRoute,
     private message: MessageService,
-    private authService: AuthService,
     private cuDialogService: CUDialogService,
     private mqtt: MqttService
   ) {
@@ -49,16 +45,14 @@ export class TablePageComponent implements OnDestroy {
     this.entityMeta = meta.getEntity(viewId)
     this.columnDefs = meta.getTableColumns(viewId)
     this.viewMeta = meta.getView(viewId)
-    // this.auditColumnDefs = meta.getTableColumns('Audit')
     this.createActionDefs()
 
+    // TODO fix updates
     this.subs.push(this.mqtt
       // .observe(`/notify/${viewId}`)
       .observe('/notify')
       .subscribe((msg: IMqttMessage) => {
-        // console.warn("MQTT UPDATE : " + msg.payload)
         this.mainTable!.refresh()
-        // this.auditTable!.refresh()
       }));
   }
 
@@ -68,8 +62,6 @@ export class TablePageComponent implements OnDestroy {
 
   allowActivateOwned(x: any): boolean {
     return true
-    // return this.authService.state?.username == x?.ownerUsername ||
-    //   this.authService.state?.role == RoleEnum.Admin
   }
 
   successMessage() {
@@ -82,11 +74,6 @@ export class TablePageComponent implements OnDestroy {
   fetchWrapper = (page: any, filter: any) =>
     this.api
       .list(page, filter)
-
-  // auditFetchWrapper = (page: any, filter: any) =>
-  //   this.api
-  //     .audit(page)
-  //     .pipe(map((x: any[]) => ({content: x})))
 
   createActionDefs() {
     this.actionDefs = []

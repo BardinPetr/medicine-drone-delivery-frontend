@@ -19,6 +19,7 @@ import {NgxMapboxGLModule} from "ngx-mapbox-gl";
     CardModule,
     PanelModule,
     DialogModule,
+    // TODO extract token
     NgxMapboxGLModule.withConfig({
       accessToken: 'pk.eyJ1IjoiYmFyZGlucGV0ciIsImEiOiJjajhpbjVtNW8wejByMzNzMTl1ajE3MnNmIn0.cxr8oxFntLscHf75rGMz9A'
     })

@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import * as data from './messages.json';
 
+
+// TODO finish service
 @Injectable({
   providedIn: 'root'
 })

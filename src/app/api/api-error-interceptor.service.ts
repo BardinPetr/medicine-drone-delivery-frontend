@@ -45,6 +45,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
   }
 
   private handleError(err: HttpErrorResponse) {
+    // TODO localize
     if (err.error instanceof Array) {
       err.error.forEach((e: string) =>
         this.message.add({
@@ -73,6 +74,7 @@ export class ApiErrorInterceptor implements HttpInterceptor {
         summary: 'Authentication failed',
         detail: 'Please go to login'
       })
+      // TODO check too frequent logouts
       setTimeout(() => this.auth.logout(), 500)
     } else if (err.status === 500) {
       this.message.add({
