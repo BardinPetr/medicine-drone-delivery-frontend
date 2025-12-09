@@ -1,6 +1,6 @@
 import {NgModule} from "@angular/core";
-import {environment} from '../../environments/environment';
-import {ApiModule, Configuration} from '../../lib';
+import {environment} from '@/../environments/environment';
+import {ApiModule, Configuration} from 'medicine-drone-delivery-fe-lib';
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {ApiErrorInterceptor} from "./api-error-interceptor.service";
 import {ApiProviderService} from "./api-provider.service";

@@ -1,6 +1,4 @@
 import {Injectable, Injector, Type} from '@angular/core';
-// import {RoutePointControllerService} from "../../lib"
-// import {WarehouseProductsControllerService} from "../../lib"
 import {
   DroneControllerService,
   FlightTaskControllerService,
@@ -10,9 +8,12 @@ import {
   RequestControllerService,
   RequestEntryControllerService,
   RouteControllerService,
-  TypeOfDroneControllerService, UserControllerService,
-  WarehouseControllerService, WarehouseProductsControllerService
-} from "../../lib"
+  TypeOfDroneControllerService,
+  UserControllerService,
+  WarehouseControllerService,
+  WarehouseProductsControllerService
+} from 'medicine-drone-delivery-fe-lib';
+
 
 @Injectable({
   providedIn: 'root'
@@ -20,19 +21,18 @@ import {
 export class ApiProviderService {
 
   private services: { [key: string]: Type<any> } = {
-    TypeOfDrone: TypeOfDroneControllerService,
-    NoFlightZone: NoFlightZoneControllerService,
-    Request: RequestControllerService,
     Drone: DroneControllerService,
-    MedicalFacility: MedicalFacilityControllerService,
-    RequestEntry: RequestEntryControllerService,
-    Warehouse: WarehouseControllerService,
     FlightTask: FlightTaskControllerService,
-    Route: RouteControllerService,
+    MedicalFacility: MedicalFacilityControllerService,
+    NoFlightZone: NoFlightZoneControllerService,
     ProductType: ProductTypeControllerService,
+    Request: RequestControllerService,
+    RequestEntry: RequestEntryControllerService,
+    Route: RouteControllerService,
+    TypeOfDrone: TypeOfDroneControllerService,
     User: UserControllerService,
-    WarehouseProducts: WarehouseProductsControllerService,
-    // RoutePoint: RoutePointControllerService,
+    Warehouse: WarehouseControllerService,
+    WarehouseProducts: WarehouseProductsControllerService
   }
 
   constructor(

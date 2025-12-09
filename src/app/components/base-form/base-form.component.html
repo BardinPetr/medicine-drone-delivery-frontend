@@ -7,7 +7,7 @@
     *ngFor="let field of entityFields"
     class="field"
   >
-    <label class="block font-semibold mb-2" for="{{field.name}}"> {{ trs.t(field.name) }} </label>
+    <label class="block font-semibold mb-2" for="{{field.name}}"> {{ fieldLabel(field.name) }} </label>
 
     <ng-container [ngSwitch]="field.type">
       <ng-container *ngSwitchCase="MT.INTEGER">

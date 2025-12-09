@@ -1,24 +1,10 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {
-  ColDef,
-  DataTypeDefinition,
-  GridReadyEvent,
-  IDatasource,
-  IGetRowsParams,
-  RowSelectionOptions
-} from "@ag-grid-community/core";
-import {encodeFilter} from "../../utils/query";
+import {ColDef, GridReadyEvent, IDatasource, IGetRowsParams, RowSelectionOptions} from "@ag-grid-community/core";
+import {encodeFilter} from "@/utils/query";
 import {BehaviorSubject, map, Observable} from "rxjs";
 import {AgGridAngular} from "@ag-grid-community/angular";
-
-export interface ActionDef {
-  label: string
-  icon: string
-  severity?: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast'
-  handler: (row: any) => void
-  allowActivate?: (row: any) => boolean
-  static?: boolean
-}
+import {IActionDef} from "./action-def";
+import {typeConverters} from "./table-type-converters";
 
 @Component({
   selector: 'app-base-table',
@@ -33,7 +19,7 @@ export class BaseTableComponent implements OnInit {
   @Input() public paged: boolean = true;
   @Input() public interactive: boolean = true;
   @Input() public staticData: boolean = false;
-  @Input() public actionDefs: ActionDef[] = []
+  @Input() public actionDefs: IActionDef[] = []
   @Input() public fetchDataFunc?: ((paging: any, filter: any) => Observable<any>)
   @Input() columnDefs: ColDef[] = []
 
@@ -89,7 +75,7 @@ export class BaseTableComponent implements OnInit {
           {
             size: size,
             page: Math.floor(params.startRow / size),
-            sort: params.sortModel.map(x => `${x.colId},${x.sort}`)
+            sort: params.sortModel.map(x => `${x.colId},${x.sort}`).join(';')
           }, encodeFilter(params.filterModel)
         )
           .subscribe(
@@ -104,10 +90,7 @@ export class BaseTableComponent implements OnInit {
       },
     };
     params.api.setGridOption("datasource", dataSource)
-
-    // setInterval(() => {
-    //   this.refresh()
-    // }, 1000)
+    // TODO check for autorefresh
   }
 
   refresh() {
@@ -125,7 +108,7 @@ export class BaseTableComponent implements OnInit {
     this.selectedRow.next(selectedRows.length == 1 ? selectedRows[0] : null)
   }
 
-  isActionDisabled(def: ActionDef) {
+  isActionDisabled(def: IActionDef) {
     return this
       .selectedRow
       .pipe(map(
@@ -133,7 +116,7 @@ export class BaseTableComponent implements OnInit {
       ))
   }
 
-  actionHandler(act: ActionDef) {
+  actionHandler(act: IActionDef) {
     const value = this.selectedRow.value
     this.selectedRow.next(null)
     this.agGrid!.api.deselectAll()
@@ -141,23 +124,5 @@ export class BaseTableComponent implements OnInit {
     setTimeout(() => {
       this.refresh()
     }, 500)
-  }
-}
-
-
-const typeConverters: { [cellDataType: string]: DataTypeDefinition } = {
-  isoDateString: {
-    baseDataType: "dateString",
-    extendsDataType: "dateString",
-    valueParser: (params) =>
-      params.newValue ? params.newValue : undefined,
-    valueFormatter: (params) => {
-      const text = params.value
-      if (!text) return ""
-      const date = new Date(Date.parse(text))
-      if (text.includes("T"))
-        return date.toLocaleString("ru-RU")
-      return date.toLocaleDateString("ru-RU")
-    },
   }
 }

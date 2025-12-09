@@ -5,8 +5,8 @@ import {ButtonDirective} from "primeng/button";
 import {Ripple} from "primeng/ripple";
 import {InputTextModule} from "primeng/inputtext";
 import {DropdownModule} from "primeng/dropdown";
-import {LoginControllerService, RegisterDto} from "../../../lib";
-import {AuthService} from "../../services/auth/auth.service";
+import {LoginControllerService, RegisterDto} from "medicine-drone-delivery-fe-lib";
+import {AuthService} from "@/services/auth/auth.service";
 
 @Component({
   selector: 'app-register-page',
@@ -24,7 +24,6 @@ import {AuthService} from "../../services/auth/auth.service";
 })
 export class RegisterPageComponent implements OnInit {
   roles = [
-    // {label: 'User', value: RegisterDto.RoleEnum.User},
     {label: 'Admin', value: RegisterDto.RoleEnum.Admin},
     {label: 'Warehouse', value: RegisterDto.RoleEnum.Warehouse},
     {label: 'Medic', value: RegisterDto.RoleEnum.Medic},

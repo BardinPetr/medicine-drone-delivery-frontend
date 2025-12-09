@@ -1,0 +1,7 @@
+services:
+  frontend:
+    image: bardinpetr/itmo_med_delivery_frontend:latest
+    build: .
+    restart: always
+    ports:
+      - "18888:80"
