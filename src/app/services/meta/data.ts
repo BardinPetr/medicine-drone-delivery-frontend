@@ -15,7 +15,13 @@ export const metamodelData: Metamodel = {
       name: 'Drone',
       titleField: 'typeOfDroneName',
       fields: [
-        {name: 'typeOfDrone', type: EntityFieldMetaType.REL, entityRef: 'TypeOfDrone', nullable: false, readonly: false},
+        {
+          name: 'typeOfDrone',
+          type: EntityFieldMetaType.REL,
+          entityRef: 'TypeOfDrone',
+          nullable: false,
+          readonly: false
+        },
         {name: 'status', type: EntityFieldMetaType.ENUM, entityRef: 'DroneStatus', nullable: true, readonly: true},
         {name: 'locationLat', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true, readonly: true},
         {name: 'locationLon', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: true, readonly: true},
@@ -72,7 +78,14 @@ export const metamodelData: Metamodel = {
         {name: 'name', type: EntityFieldMetaType.STRING, entityRef: null, nullable: false},
         {name: 'locationLat', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: false},
         {name: 'locationLon', type: EntityFieldMetaType.FLOAT, entityRef: null, nullable: false},
-        {name: 'products', type: EntityFieldMetaType.COL, entityRef: 'WarehouseProducts', nullable: true, hidden: true, readonly: true},
+        {
+          name: 'products',
+          type: EntityFieldMetaType.COL,
+          entityRef: 'WarehouseProducts',
+          nullable: true,
+          hidden: true,
+          readonly: true
+        },
         {name: 'id', type: EntityFieldMetaType.INTEGER, entityRef: null, nullable: true, readonly: true},
       ]
     },
@@ -182,15 +195,6 @@ export const metamodelData: Metamodel = {
       delete: false,
       insert: false,
     },
-    // {
-    //   name: 'NoFlightZone',
-    //   columns: ['id', 'radius', 'centerLat', 'centerLon'],
-    //   nested: [],
-    //   icon: 'pi pi-ban',
-    //   update: true,
-    //   delete: true,
-    //   insert: true,
-    // },
     {
       name: 'TypeOfDrone',
       columns: ['id', 'name', 'maxWeight', 'speed'],

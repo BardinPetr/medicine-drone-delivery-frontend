@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, map, Observable} from 'rxjs';
 import {take} from "rxjs/operators";
-import {User, UserRsDto} from "../../../lib";
+import {User, UserRsDto} from "medicine-drone-delivery-fe-lib";
 import {Router} from "@angular/router";
 
 const INFO_KEY = 'userInfo'

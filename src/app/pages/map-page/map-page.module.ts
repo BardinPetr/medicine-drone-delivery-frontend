@@ -1,12 +1,13 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {ButtonModule} from "primeng/button";
-import {ComponentsModule} from "../../components/components.module";
+import {ComponentsModule} from "@/components/components.module";
 import {CardModule} from "primeng/card";
 import {PanelModule} from "primeng/panel";
 import {DialogModule} from "primeng/dialog";
 import {MapPageComponent} from "./map-page.component";
 import {NgxMapboxGLModule} from "ngx-mapbox-gl";
+import {environment} from "@/../environments/environment";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import {NgxMapboxGLModule} from "ngx-mapbox-gl";
     PanelModule,
     DialogModule,
     NgxMapboxGLModule.withConfig({
-      accessToken: 'pk.eyJ1IjoiYmFyZGlucGV0ciIsImEiOiJjajhpbjVtNW8wejByMzNzMTl1ajE3MnNmIn0.cxr8oxFntLscHf75rGMz9A'
+      accessToken: environment.mapboxKey
     })
   ],
   exports: [

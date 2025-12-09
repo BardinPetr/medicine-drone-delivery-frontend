@@ -1,8 +1,8 @@
 import {Component} from "@angular/core";
 import {MenuItem} from "primeng/api";
-import {ICON_MAP, tableRouteData} from "../../services/meta/metamodel.routes";
+import {ICON_MAP, tableRouteData} from "@/services/meta/metamodel.routes";
 import {map} from "rxjs";
-import {AuthService} from "../../services/auth/auth.service";
+import {AuthService} from "@/services/auth/auth.service";
 
 
 @Component({
@@ -17,18 +17,18 @@ export class NavbarComponent {
       .roles
       .pipe(map(roles => ([
           {
-            label: "Home",
+            label: `Home`,
             icon: "pi pi-fw pi-home",
             routerLink: "/",
           },
           {
-            label: "Map",
+            label: $localize`Map`,
             icon: "pi pi-fw pi-map",
             routerLink: "/map",
             disabled: roles.length == 0
           },
           {
-            label: "New Request",
+            label: $localize`New Request`,
             icon: "pi pi-fw pi-external-link",
             routerLink: "/new",
             disabled: roles.length == 0

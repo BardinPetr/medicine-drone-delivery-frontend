@@ -1,12 +1,11 @@
 import {Component, Input} from '@angular/core';
-import {EntityFieldMeta, EntityFieldMetaType, EntityMeta} from "../../services/meta/metamodel";
+import {EntityFieldMeta, EntityFieldMetaType, EntityMeta} from "@/services/meta/metamodel";
 import {FormControl, UntypedFormGroup, Validators} from "@angular/forms";
-import {MetamodelService} from "../../services/meta/metamodel.service";
+import {MetamodelService} from "@/services/meta/metamodel.service";
 import {Observable} from "rxjs";
-import {ApiProviderService} from "../../api/api-provider.service";
+import {ApiProviderService} from "@/api/api-provider.service";
 import {DynamicDialogConfig, DynamicDialogRef} from "primeng/dynamicdialog";
 import {MessageService} from "primeng/api";
-import {TranslationService} from "../../services/translate/translation.service";
 
 
 @Component({
@@ -35,7 +34,6 @@ export class BaseFormComponent {
               private apiProvider: ApiProviderService,
               private dialogApi: DynamicDialogRef,
               private messageApi: MessageService,
-              public trs: TranslationService,
               dialogConfig: DynamicDialogConfig,
   ) {
     this.entityName = dialogConfig.data.entityName
@@ -45,9 +43,7 @@ export class BaseFormComponent {
 
     this.ownApi = apiProvider.getAPI(this.entityName)
     this.entityMeta = this.meta.getEntity(this.entityName)
-    this.entityFields = this.entityMeta
-      .fields
-      // .filter(x => ((this.isEdit && !x.readonly) || !this.isEdit))
+    this.entityFields = this.entityMeta.fields
 
     this.entityFields
       .forEach((field) => {
@@ -112,6 +108,10 @@ export class BaseFormComponent {
         }
       });
     this.submit(formData)
+  }
+
+  fieldLabel(fieldName: string): string {
+    return fieldName
   }
 
   private getRelatedEntities(entityName: string): Observable<any[]> {

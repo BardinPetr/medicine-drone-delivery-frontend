@@ -1,11 +1,6 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
-import {ApiProviderService} from "../api/api-provider.service";
-import {MetamodelService} from "./meta/metamodel.service";
-import {ActivatedRoute} from "@angular/router";
-import {MessageService} from "primeng/api";
-import {AuthService} from "./auth/auth.service";
-import {BaseFormComponent} from "../components/base-form/base-form.component";
+import {BaseFormComponent} from "@/components/base-form/base-form.component";
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +9,6 @@ export class CUDialogService implements OnDestroy {
   dialogRef: DynamicDialogRef | undefined;
 
   constructor(
-    private apiProvider: ApiProviderService,
-    private meta: MetamodelService,
-    private route: ActivatedRoute,
-    private message: MessageService,
-    private authService: AuthService,
     private dialogService: DialogService
   ) {
   }

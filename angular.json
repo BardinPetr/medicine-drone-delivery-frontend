@@ -21,7 +21,8 @@
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
-              "zone.js"
+              "zone.js",
+              "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "sass",
@@ -34,6 +35,11 @@
             ],
             "scripts": [
               "./node_modules/chart.js/dist/chart.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "mapbox-gl",
+              "mqtt-browser",
+              "iwanthue/palette"
             ]
           },
           "configurations": {
@@ -68,7 +74,11 @@
               "browserTarget": "itmo-is-lab1-client:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "host": "0.0.0.0",
+            "port": 4200
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -81,7 +91,8 @@
           "options": {
             "polyfills": [
               "zone.js",
-              "zone.js/testing"
+              "zone.js/testing",
+              "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "sass",

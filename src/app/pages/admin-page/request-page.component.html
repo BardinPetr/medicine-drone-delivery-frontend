@@ -1,6 +1,6 @@
 <p-card [header]="'New request'">
 
-  <div class="p-grid" *ngIf="authService.isInRole('MEDIC') | async">
+  <div *ngIf="authService.isInRole('MEDIC') | async" class="p-grid">
     <div class="p-col-6">
       <p-pickList
         [source]="availableProducts"
@@ -24,20 +24,20 @@
         </li>
       </ul>
     </div>
-    <p-button label="Send" (onClick)="sendOrder()"></p-button>
+    <p-button (onClick)="sendOrder()" label="Send"></p-button>
   </div>
 
 
-  <div class="p-grid" *ngIf="authService.isInRole('WAREHOUSE') | async">
+  <div *ngIf="authService.isInRole('WAREHOUSE') | async" class="p-grid">
     <p-dropdown
       [(ngModel)]="selectedDrone"
       [options]="drones"
       optionLabel="id"
       placeholder="Select Drone to send"/>
     <p-button
-      label="Send drone"
       (onClick)="sendDrone()"
       [disabled]="!selectedDrone"
+      label="Send drone"
     ></p-button>
   </div>
 
