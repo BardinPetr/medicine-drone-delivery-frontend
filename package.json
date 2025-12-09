@@ -10,7 +10,13 @@
   },
   "private": true,
   "dependencies": {
+    "@ag-grid-community/angular": "^32.3.9",
+    "@ag-grid-community/client-side-row-model": "^32.3.9",
+    "@ag-grid-community/core": "^32.3.9",
+    "@ag-grid-community/infinite-row-model": "^32.3.9",
+    "@ag-grid-community/styles": "^32.3.9",
     "@angular/animations": "^18",
+    "@angular/cdk": "^18",
     "@angular/common": "^18",
     "@angular/compiler": "^18",
     "@angular/core": "^18",
@@ -19,39 +25,30 @@
     "@angular/platform-browser": "^18",
     "@angular/platform-browser-dynamic": "^18",
     "@angular/router": "^18",
-    "@angular/cdk": "^18",
-
-    "@ag-grid-community/angular": "^32.3.9",
-    "@ag-grid-community/client-side-row-model": "^32.3.9",
-    "@ag-grid-community/infinite-row-model": "^32.3.9",
-    "@ag-grid-community/core": "^32.3.9",
-    "@ag-grid-community/styles": "^32.3.9",
-
-    "ngx-mapbox-gl": "11.0.1",
-    "mapbox-gl": "2.9.2",
     "chart.js": "^4.4.0",
+    "iwanthue": "^2.0.0",
+    "mapbox-gl": "2.9.2",
+    "medicine-drone-delivery-fe-lib": "^0.3.3",
     "ng2-charts": "^5.0.3",
+    "ngx-mapbox-gl": "11.0.1",
     "ngx-mqtt": "^17.0.0",
-
     "primeflex": "^3.3.1",
     "primeicons": "^6.0.1",
     "primeng": "^17.18.11",
-
-    "iwanthue": "^2.0.0",
     "rxjs": "~7.8.0",
-    "zone.js": "^0.14.10",
-
-    "medicine-drone-delivery-fe-lib": "^0.3.3"
+    "zone.js": "^0.14.10"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^18",
     "@angular/cli": "^18",
     "@angular/compiler-cli": "^18",
+    "@eslint/js": "^9.39.1",
     "@types/jasmine": "~4.3.0",
     "@types/mapbox-gl": "2.7.5",
     "@types/mapbox__mapbox-gl-geocoder": "4.7.2",
     "css-file-loader": "^1.4.3",
     "css-loader": "^7.1.2",
+    "eslint": "^9.39.1",
     "file-loader": "^6.2.0",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",
@@ -59,6 +56,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.4"
+    "typescript": "~5.4",
+    "typescript-eslint": "^8.49.0"
   }
 }

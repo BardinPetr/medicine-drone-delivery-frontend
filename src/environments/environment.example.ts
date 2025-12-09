@@ -1,4 +1,6 @@
 export const environment = {
   apiUrl: null,
-  mapboxKey: ""
+  mapboxKey: "",
+  mqttUrl: "localhost",
+  mqttPort: 9001
 }

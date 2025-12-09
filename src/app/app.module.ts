@@ -19,12 +19,13 @@ import {ModuleRegistry} from "@ag-grid-community/core";
 import {InfiniteRowModelModule} from "@ag-grid-community/infinite-row-model";
 import {ClientSideRowModelModule} from "@ag-grid-community/client-side-row-model";
 import {MqttModule} from "ngx-mqtt";
+import {environment} from "../environments/environment";
 
 ModuleRegistry.registerModules([InfiniteRowModelModule, ClientSideRowModelModule]);
 
 const MQTT_SERVICE_OPTIONS = {
-  hostname: 'localhost',
-  port: 9001,
+  hostname: environment.mqttUrl,
+  port: environment.mqttPort,
   path: '/'
 }
 
