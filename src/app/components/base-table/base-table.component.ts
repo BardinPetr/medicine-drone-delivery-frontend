@@ -90,7 +90,6 @@ export class BaseTableComponent implements OnInit {
       },
     };
     params.api.setGridOption("datasource", dataSource)
-    // TODO check for autorefresh
   }
 
   refresh() {

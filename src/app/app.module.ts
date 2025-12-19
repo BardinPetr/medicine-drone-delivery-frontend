@@ -18,16 +18,9 @@ import {AgGridAngular} from "@ag-grid-community/angular";
 import {ModuleRegistry} from "@ag-grid-community/core";
 import {InfiniteRowModelModule} from "@ag-grid-community/infinite-row-model";
 import {ClientSideRowModelModule} from "@ag-grid-community/client-side-row-model";
-import {MqttModule} from "ngx-mqtt";
-import {environment} from "../environments/environment";
+import {RxStompService, rxStompServiceFactory} from "@/services/notifications/rx-stomp.service";
 
 ModuleRegistry.registerModules([InfiniteRowModelModule, ClientSideRowModelModule]);
-
-const MQTT_SERVICE_OPTIONS = {
-  hostname: environment.mqttUrl,
-  port: environment.mqttPort,
-  path: '/'
-}
 
 @NgModule({
   declarations: [
@@ -47,11 +40,14 @@ const MQTT_SERVICE_OPTIONS = {
     BrowserAnimationsModule,
     ToastModule,
     MessageModule,
-    AgGridAngular,
-    MqttModule.forRoot(MQTT_SERVICE_OPTIONS)
+    AgGridAngular
   ],
   providers: [
     MessageService,
+    {
+      provide: RxStompService,
+      useFactory: rxStompServiceFactory
+    }
   ],
   exports: [],
   bootstrap: [AppComponent]
