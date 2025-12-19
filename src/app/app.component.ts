@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "./services/auth/auth.service";
 import {UserControllerService} from "medicine-drone-delivery-fe-lib";
+import {NotificationWsService} from "@/services/notifications/notification.ws.service";
 
 @Component({
   selector: 'app-root',

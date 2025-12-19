@@ -1,9 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AnyLayout, CirclePaint, FillPaint, SymbolPaint} from "mapbox-gl";
-import {Subscription} from "rxjs";
-import {IMqttMessage, MqttService} from "ngx-mqtt";
+import {mergeMap, Subscription} from "rxjs";
 import {MapControllerService} from "medicine-drone-delivery-fe-lib";
 import {makeCircle} from "./geo-utils";
+import {NotificationWsService} from "@/services/notifications/notification.ws.service";
+import {NotificationType} from "@/services/notifications/NotificationModel";
 
 @Component({
   selector: 'app-map-page',
@@ -47,7 +48,8 @@ export class MapPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private mapApi: MapControllerService,
-    private mqtt: MqttService) {
+    private eventService: NotificationWsService
+  ) {
   }
 
   ngOnDestroy(): void {
@@ -55,12 +57,27 @@ export class MapPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // TODO make per-item subscriptions
-    this.subs.push(this.mqtt
-      .observe('/notify')
-      .subscribe((msg: IMqttMessage) => {
-        this.fetch()
-      }));
+    this.fetch()
+
+    this.subs.push(
+      this.eventService
+        .watch("Drone", [NotificationType.UPDATE])
+        .pipe(mergeMap(evt => this.mapApi.dronesPartial(evt.objects)))
+        .subscribe(update => {
+          const updatedDrones = JSON.parse(update).features
+          this.ptsDr = {
+            type: 'FeatureCollection',
+            features: this.mergeFeatures(this.ptsDr.features, updatedDrones)
+          }
+        })
+    );
+  }
+
+  private mergeFeatures(original: any[], updates: any[]): any[] {
+    return [
+      ...updates,
+      ...original.filter(obj => !updates.some(update => update.id === obj.id))
+    ];
   }
 
   private fetch() {
@@ -91,7 +108,7 @@ export class MapPageComponent implements OnInit, OnDestroy {
       "circle-color": [
         'match',
         ['get', 'status'],
-        'IDLE', '#0f0', 'READY', '#ff0', 'FLYING_TO', '#0af', 'FLYING_FROM', '#f00',
+        'IDLE', '#0f0', 'READY', '#f0f', 'FLYING_TO', '#0af', 'FLYING_FROM', '#f00',
         "#fff"
       ],
       "circle-opacity": 1,

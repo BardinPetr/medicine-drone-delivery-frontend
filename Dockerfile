@@ -9,7 +9,10 @@ RUN npm install
 COPY tsconfig* ./
 COPY angular.json .
 COPY src src
-COPY src/environments/environment.prod.ts /app/src/environments/
+
+ARG MAPBOX_API_KEY
+RUN echo "export const environment = {apiUrl:null,mapboxKey:'${MAPBOX_API_KEY}'}" >  /app/src/environments/environment.prod.ts
+RUN cp /app/src/environments/environment.prod.ts /app/src/environments/environment.ts
 
 RUN npm run build
 

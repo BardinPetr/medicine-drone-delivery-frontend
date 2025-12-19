@@ -8,8 +8,8 @@ import {BaseTableComponent} from "@/components/base-table/base-table.component";
 import {MessageService} from "primeng/api";
 import {CUDialogService} from "@/services/cudialog.service";
 import {Subscription} from "rxjs";
-import {IMqttMessage, MqttService} from "ngx-mqtt";
 import {IActionDef} from "@/components/base-table/action-def";
+import {NotificationWsService} from "@/services/notifications/notification.ws.service";
 
 @Component({
   selector: 'app-table-page',
@@ -32,7 +32,7 @@ export class TablePageComponent implements OnDestroy {
     route: ActivatedRoute,
     private message: MessageService,
     private cuDialogService: CUDialogService,
-    private mqtt: MqttService
+    private eventService: NotificationWsService
   ) {
     const viewId = route.snapshot.routeConfig?.data!['id']
     if (!viewId) {
@@ -46,13 +46,13 @@ export class TablePageComponent implements OnDestroy {
     this.viewMeta = meta.getView(viewId)
     this.createActionDefs()
 
-    // TODO fix updates
-    this.subs.push(this.mqtt
-      // .observe(`/notify/${viewId}`)
-      .observe('/notify')
-      .subscribe((msg: IMqttMessage) => {
-        this.mainTable!.refresh()
-      }));
+    this.subs.push(
+      this.eventService
+        .watch(viewId)
+        .subscribe(_ => {
+          this.mainTable!.refresh()
+        })
+    );
   }
 
   ngOnDestroy(): void {
